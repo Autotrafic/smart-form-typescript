@@ -1,10 +1,8 @@
-import Footer from "./components/Footer";
+import { createRoot } from 'react-dom/client';
+import SmartForm from './SmartForm';
 
-export default function App() {
-  return (
-    <main>
-      <p>App</p>
-      <Footer />
-    </main>
-  );
-}
+const rootElement = document.getElementById('root');
+
+const root = createRoot(rootElement!);
+
+root.render(<SmartForm />);

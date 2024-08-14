@@ -1,37 +1,64 @@
-import path from "path";
-import { Configuration } from "webpack";
-import CopyWebpackPlugin from "copy-webpack-plugin";
+const deps = require("./package.json").dependencies;
+const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
-const config: Configuration = {
-  mode:
-    (process.env.NODE_ENV as "production" | "development" | undefined) ??
-    "development",
-  entry: "./src/index.tsx",
+module.exports = (_: any, argv: any) => ({
+  mode: (process.env.NODE_ENV as 'production' | 'development' | undefined) ?? 'development',
+
+  output: {
+    publicPath:
+      argv.mode === "development"
+        ? "http://localhost:5100/"
+        : "https://smart-form-rqmr.onrender.com/",
+  },
+
+  resolve: {
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
+  },
+
+  devServer: {
+    port: 5100,
+    historyApiFallback: true,
+  },
+
   module: {
     rules: [
       {
-        test: /.tsx?$/,
-        use: "ts-loader",
+        test: /\.(ts|tsx)$/,
+        use: 'babel-loader',
         exclude: /node_modules/,
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
-  resolve: {
-    extensions: [".tsx", ".ts", ".js"],
-  },
-  output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
-  },
-  plugins: [
-    new CopyWebpackPlugin({
-      patterns: [{ from: "public" }],
-    }),
-  ],
-};
 
-export default config;
+  plugins: [
+    new ModuleFederationPlugin({
+      name: "smartForm",
+      filename: "remoteEntry.js",
+      remotes: {},
+      exposes: {
+        "./SmartForm": "./src/SmartForm.tsx",
+      },
+      shared: {
+        ...deps,
+        react: {
+          singleton: true,
+          requiredVersion: deps.react,
+        },
+        "react-dom": {
+          singleton: true,
+          requiredVersion: deps["react-dom"],
+        },
+      },
+    }),
+    new HtmlWebPackPlugin({
+      template: "./public/index.html",
+    }),
+    new Dotenv({ systemvars: true }),
+  ],
+});
