@@ -1,7 +1,41 @@
-p {
-  color: green;
+:root {
+  --black: #111111;
+  --primary-color: #4154f1;
+  --secondary-color: #8080ff;
+  --primary-grey: #787878;
+  --secondary-grey: rgba(230, 230, 230, 0.4); /* Note the correction for opacity */
+  --placeholder-grey: rgb(118, 118, 118);
+  --light-grey: #ccc;
+  --primary-green: #30c03a;
 }
 
-a {
-  color: blue;
+* {
+  font-family: "Poppins";
+  box-sizing: border-box;
+  line-height: normal;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+  font-size: 16px;
+}
+
+#react-app-root {
+  font-family: "Poppins";
+  box-sizing: border-box;
+  line-height: normal;
+  padding: 20px;
+}
+
+html {
+  font-size: "Poppins";
+}
+
+body {
+  margin: 0;
+}
+
+p {
+  margin: 0;
 }
