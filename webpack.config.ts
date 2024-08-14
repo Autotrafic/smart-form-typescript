@@ -22,6 +22,13 @@ module.exports = (_: any, argv: any) => ({
   module: {
     rules: [
       {
+        test: /\.m?js/,
+        type: "javascript/auto",
+        resolve: {
+          fullySpecified: false,
+        },
+      },
+      {
         test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         use: {
@@ -30,17 +37,19 @@ module.exports = (_: any, argv: any) => ({
       },
       {
         test: /\.(css|s[ac]ss)$/i,
-        use: ["style-loader", "css-loader", "postcss-loader"],
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.json$/,
-        loader: "json-loader",
+        use: {
+          loader: 'json-loader',
+        },
       },
       {
         test: /\.png$/,
-        loader: "file-loader",
+        loader: 'file-loader',
         options: {
-          name: "[name].[ext]",
+          name: '[name].[ext]',
         },
       },
     ],
