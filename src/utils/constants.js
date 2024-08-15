@@ -6,8 +6,6 @@ export const BASE_API_URL = prodApiUrl;
 export const TRANSFERENCE_CAR_PRICE = 129.95;
 export const TRANSFERENCE_CICLOMOTOR_PRICE = 94.95;
 
-const COLEGIO_GESTORES_PRICE = "6,05";
-
 export const NOTIFICATIONS_EMAIL = "notificaciones.autotrafic@gmail.com";
 export const AUTOTRAFIC_EMAIL = "gestoria.autotrafic@gmail.com";
 
