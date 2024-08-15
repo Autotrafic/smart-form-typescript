@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { colors } from '../../../utils/constants';
 import { useState } from 'react';
-import fieldWithVisibility from '../../vehicleForm/HOC/filedWithVisibility';
+import fieldWithVisibility from '../../vehicle-form/HOC/filedWithVisibility';
+import { colors } from '../utils/styles';
 
 const Container = styled.div``;
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import VehicleButton from "./VehicleButton";
-import { colors } from "../../../utils/constants";
 import { useVehiclesForm } from "../context/vehiclesForm";
+import { colors } from "../../core/utils/styles";
 
 const Container = styled.div`
   display: flex;

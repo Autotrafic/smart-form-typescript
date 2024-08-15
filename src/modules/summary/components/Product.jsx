@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { colors } from "../../../utils/constants";
 import Checkbox from "../../core/design-system/Checkbox";
+import { colors } from "../../core/utils/styles";
 
 const ProductItem = styled.label`
   display: flex;

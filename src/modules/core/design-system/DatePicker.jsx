@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Dropdown from './Dropdown';
-import { colors, months } from '../../../utils/constants';
+import { colors } from '../utils/styles';
+import { months } from '../utils/data';
 
 const Container = styled.div`
   display: flex;
@@ -58,14 +59,18 @@ function DatePicker({ updateFormData, value, ...props }) {
           title="Año"
           options={years}
           value={value.date.year && value.date.year}
-          handleChange={(value) => updateFormData((prev) => (prev ? { ...prev, date: { ...prev.date, year: value } } : { year: value }))}
+          handleChange={(value) =>
+            updateFormData((prev) => (prev ? { ...prev, date: { ...prev.date, year: value } } : { year: value }))
+          }
           {...props}
         />
         <Dropdown
           title="Mes"
           options={months}
           value={value.date.month && value.date.month}
-          handleChange={(value) => updateFormData((prev) => (prev ? { ...prev, date: { ...prev.date, month: value } } : { month: value }))}
+          handleChange={(value) =>
+            updateFormData((prev) => (prev ? { ...prev, date: { ...prev.date, month: value } } : { month: value }))
+          }
           fontSize="12px"
           {...props}
         />
@@ -73,7 +78,9 @@ function DatePicker({ updateFormData, value, ...props }) {
           title="Día"
           options={value?.daysInMonth}
           value={value.date.day && +value.date.day}
-          handleChange={(value) => updateFormData((prev) => (prev ? { ...prev, date: { ...prev.date, day: value } } : { day: value }))}
+          handleChange={(value) =>
+            updateFormData((prev) => (prev ? { ...prev, date: { ...prev.date, day: value } } : { day: value }))
+          }
           {...props}
         />
       </Container>

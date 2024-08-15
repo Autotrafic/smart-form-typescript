@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import emailjs from "emailjs-com";
-import { AUTOTRAFIC_EMAIL } from "../../../../utils/constants";
-import { useOrderData } from "../../../core/context/orderData";
-import NavigationButtons from "../../../core/components/NavigationButtons";
+import styled from 'styled-components';
+import emailjs from 'emailjs-com';
+import { useOrderData } from '../../../core/context/orderData';
+import NavigationButtons from '../../../core/components/NavigationButtons';
+import { AUTOTRAFIC_EMAIL } from '../../../core/utils/constants';
 
 const Container = styled.div`
   display: flex;
@@ -62,19 +62,19 @@ export default function AfterCheckoutMessage() {
     customer_name: orderData.billData.fullName,
     vehicle: `${
       orderData.vehicleForm.vehicleType === 1
-        ? orderData.vehicleForm.brand + "  " + orderData.vehicleForm.model.modelName
-        : "Moto"
+        ? orderData.vehicleForm.brand + '  ' + orderData.vehicleForm.model.modelName
+        : 'Moto'
     }`,
     order_cost: orderData.prices.totalPrice,
     user_email: `${orderData.billData.email}, ${AUTOTRAFIC_EMAIL}`,
   };
 
-  emailjs.send("service_5lr8jdc", "template_se2isto", templateParams, "p4ieMe8wklkzdu-TK").then(
+  emailjs.send('service_5lr8jdc', 'template_se2isto', templateParams, 'p4ieMe8wklkzdu-TK').then(
     (response) => {
-      console.log("SUCCESS!", response.status, response.text);
+      console.log('SUCCESS!', response.status, response.text);
     },
     (err) => {
-      console.log("FAILED...", err);
+      console.log('FAILED...', err);
     }
   );
 

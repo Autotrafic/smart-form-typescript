@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
-import { STEPS } from "../../../utils/constants";
-import { scrollToNextStep } from "../../../utils/functions";
+import { scrollToNextStep } from "../utils/functions";
+import { STEPS } from "../utils/constants";
 
 const MultiStepStore = () => {
   const [currentStep, setCurrentStep] = useState(STEPS.VEHICLE_DATA);

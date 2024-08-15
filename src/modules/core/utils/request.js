@@ -1,11 +1,11 @@
-import { BASE_API_URL } from "./constants";
+import { BASE_API_URL } from '../utils/urls';
 
-export const apiRequest = async (endpoint, data, method = "GET") => {
+export const apiRequest = async (endpoint, data, method = 'GET') => {
   const response = await fetch(`${BASE_API_URL}/${endpoint}`, {
     method: method,
-    mode: "cors",
+    mode: 'cors',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: data && JSON.stringify({ ...data }),
   });
@@ -15,12 +15,12 @@ export const apiRequest = async (endpoint, data, method = "GET") => {
   if (result) return result;
 };
 
-export const apiVehiclesRequest = async (endpoint, data, method = "GET") => {
+export const apiVehiclesRequest = async (endpoint, data, method = 'GET') => {
   const response = await fetch(`${BASE_API_URL}/vehicles/${endpoint}`, {
     method: method,
-    mode: "cors",
+    mode: 'cors',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: data && JSON.stringify({ ...data }),
   });
@@ -30,12 +30,12 @@ export const apiVehiclesRequest = async (endpoint, data, method = "GET") => {
   return result;
 };
 
-export const apiLogsRequest = async (endpoint, data, method = "GET") => {
+export const apiLogsRequest = async (endpoint, data, method = 'GET') => {
   const response = await fetch(`${BASE_API_URL}/logs/${endpoint}`, {
     method: method,
-    mode: "cors",
+    mode: 'cors',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: data && JSON.stringify({ ...data }),
   });

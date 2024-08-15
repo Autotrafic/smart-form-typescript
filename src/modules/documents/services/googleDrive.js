@@ -1,4 +1,4 @@
-import { BASE_API_URL } from "../../../utils/constants";
+import { BASE_API_URL } from "../../core/utils/urls";
 
 export async function uploadFilesToDrive(files, orderData) {
   const formData = new FormData();

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { colors } from "../../../utils/constants";
+import { colors } from "../../core/utils/styles";
 
 export const nestedContent = css`
   margin: 0;

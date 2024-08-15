@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import NavigationButtons from "../../core/components/NavigationButtons";
 import { useMultiStep } from "../../core/context/multiStep";
 import { useOrderData } from "../../core/context/orderData";
 import TotalTable from "./TotalTable/TotalTable";
-import { sendSummaryEmail } from "../../../utils/email";
-import { getFeeForHighTicketOrder } from "../../../utils/functions";
 import DiscountAlert from "../../core/components/DiscountAlert";
+import { sendSummaryEmail } from "../utils/email";
 
 const Container = styled.div`
   width: 100%;

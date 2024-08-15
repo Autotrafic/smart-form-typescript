@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { colors } from '../../../utils/constants';
-import { PRIVACY_URL, TERMS_URL } from '../../../utils/links';
+import { PRIVACY_URL, TERMS_URL } from '../utils/urls';
+import { colors } from '../utils/styles';
 
 const Container = styled.div`
   display: flex;

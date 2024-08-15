@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { colors } from "../../../utils/constants";
 import Product from "./Product";
-import { useState } from "react";
+import { colors } from "../../core/utils/styles";
 
 const Container = styled.div`
   margin: 1.5em 0;

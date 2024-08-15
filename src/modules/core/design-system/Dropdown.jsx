@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { colors } from '../../../utils/constants';
-import fieldWithVisibility from '../../vehicleForm/HOC/filedWithVisibility';
+import fieldWithVisibility from '../../vehicle-form/HOC/filedWithVisibility';
+import { colors } from '../utils/styles';
 
 const SelectContainer = styled.div`
   width: 100%;

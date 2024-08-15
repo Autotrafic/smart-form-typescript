@@ -1,4 +1,4 @@
-import { apiRequest } from "../../../utils/request";
+import { apiRequest } from "../utils/request";
 
 export const registerOrder = async (orderData) => {
   await apiRequest("order/register", { ...orderData }, "POST");

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import Dropdown from '../design-system/Dropdown';
-import COUNTRIES, { SPAIN } from '../../../utils/countries';
+import COUNTRIES, { SPAIN } from '../utils/countries';
 import { useState } from 'react';
 import Input from '../design-system/Input';
-import { processPhoneNumber } from '../../../utils/formatter';
+import { processPhoneNumber } from '../utils/formatter';
 
 const Container = styled.div`
   display: flex;

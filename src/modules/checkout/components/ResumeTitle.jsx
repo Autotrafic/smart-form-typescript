@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../../utils/constants";
-import { styles } from "../../../utils/styles";
+import { colors, styles } from "../../core/utils/styles";
 
 const Container = styled.div`
   margin-bottom: 0.9em;

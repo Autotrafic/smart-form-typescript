@@ -1,14 +1,13 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { fetchCarBrands, fetchCarFuels, fetchCarModels } from '../services/carService';
-import { fetchFuelMotorbikeCCs } from '../services/motorbikeService';
 import { useOrderData } from '../../core/context/orderData';
-import { countPropertiesWithValue, getPrices } from '../../../utils/functions';
-import { commonDropdowns } from '../../../utils/inputs';
-import { fetchItpPrice } from '../services/itpService';
-import { STEPS } from '../../../utils/constants';
+import { commonDropdowns } from '../utils/dropdowns';
+import { fetchItpPrice } from '../services/itp';
 import { useMultiStep } from '../../core/context/multiStep';
-import { processVehicleFormSubmit } from '../../../utils/formatter';
-import { sendFirstTouchMessage } from '../services/messagesService';
+import { sendFirstTouchMessage } from '../services/whatsapp';
+import { fetchCarBrands, fetchCarFuels, fetchCarModels, fetchFuelMotorbikeCCs } from '../services/vehicle';
+import { processVehicleFormSubmit } from '../utils/formatter';
+import { countPropertiesWithValue, getPrices } from '../utils/functions';
+import { STEPS } from '../../core/utils/constants';
 
 const FormDataContext = createContext();
 

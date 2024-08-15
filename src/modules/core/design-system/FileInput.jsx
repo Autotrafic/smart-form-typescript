@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { colors } from '../../../utils/constants';
+import { colors } from '../utils/styles';
 
 const InputContainer = styled.div`
   display: flex;

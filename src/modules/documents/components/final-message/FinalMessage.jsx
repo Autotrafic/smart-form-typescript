@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { colors } from '../../../../utils/constants';
-import topImage from '../../../../assets/top-final-message-img.png';
 import { useOrderData } from '../../../core/context/orderData';
+import { colors } from '../../../core/utils/styles';
 
 const MessageContainer = styled.div`
   position: relative;

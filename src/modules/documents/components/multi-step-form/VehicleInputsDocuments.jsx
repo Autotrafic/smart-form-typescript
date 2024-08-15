@@ -1,15 +1,8 @@
 import styled from "styled-components";
 import FileInput from "../../../core/design-system/FileInput";
-import { STEPS, colors } from "../../../../utils/constants";
 import { useState } from "react";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useMultiStep } from "../../../core/context/multiStep";
-import {
-  processFilesForSubmit,
-  processInputFile,
-  processOrderDataForSubmit,
-} from "../../../../utils/formatter";
 import { uploadFilesToDrive } from "../../services/googleDrive";
 import { useOrderData } from "../../../core/context/orderData";
 import Input from "../../../core/design-system/Input";
@@ -18,6 +11,8 @@ import LegalCheckbox from "../../../core/components/LegalCheckbox";
 import Modal from "../../../core/design-system/Modal";
 import Lottie from "react-lottie";
 import carAnimation from "../../../../assets/car-animation.json";
+import processInputFile, { processFilesForSubmit, processOrderDataForSubmit } from "../../utils/formatter";
+import { colors } from "../../../core/utils/styles";
 
 const InputsGroupStyled = styled.form`
   width: 100%;

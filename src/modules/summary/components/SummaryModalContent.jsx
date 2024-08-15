@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { CICLOMOTOR_VALUE, colors } from "../../../utils/constants";
 import Title from "../../core/design-system/Title";
-import { getCommunityByCode } from "../../../utils/functions";
+import { getCommunityByCode } from "../../core/utils/functions";
+import { CICLOMOTOR_VALUE } from "../../core/utils/constants";
+import { colors } from "../../core/utils/styles";
 
 const LEGENDS = [
   {

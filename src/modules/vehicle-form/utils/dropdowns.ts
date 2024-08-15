@@ -1,4 +1,4 @@
-import { autonomousCommunities } from "./constants";
+import { autonomousCommunities } from "../../core/utils/data";
 
 export const commonDropdowns = [
   {

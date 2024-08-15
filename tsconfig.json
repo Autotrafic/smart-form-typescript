@@ -12,5 +12,5 @@
     "noEmit": true,
     "module": "commonjs"
   },
-  "include": ["**/*.ts", "**/*.tsx", "src/SmartForm.jsx", "src/components/Footer.jsx"]
+  "include": ["**/*.ts", "**/*.tsx"]
 }

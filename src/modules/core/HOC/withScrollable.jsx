@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useMultiStep } from "../context/multiStep";
 import styled from "styled-components";
-import { scrollToNextStep } from "../../../utils/functions";
+import { scrollToNextStep } from "../utils/functions";
 
 const Container = styled.div``;
 

@@ -1,17 +1,12 @@
-import "./total-table.css";
-import { Fragment, useContext, useEffect, useState } from "react";
-import { checkIsCiclomotor, getFeeForHighTicketOrder } from "../../../../utils/functions";
-import {
-  CICLOMOTOR_SUMMARY_ITEMS,
-  CROSS_PRODUCTS,
-  DEFAULT_SUMMARY_ITEMS,
-  TRANSFERENCE_CAR_PRICE,
-  TRANSFERENCE_CICLOMOTOR_PRICE,
-} from "../../../../utils/constants";
-import Modal from "../../../core/design-system/Modal";
-import SummaryModalContent from "../SummaryModalContent";
-import { useOrderData } from "../../../core/context/orderData";
-import Checkbox from "../../../core/design-system/Checkbox";
+import './total-table.css';
+import { Fragment, useState } from 'react';
+import { CICLOMOTOR_SUMMARY_ITEMS, CROSS_PRODUCTS, DEFAULT_SUMMARY_ITEMS } from '../../utils/constants';
+import { TRANSFERENCE_CAR_PRICE, TRANSFERENCE_CICLOMOTOR_PRICE } from '../../../core/utils/constants';
+import Modal from '../../../core/design-system/Modal';
+import SummaryModalContent from '../SummaryModalContent';
+import { useOrderData } from '../../../core/context/orderData';
+import Checkbox from '../../../core/design-system/Checkbox';
+import { checkIsCiclomotor } from '../../../core/utils/functions';
 
 export default function TotalTable({ withExtras, addedPrice, setAddedPrice, setCrossSelected, isReferralValid }) {
   const { orderData } = useOrderData();
@@ -43,13 +38,15 @@ export default function TotalTable({ withExtras, addedPrice, setAddedPrice, setC
         <div className="total-transfer__header">
           <p className="total-transfer__title">Cambio de nombre:</p>
           <p className="total-transfer__price">
-            {isCiclomotor ? `${TRANSFERENCE_CICLOMOTOR_PRICE} €` : `${(TRANSFERENCE_CAR_PRICE + feeForHighTicketOrder).toFixed(2)} €`}
+            {isCiclomotor
+              ? `${TRANSFERENCE_CICLOMOTOR_PRICE} €`
+              : `${(TRANSFERENCE_CAR_PRICE + feeForHighTicketOrder).toFixed(2)} €`}
           </p>
         </div>
         <ul className="total-transfer__items-container">
           <p className="section-title">Incluye:</p>
           {(isCiclomotor ? CICLOMOTOR_SUMMARY_ITEMS : DEFAULT_SUMMARY_ITEMS)?.map(({ name, price }) => {
-            if (name === "Gestión") price += feeForHighTicketOrder;
+            if (name === 'Gestión') price += feeForHighTicketOrder;
 
             return (
               <li key={name} className="total-transfer__subitem-container">
@@ -71,7 +68,7 @@ export default function TotalTable({ withExtras, addedPrice, setAddedPrice, setC
             </div>
 
             <p className="total-transfer__price">
-              {itp ? itp?.ITP : itp?.ITP === 0 ? 0 : "--"}
+              {itp ? itp?.ITP : itp?.ITP === 0 ? 0 : '--'}
               &nbsp;€
             </p>
           </li>
@@ -126,10 +123,14 @@ export default function TotalTable({ withExtras, addedPrice, setAddedPrice, setC
               {isReferralValid && (
                 <div className="discount-number-wrapper">
                   <div className="discount-crossline" />
-                  <span className="total-transfer__total">{`${(+orderData?.prices?.totalPrice + addedPrice + 10).toFixed(2)} €`}</span>
+                  <span className="total-transfer__total">{`${(+orderData?.prices?.totalPrice + addedPrice + 10).toFixed(
+                    2
+                  )} €`}</span>
                 </div>
               )}
-              <span className="total-transfer__total-number">{`${(+orderData?.prices?.totalPrice + addedPrice).toFixed(2)} €`}</span>
+              <span className="total-transfer__total-number">{`${(+orderData?.prices?.totalPrice + addedPrice).toFixed(
+                2
+              )} €`}</span>
             </div>
           </li>
         </ul>

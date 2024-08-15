@@ -7,9 +7,10 @@ import UserResume from "./UserResume";
 import { useOrderData } from "../../core/context/orderData";
 import { useMultiStep } from "../../core/context/multiStep";
 import NavigationButtons from "../../core/components/NavigationButtons";
-import { STEPS, colors } from "../../../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { STEPS } from "../../core/utils/constants";
+import { colors } from "../../core/utils/styles";
 
 const Container = styled.div`
   padding: 0.5em 1.4em 1.2em 1.4em;

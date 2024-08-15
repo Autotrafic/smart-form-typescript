@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { colors } from "../../../../utils/constants";
-import { Car, Caravan, Motorbike } from "../../../../utils/svgs";
+import { Car, Caravan, Motorbike } from "../../../../assets/svgs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useOrderData } from "../../../core/context/orderData";
+import { colors } from "../../../core/utils/styles";
 
 const Container = styled.div`
   width: 100%;

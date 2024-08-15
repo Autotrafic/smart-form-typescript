@@ -3,12 +3,12 @@ import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useS
 import { useMemo, useState } from "react";
 import { createPaymentIntent } from "../../services/stripeService";
 import LegalCheckbox from "../../../core/components/LegalCheckbox";
-import { Chat, MasterCardLogo, ShipmentTruck, Verified, VisaLogo } from "../../../../utils/svgs";
+import { Chat, MasterCardLogo, ShipmentTruck, Verified, VisaLogo } from "../../../../assets/svgs";
 import Separator from "../../../core/design-system/Separator";
 import Loader from "../../../core/design-system/Loader";
 import { useOrderData } from "../../../core/context/orderData";
 import { registerOrder } from "../../../core/services/orderService";
-import { TRANSFERENCE_CAR_PRICE } from "../../../../utils/constants";
+import { TRANSFERENCE_CAR_PRICE } from "../../../core/utils/constants";
 
 const PAYMENT_METHOD = {
   KLARNA: "klarna",

@@ -1,4 +1,4 @@
-import { BASE_API_URL } from "../../../utils/constants";
+import { BASE_API_URL } from "../../core/utils/urls";
 
 const headers = {
   Accept: "application/json",

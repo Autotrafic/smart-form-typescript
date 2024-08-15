@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { colors } from "../../../../utils/constants";
 import Input from "../../../core/design-system/Input";
 import LegalCheckbox from "../../../core/components/LegalCheckbox";
 import Title from "../../../core/design-system/Title";
 import styled, { keyframes } from "styled-components";
 import { useOrderData } from "../../../core/context/orderData";
 import { updateNestedOrder } from "../../../core/services/orderService";
-import { sendLaterDocumentsEmail } from "../../../../utils/email";
+import sendLaterDocumentsEmail from "../../utils/email";
+import { colors } from "../../../core/utils/styles";
 
 const deslizarDesdeIzquierda = keyframes`
   from {
