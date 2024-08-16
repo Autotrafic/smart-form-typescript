@@ -12,5 +12,5 @@
     "noEmit": true,
     "module": "commonjs"
   },
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"]
 }
