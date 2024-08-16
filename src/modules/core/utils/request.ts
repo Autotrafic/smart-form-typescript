@@ -3,7 +3,7 @@ import {
   IRequestBodyCarModels,
   IRequestBodyCalculateITP,
   IRequestBodyRegisterOrder,
-} from '../../vehicle-form/interfaces/export';
+} from '../interfaces/export';
 import { BASE_API_URL } from './urls';
 
 export const request = {

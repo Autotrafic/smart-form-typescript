@@ -1,6 +1,6 @@
 import { VehicleType } from '../../vehicle-form/interfaces/enums';
-import { ICarModel, IMotorbike } from '../../vehicle-form/interfaces/import';
-import { AutonomousCommunityValue, Fuel } from '../../vehicle-form/interfaces/import/enums';
+import { ICarModel, IMotorbike } from './import';
+import { AutonomousCommunityValue, Fuel } from './import/enums';
 import { DayInMonth, VehicleDate } from './general';
 
 export interface IOrder {
