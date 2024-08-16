@@ -1,7 +1,7 @@
-import { IOrderCrossSelling, IOrderITP, IOrderPrices } from '../order';
+import { IOrderCrossSelling, IOrderITP, IOrderPrices } from '../../../core/interfaces/order';
 import { ICarModel, IMotorbike } from '../import';
 import { AutonomousCommunityValue, Fuel } from '../import/enums';
-import { VehicleType } from '../../../vehicle-form/interfaces/enums';
+import { VehicleType } from '../enums';
 
 export interface IRequestBodyCarFuels {
   carYear: number;

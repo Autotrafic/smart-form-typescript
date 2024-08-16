@@ -1,4 +1,4 @@
-import { AutonomousCommunityValue } from '../interfaces/import/enums';
+import { AutonomousCommunityValue } from '../../vehicle-form/interfaces/import/enums';
 
 export const months = [
   { name: 'Enero', value: 1 },

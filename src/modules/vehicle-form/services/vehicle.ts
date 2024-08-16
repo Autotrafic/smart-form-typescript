@@ -9,7 +9,7 @@ import type {
   IMotorbike,
   MotorbikesResponse,
 } from '../interfaces/import';
-import { Fuel } from '../../core/interfaces/import/enums';
+import { Fuel } from '../interfaces/import/enums';
 
 import { request } from '../../core/utils/request';
 import { sortDisplacements } from '../utils/functions';

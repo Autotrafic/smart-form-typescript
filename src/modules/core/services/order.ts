@@ -1,4 +1,4 @@
-import { IRequestBodyRegisterOrder } from "../interfaces/export";
+import { IRequestBodyRegisterOrder } from "../../vehicle-form/interfaces/export";
 import { IOrder } from "../interfaces/order";
 import { parseOrderForRequest } from "../utils/formatter";
 import { apiRequest, request } from "../utils/request";

@@ -4,7 +4,7 @@ import {
   IMotorbikeSpecifications,
   IRegisterOrderUser,
   IRequestBodyRegisterOrder,
-} from '../interfaces/export';
+} from '../../vehicle-form/interfaces/export';
 import { IOrder } from '../interfaces/order';
 
 export function formatFuelToRedeable(fuel) {
