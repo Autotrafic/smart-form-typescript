@@ -27,7 +27,7 @@ interface CarModel {
   cylindersNumber: 4;
   fuel: Fuel;
   kwPower: number;
-  cvf: number;
+  cvf: string;
   modelOf: string;
   id: string;
 }

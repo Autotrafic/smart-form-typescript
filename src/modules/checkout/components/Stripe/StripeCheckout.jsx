@@ -7,7 +7,7 @@ import { Chat, MasterCardLogo, ShipmentTruck, Verified, VisaLogo } from "../../.
 import Separator from "../../../core/design-system/Separator";
 import Loader from "../../../core/design-system/Loader";
 import { useOrderData } from "../../../core/context/orderData";
-import { registerOrder } from "../../../core/services/orderService";
+import { registerOrder } from "../../../core/services/order";
 import { TRANSFERENCE_CAR_PRICE } from "../../../core/utils/constants";
 
 const PAYMENT_METHOD = {

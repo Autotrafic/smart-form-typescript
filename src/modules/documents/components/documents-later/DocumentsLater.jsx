@@ -4,7 +4,7 @@ import LegalCheckbox from "../../../core/components/LegalCheckbox";
 import Title from "../../../core/design-system/Title";
 import styled, { keyframes } from "styled-components";
 import { useOrderData } from "../../../core/context/orderData";
-import { updateNestedOrder } from "../../../core/services/orderService";
+import { updateNestedOrder } from "../../../core/services/order";
 import sendLaterDocumentsEmail from "../../utils/email";
 import { colors } from "../../../core/utils/styles";
 

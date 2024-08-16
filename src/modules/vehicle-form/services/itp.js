@@ -1,8 +1,8 @@
-import { apiVehiclesRequest } from "../../core/utils/request";
-import { formatSubmitDataForItp } from "../utils/formatter";
+import { request } from '../../core/utils/request';
+import { formatSubmitDataForItp } from '../utils/formatter';
 
 export const fetchItpPrice = async (formData) => {
   const orderData = formatSubmitDataForItp(formData);
-  const itpData = await apiVehiclesRequest("itp", { orderData }, "POST");
+  const itpData = await request.vehicle.calculateItp(orderData);
   return itpData;
 };

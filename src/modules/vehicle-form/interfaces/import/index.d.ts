@@ -1,14 +1,14 @@
 import { MotorbikeCCRange, Fuel, ElectricPowerRange } from './enums';
 
-export type CarBrandsResponse = CarBrand[];
+export type CarBrandsResponse = ICarBrand[];
 
-export type MotorbikesResponse = Motorbike[];
+export type MotorbikesResponse = IMotorbike[];
 
-export type ElectricMotorbikesResponse = ElectricMotorbike[];
+export type ElectricMotorbikesResponse = IElectricMotorbike[];
 
 export type FuelsResponse = Fuel[];
 
-export type CarModelsResponse = CarModel[];
+export type CarModelsResponse = ICarModel[];
 
 export interface ITPResponse {
   ITP: number;
@@ -17,34 +17,34 @@ export interface ITPResponse {
   valorDepreciacion: number;
 }
 
-export interface CarBrand {
+export interface ICarBrand {
   brandName: string;
   id: string;
 }
 
-export interface Motorbike {
+export interface IMotorbike {
   cc: MotorbikeCCRange;
   value: number;
   id: string;
 }
 
-export interface ElectricMotorbike {
+export interface IElectricMotorbike {
   power: ElectricPowerRange;
   value: number;
   id: string;
 }
 
-export interface CarModel {
+export interface ICarModel {
   modelName: string;
   cv: number;
   value: number;
   startYear: number;
   endYear: number;
   cc: number;
-  cylindersNumber: 4;
+  cylindersNumber: number;
   fuel: Fuel;
   kwPower: number;
-  cvf: number;
+  cvf: string;
   modelOf: string;
   id: string;
 }
