@@ -1,18 +1,18 @@
-import styled from "styled-components";
-import FileInput from "../../../core/design-system/FileInput";
-import { useState } from "react";
-import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { uploadFilesToDrive } from "../../services/googleDrive";
-import { useOrderData } from "../../../core/context/orderData";
-import Input from "../../../core/design-system/Input";
-import Spinner from "../../../core/design-system/Spinner";
-import LegalCheckbox from "../../../core/components/LegalCheckbox";
-import Modal from "../../../core/design-system/Modal";
-import Lottie from "react-lottie";
-import carAnimation from "../../../../assets/car-animation.json";
-import processInputFile, { processFilesForSubmit, processOrderDataForSubmit } from "../../utils/formatter";
-import { colors } from "../../../core/utils/styles";
+import styled from 'styled-components';
+import FileInput from '../../../core/design-system/FileInput';
+import { useState } from 'react';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { uploadFilesToDrive } from '../../services/googleDrive';
+import { useOrderData } from '../../../core/context/orderData';
+import Input from '../../../core/design-system/Input';
+import Spinner from '../../../core/design-system/Spinner';
+import LegalCheckbox from '../../../core/components/LegalCheckbox';
+import Modal from '../../../core/design-system/Modal';
+import Lottie from 'react-lottie';
+import carAnimation from '../../../../assets/car-animation.json';
+import processInputFile, { processFilesForSubmit, processOrderDataForSubmit } from '../../utils/formatter';
+import { colors } from '../../../core/utils/styles';
 
 const InputsGroupStyled = styled.form`
   width: 100%;
@@ -30,7 +30,7 @@ const InputsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: ${(props) => (props.$errorShown ? "30px" : "60px")};
+  margin-bottom: ${(props) => (props.$errorShown ? '30px' : '60px')};
 `;
 
 const InputsLabel = styled.p`
@@ -106,7 +106,7 @@ const defaultOptions = {
   autoplay: true,
   animationData: carAnimation,
   rendererSettings: {
-    preserveAspectRatio: "xMidYMid slice",
+    preserveAspectRatio: 'xMidYMid slice',
   },
 };
 
@@ -170,14 +170,12 @@ export default function VehicleInputsDocuments({ setStep, step, documentsData, h
       updateOrderData((prev) => ({ ...prev, documents: allDocumentsInfo }));
 
       const processedFiles = await processFilesForSubmit(allDocumentsInfo);
-      const processedData = allData?.documents?.vehiclePlate
-        ? processOrderDataForSubmit(allData)
-        : null;
+      const processedData = allData?.documents?.vehiclePlate ? processOrderDataForSubmit(allData) : null;
 
       await uploadFilesToDrive(processedFiles, processedData);
 
       setLoading(false);
-      window.location.href = `https://transferencia.autotrafic.es/gracias-documentacion/${orderData.orderId}`;
+      // window.location.href = `https://transferencia.autotrafic.es/gracias-documentacion/${orderData.orderId}`;
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -229,9 +227,7 @@ export default function VehicleInputsDocuments({ setStep, step, documentsData, h
       <ImageTypeMessage>*Sólo se aceptan archivos de tipo imagen y PDF</ImageTypeMessage>
       <InputsContainer
         $errorShown={
-          showErrorMessage.permisoCirculacion ||
-          showErrorMessage.fichaTecnica ||
-          showErrorMessage.contratoCompr || ""
+          showErrorMessage.permisoCirculacion || showErrorMessage.fichaTecnica || showErrorMessage.contratoCompr || ''
         }
       >
         <div>
@@ -243,7 +239,7 @@ export default function VehicleInputsDocuments({ setStep, step, documentsData, h
             handleChangeFile={(e) =>
               handleChange((prev) => ({
                 ...prev,
-                permisoCirculacion: processInputFile(e.target.files[0], "Permiso de circulacion"),
+                permisoCirculacion: processInputFile(e.target.files[0], 'Permiso de circulacion'),
               }))
             }
           />
@@ -257,7 +253,7 @@ export default function VehicleInputsDocuments({ setStep, step, documentsData, h
             handleChangeFile={(e) =>
               handleChange((prev) => ({
                 ...prev,
-                fichaTecnica: processInputFile(e.target.files[0], "Ficha tecnica"),
+                fichaTecnica: processInputFile(e.target.files[0], 'Ficha tecnica'),
               }))
             }
           />
@@ -271,7 +267,7 @@ export default function VehicleInputsDocuments({ setStep, step, documentsData, h
             handleChangeFile={(e) =>
               handleChange((prev) => ({
                 ...prev,
-                contratoCompr: processInputFile(e.target.files[0], "Contrato compraventa"),
+                contratoCompr: processInputFile(e.target.files[0], 'Contrato compraventa'),
               }))
             }
           />
@@ -295,52 +291,37 @@ export default function VehicleInputsDocuments({ setStep, step, documentsData, h
           />
         </div>
       </InputsContainer>
-      {showErrorMessage.permisoCirculacion &&
-        showErrorMessage.fichaTecnica &&
-        showErrorMessage.contratoCompr && (
-          <ErrorWarning>
-            <ExclamationIcon icon={faTriangleExclamation} />
-            <ErrorWarningText>Por favor, adjunta todos los documentos requeridos.</ErrorWarningText>
-          </ErrorWarning>
-        )}
-      {showErrorMessage.permisoCirculacion &&
-        !showErrorMessage.fichaTecnica &&
-        !showErrorMessage.contratoCompr && (
-          <ErrorWarning>
-            <ExclamationIcon icon={faTriangleExclamation} />
-            <ErrorWarningText>
-              Por favor, adjunta una imagen del permiso de circulación.
-            </ErrorWarningText>
-          </ErrorWarning>
-        )}
-      {showErrorMessage.fichaTecnica &&
-        !showErrorMessage.permisoCirculacion &&
-        !showErrorMessage.contratoCompr && (
-          <ErrorWarning>
-            <ExclamationIcon icon={faTriangleExclamation} />
-            <ErrorWarningText>Por favor, adjunta una imagen de la ficha técnica.</ErrorWarningText>
-          </ErrorWarning>
-        )}
-      {showErrorMessage.contratoCompr &&
-        !showErrorMessage.permisoCirculacion &&
-        !showErrorMessage.fichaTecnica && (
-          <ErrorWarning>
-            <ExclamationIcon icon={faTriangleExclamation} />
-            <ErrorWarningText>
-              Por favor, adjunta una imagen del contrato de compraventa.
-            </ErrorWarningText>
-          </ErrorWarning>
-        )}
-      <LegalCheckbox
-        value={termsAccepted}
-        handleChange={(e) => setTermsAccepted(e.target.checked)}
-      />
+      {showErrorMessage.permisoCirculacion && showErrorMessage.fichaTecnica && showErrorMessage.contratoCompr && (
+        <ErrorWarning>
+          <ExclamationIcon icon={faTriangleExclamation} />
+          <ErrorWarningText>Por favor, adjunta todos los documentos requeridos.</ErrorWarningText>
+        </ErrorWarning>
+      )}
+      {showErrorMessage.permisoCirculacion && !showErrorMessage.fichaTecnica && !showErrorMessage.contratoCompr && (
+        <ErrorWarning>
+          <ExclamationIcon icon={faTriangleExclamation} />
+          <ErrorWarningText>Por favor, adjunta una imagen del permiso de circulación.</ErrorWarningText>
+        </ErrorWarning>
+      )}
+      {showErrorMessage.fichaTecnica && !showErrorMessage.permisoCirculacion && !showErrorMessage.contratoCompr && (
+        <ErrorWarning>
+          <ExclamationIcon icon={faTriangleExclamation} />
+          <ErrorWarningText>Por favor, adjunta una imagen de la ficha técnica.</ErrorWarningText>
+        </ErrorWarning>
+      )}
+      {showErrorMessage.contratoCompr && !showErrorMessage.permisoCirculacion && !showErrorMessage.fichaTecnica && (
+        <ErrorWarning>
+          <ExclamationIcon icon={faTriangleExclamation} />
+          <ErrorWarningText>Por favor, adjunta una imagen del contrato de compraventa.</ErrorWarningText>
+        </ErrorWarning>
+      )}
+      <LegalCheckbox value={termsAccepted} handleChange={(e) => setTermsAccepted(e.target.checked)} />
       <BottomButtonsStyled>
         <BackButtonStyled type="button" onClick={handleBackClick}>
           Atrás
         </BackButtonStyled>
         <NextButtonStyled type="submit" onClick={handleNextClick}>
-          {loading ? <Spinner /> : "Finalizar"}
+          {loading ? <Spinner /> : 'Finalizar'}
         </NextButtonStyled>
       </BottomButtonsStyled>
       {loading && (

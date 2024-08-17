@@ -108,12 +108,14 @@ export default function DocumentsLater({
 
     sendLaterDocumentsEmail(orderData);
 
+    console.log('object to review:', {generalData: { ...documentsLaterData }})
+
     await updateNestedOrder(orderData.orderId, {
       generalData: { ...documentsLaterData },
     });
 
 
-    window.location.href = `https://transferencia.autotrafic.es/documentacion-pendiente/${orderData.orderId}`;
+    // window.location.href = `https://transferencia.autotrafic.es/documentacion-pendiente/${orderData.orderId}`;
   };
 
   const handleBackClick = () => {

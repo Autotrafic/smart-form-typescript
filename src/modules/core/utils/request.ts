@@ -1,3 +1,4 @@
+import IUpdateOrderNestedPropertiesBody from '../../documents/interfaces/export/order';
 import {
   IRequestBodyCarFuels,
   IRequestBodyCarModels,
@@ -6,7 +7,7 @@ import {
 } from '../../vehicle-form/interfaces/export';
 import { BASE_API_URL } from './urls';
 
-export const request = {
+export const autotraficApi = {
   vehicle: {
     calculateItp: (data: IRequestBodyCalculateITP) => makeRequest('vehicles/itp', data),
     brands: () => makeRequest('vehicles/brands'),
@@ -17,10 +18,16 @@ export const request = {
   },
   order: {
     register: (data: IRequestBodyRegisterOrder) => makeRequest('order/register', data),
+    update: (orderId: string, data: IUpdateOrderNestedPropertiesBody) => makeRequest(`order/nested/${orderId}`, data),
   },
 };
 
-type RequestParams = IRequestBodyCarFuels | IRequestBodyCarModels | IRequestBodyCalculateITP | IRequestBodyRegisterOrder;
+type RequestParams =
+  | IRequestBodyCarFuels
+  | IRequestBodyCarModels
+  | IRequestBodyCalculateITP
+  | IRequestBodyRegisterOrder
+  | IUpdateOrderNestedPropertiesBody;
 
 const makeRequest = async (endpoint: string, data?: RequestParams) => {
   const response = await fetch(`${BASE_API_URL}/${endpoint}`, {
@@ -30,21 +37,6 @@ const makeRequest = async (endpoint: string, data?: RequestParams) => {
       'Content-Type': 'application/json',
     },
     body: data ? JSON.stringify({ ...data }) : null,
-  });
-
-  const result = await response.json();
-
-  if (result) return result;
-};
-
-export const apiRequest = async (endpoint: string, data, method = 'GET') => {
-  const response = await fetch(`${BASE_API_URL}/${endpoint}`, {
-    method: method,
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: data && JSON.stringify({ ...data }),
   });
 
   const result = await response.json();
