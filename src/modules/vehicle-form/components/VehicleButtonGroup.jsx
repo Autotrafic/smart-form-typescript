@@ -1,7 +1,9 @@
-import styled from "styled-components";
-import VehicleButton from "./VehicleButton";
-import { useVehiclesForm } from "../context/vehiclesForm";
-import { colors } from "../../core/utils/styles";
+import styled from 'styled-components';
+import VehicleButton from './VehicleButton';
+import { useVehiclesForm } from '../context/vehiclesForm';
+import { colors } from '../../core/utils/styles';
+import { VehicleType } from '../interfaces/enums';
+import { vehiclesInitialState } from '../utils/initialStates';
 
 const Container = styled.div`
   display: flex;
@@ -22,8 +24,10 @@ const Label = styled.div`
 function VehicleButtonGroup() {
   const { formData, updateFormData } = useVehiclesForm();
 
+  const { type: actualVehicleType } = formData.vehicle;
+
   const handleChangeVehicle = (vehicleType) => {
-    updateFormData((prev) => ({ ...prev, vehicleType }));
+    updateFormData((prev) => ({ ...prev, vehicle: vehiclesInitialState[vehicleType] }));
   };
 
   return (
@@ -31,14 +35,14 @@ function VehicleButtonGroup() {
       <Label>Seleccione el tipo de vehículo:</Label>
       <Container>
         <VehicleButton
-          type={1}
-          selected={formData.vehicleType === 1}
-          updateVehicleType={() => handleChangeVehicle(1)}
+          type={VehicleType.CAR}
+          selected={actualVehicleType === VehicleType.CAR}
+          updateVehicleType={() => handleChangeVehicle(VehicleType.CAR)}
         />
         <VehicleButton
-          type={2}
-          selected={formData.vehicleType === 2}
-          updateVehicleType={() => handleChangeVehicle(2)}
+          type={VehicleType.MOTORBIKE}
+          selected={actualVehicleType === VehicleType.MOTORBIKE}
+          updateVehicleType={() => handleChangeVehicle(VehicleType.MOTORBIKE)}
         />
         {/* <VehicleButton
           type={3}

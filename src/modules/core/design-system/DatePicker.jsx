@@ -59,6 +59,7 @@ function DatePicker({ updateFormData, value, ...props }) {
           title="Año"
           options={years}
           value={value.date.year && value.date.year}
+          hasValue={value.date.year}
           handleChange={(value) =>
             updateFormData((prev) => (prev ? { ...prev, date: { ...prev.date, year: value } } : { year: value }))
           }
@@ -68,6 +69,7 @@ function DatePicker({ updateFormData, value, ...props }) {
           title="Mes"
           options={months}
           value={value.date.month && value.date.month}
+          hasValue={value.date.month}
           handleChange={(value) =>
             updateFormData((prev) => (prev ? { ...prev, date: { ...prev.date, month: value } } : { month: value }))
           }
@@ -78,6 +80,7 @@ function DatePicker({ updateFormData, value, ...props }) {
           title="Día"
           options={value?.daysInMonth}
           value={value.date.day && +value.date.day}
+          hasValue={value.date.day}
           handleChange={(value) =>
             updateFormData((prev) => (prev ? { ...prev, date: { ...prev.date, day: value } } : { day: value }))
           }

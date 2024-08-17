@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
@@ -52,20 +52,20 @@ const Icon = styled(FontAwesomeIcon)`
   background-color: white;
 `;
 
-const Dropdown = ({ title, options, value, defaultValue = '', handleChange, loading, fontSize = '15px' }) => {
+const Dropdown = ({ title, options, value, hasValue, defaultValue = '', handleChange, loading, fontSize = '15px' }) => {
   return (
     <SelectContainer>
       <StyledSelect
         required
         onChange={(e) => handleChange(e.target.value)}
-        $hasValue={value}
+        $hasValue={hasValue}
         $fontSize={fontSize}
         disabled={loading}
         value={typeof value === 'object' ? JSON.stringify(value) : value}
       >
         <TitleOption value={defaultValue}>{loading ? 'Cargando...' : title}</TitleOption>
         {options?.map((option, index) => (
-          <option key={index} value={typeof option.value === 'object' ? JSON.stringify(option.value) : option.value}>
+          <option key={index} value={option.value}>
             {option.name}
           </option>
         ))}

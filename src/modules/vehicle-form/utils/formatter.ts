@@ -1,3 +1,6 @@
+import { MotorbikeFormData, VehicleFormData } from '../interfaces';
+import { VehicleType } from '../interfaces/enums';
+
 export function sortBrandsAlphabetically(arr) {
   return arr.sort((a, b) => {
     if (a.brandName < b.brandName) {
@@ -44,11 +47,21 @@ export function formatSubmitDataForItp(orderData) {
   return formattedData;
 }
 
-function convertStringToNumber(str) {
+function convertStringToNumber(str: string) {
   if (!str) return null;
 
   const normalizedStr = str.replace(',', '.');
   return parseFloat(normalizedStr);
+}
+
+export function parseStringifiedToOriginal(formData: VehicleFormData, value: object | number | string) {
+  const isValueStringCC = typeof value === 'string' && value[0] === '{';
+  if (isValueStringCC) {
+    const parsedValue = JSON.parse(value);
+    return parsedValue;
+  }
+
+  return value;
 }
 
 function extractDataFromCC(ccObject) {
@@ -85,12 +98,9 @@ export function processVehicleFormSubmit(vehicleFormData) {
   delete processedData.vehicleTermsAccepted;
   if (vehicleFormData?.model)
     processedData.model =
-      typeof vehicleFormData.model === "string"
-        ? JSON.parse(vehicleFormData.model)
-        : vehicleFormData.model;
+      typeof vehicleFormData.model === 'string' ? JSON.parse(vehicleFormData.model) : vehicleFormData.model;
   if (vehicleFormData?.cc)
-    processedData.cc =
-      typeof vehicleFormData.cc === "string" ? JSON.parse(vehicleFormData.cc) : vehicleFormData.cc;
+    processedData.cc = typeof vehicleFormData.cc === 'string' ? JSON.parse(vehicleFormData.cc) : vehicleFormData.cc;
 
   return processedData;
 }

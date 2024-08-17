@@ -1,21 +1,24 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { createId } from "@paralleldrive/cuid2";
+import { VehicleFormData } from "../../vehicle-form/interfaces";
+import { formDataInitialState } from "../../vehicle-form/utils/initialStates";
 
-const INITIAL_VISIBLE_FIELDS = 3;
+const OrderDataStore = (isProduction: boolean, isReferralValid: boolean) => {
+  interface IOrderDataInitialState {
+    orderId: string;
+    isProduction: boolean;
+    isReferralValid: boolean;
+    vehicleForm: VehicleFormData
+  };
 
-const OrderDataStore = (isProduction, isReferralValid) => {
   const orderDataInitialState = {
     orderId: createId(),
     isProduction,
     isReferralValid,
-    vehicleForm: {
-      vehicleType: 1,
-      visibleFields: INITIAL_VISIBLE_FIELDS,
-      date: { day: "", month: "", year: "" },
-    },
+    vehicleForm: formDataInitialState,
   };
 
-  const [orderData, setOrderData] = useState(orderDataInitialState);
+  const [orderData, setOrderData] = useState<IOrderDataInitialState>(orderDataInitialState);
 
   useEffect(() => {
     setOrderData((prev) => ({ ...prev, isReferralValid }));
