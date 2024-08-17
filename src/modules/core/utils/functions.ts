@@ -1,7 +1,7 @@
-import { CICLOMOTOR_VALUE, ELEMENT_TO_SCROLL_ID } from '../utils/constants';
+import { CICLOMOTOR_VALUE, ELEMENT_TO_SCROLL_ID } from './constants';
 import { autonomousCommunities } from './data';
 
-export function getCommunityByCode(code) {
+export function getCommunityByCode(code: string) {
   const community = autonomousCommunities.find((c) => c.value === code);
   return community ? community.name : 'CCAA';
 }
