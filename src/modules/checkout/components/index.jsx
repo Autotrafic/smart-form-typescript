@@ -52,6 +52,7 @@ function Checkout() {
   const [userBillCompleted, setUserBillCompleted] = useState(false);
 
   const moveToNextStep = () => {
+    console.log('user bill comleted', userBillCompleted);
     if (userBillCompleted) {
       updateCurrentStep((prevStep) => prevStep + 1);
     }

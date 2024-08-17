@@ -61,7 +61,7 @@ module.exports = (_: any, argv: any) => ({
       filename: 'remoteEntry.js',
       remotes: {},
       exposes: {
-        './SmartForm': './src/App.tsx',
+        './SmartForm': './src/SmartForm.tsx',
       },
       shared: {
         ...deps,

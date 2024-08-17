@@ -2,6 +2,7 @@
   "name": "smart-form",
   "version": "1.0.0",
   "scripts": {
+    "tsc": "tsc",
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development",
     "build:start": "cd dist && PORT=5100 npx serve",

@@ -20,10 +20,9 @@ export const request = {
   },
 };
 
-const makeRequest = async (
-  endpoint: string,
-  data?: IRequestBodyCarFuels | IRequestBodyCarModels | IRequestBodyCalculateITP | IRequestBodyRegisterOrder
-) => {
+type RequestParams = IRequestBodyCarFuels | IRequestBodyCarModels | IRequestBodyCalculateITP | IRequestBodyRegisterOrder;
+
+const makeRequest = async (endpoint: string, data?: RequestParams) => {
   const response = await fetch(`${BASE_API_URL}/${endpoint}`, {
     method: data ? 'POST' : 'GET',
     mode: 'cors',
