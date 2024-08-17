@@ -125,6 +125,8 @@ const VehiclesFormStore = () => {
         prices,
       }));
 
+    console.log('formdata: ', formData);
+
     updateCurrentStep(STEPS.SUMMARY);
     setLoading({ itp: false });
   };

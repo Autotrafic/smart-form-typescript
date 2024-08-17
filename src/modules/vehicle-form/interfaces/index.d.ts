@@ -1,8 +1,19 @@
+import { DayInMonth } from '../../core/interfaces/general';
 import { Fuel, MotorbikeCC } from './enums';
+import { AutonomousCommunityValue } from './import/enums';
 
-interface VehicleFormData {
-  registrationDate: string;
+export interface VehicleFormData extends IVehicleFormGeneral {
   vehicle: CarFormData | MotorbikeFormData;
+}
+
+export interface IVehicleFormGeneral {
+  vehicleType: number;
+  visibleFields: number;
+  date: VehicleDate;
+  daysInMonth: DayInMonth[];
+  registrationDate: string;
+  buyerCommunity: AutonomousCommunityValue;
+  phoneNumber: string;
 }
 
 interface CarFormData {

@@ -1,7 +1,7 @@
+import { IVehicleFormGeneral } from '../../vehicle-form/interfaces';
 import { VehicleType } from '../../vehicle-form/interfaces/enums';
 import { ICarModel, IMotorbike } from '../../vehicle-form/interfaces/import';
-import { AutonomousCommunityValue, Fuel } from '../../vehicle-form/interfaces/import/enums';
-import { DayInMonth, VehicleDate } from './general';
+import { Fuel } from '../../vehicle-form/interfaces/import/enums';
 
 export interface IOrder {
   orderId: string;
@@ -48,13 +48,4 @@ interface IOrderVehicleFormCar extends IVehicleFormGeneral {
 interface IOrderVehicleFormMotorbike extends IVehicleFormGeneral {
   vehicleType: VehicleType.MOTORBIKE;
   cc: IMotorbike;
-}
-
-interface IVehicleFormGeneral {
-  visibleFields: number;
-  date: VehicleDate;
-  daysInMonth: DayInMonth[];
-  registrationDate: string;
-  buyerCommunity: AutonomousCommunityValue;
-  phoneNumber: string;
 }
