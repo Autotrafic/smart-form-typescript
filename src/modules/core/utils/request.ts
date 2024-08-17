@@ -43,18 +43,3 @@ const makeRequest = async (endpoint: string, data?: RequestParams) => {
 
   if (result) return result;
 };
-
-export const apiLogsRequest = async (endpoint: string, data, method = 'GET') => {
-  const response = await fetch(`${BASE_API_URL}/logs/${endpoint}`, {
-    method: method,
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: data && JSON.stringify({ ...data }),
-  });
-
-  const result = await response.json();
-
-  return result;
-};
