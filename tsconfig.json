@@ -10,7 +10,12 @@
     "outDir": "dist",
     "moduleResolution": "node",
     "noEmit": true,
-    "module": "commonjs"
+    "module": "commonjs",
+    "baseUrl": "src",
+    "paths": {
+      "@modules/*": ["modules/*"],
+      "@assets/*": ["assets/"]
+    }
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"]
 }

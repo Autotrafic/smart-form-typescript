@@ -1,3 +1,4 @@
+const path = require('path');
 const deps = require('./package.json').dependencies;
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
@@ -11,6 +12,10 @@ module.exports = (_: any, argv: any) => ({
   },
 
   resolve: {
+    alias: {
+      '@modules': path.resolve(__dirname, 'src/modules/'),
+      '@assets': path.resolve(__dirname, 'src/assets/'),
+    },
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
   },
 
@@ -24,7 +29,7 @@ module.exports = (_: any, argv: any) => ({
     rules: [
       {
         test: /\.m?js/,
-        type: "javascript/auto",
+        type: 'javascript/auto',
         resolve: {
           fullySpecified: false,
         },
