@@ -6,8 +6,9 @@ import {
   IRequestBodyRegisterOrder,
 } from '@modules/vehicle-form/interfaces/export';
 import { IOrder } from '../interfaces/order';
+import { Fuel } from '@modules/vehicle-form/interfaces/import/enums';
 
-export function formatFuelToRedeable(fuel) {
+export function formatFuelToRedeable(fuel: Fuel): string {
   switch (fuel) {
     case 'G':
       return 'Gasolina';
@@ -25,6 +26,8 @@ export function formatFuelToRedeable(fuel) {
       return 'Híbrido Gasolina Eléctrico';
     case 'DyE':
       return 'Híbrido Diésel Eléctrico';
+    default:
+      return '';
   }
 }
 

@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 import { useOrderData } from '@modules/core/context/orderData';
 import { fetchItpPrice } from '../services/itp';
 import { useMultiStep } from '@modules/core/context/multiStep';
@@ -6,22 +6,31 @@ import { sendFirstTouchMessage } from '../services/whatsapp';
 import { fetchCarBrands, fetchCarFuels, fetchCarModels, fetchFuelMotorbikeCCs } from '../services/vehicle';
 import { processVehicleFormSubmit } from '../utils/formatter';
 import { countPropertiesWithValue, getPrices } from '../utils/functions';
-import { STEPS } from '@modules/core/utils/constants';
-import { CarFormData, IFormDataLoading, VehicleFormData } from '../interfaces';
+import { CarFormData, IFormDataLoading, IVehicleFormData } from '../interfaces';
 import { VehicleType } from '../interfaces/enums';
-import { formDataLoadingInitialState } from '../utils/initialStates';
+import {
+  carDropdownsOptionsInitialState,
+  formDataLoadingInitialState,
+  motorbikeDropdownOptionsInitialState,
+  vehicleDropdownsInitialState,
+  vehicleFormProviderInitialState,
+} from '../utils/initialStates';
 import { autonomousCommunities } from '@modules/core/utils/data';
+import type { ICarDropdownOptions, IMotorbikeDropdownOptions, IVehicleFormDropdown, IVehiclesFormContext } from '../interfaces/states';
+import { Steps } from '@modules/core/interfaces/enums';
 
-const FormDataContext = createContext(null);
+const FormDataContext = createContext(vehicleFormProviderInitialState);
 
-const VehiclesFormStore = () => {
+const VehiclesFormStore = (): IVehiclesFormContext => {
   const { updateCurrentStep } = useMultiStep();
   const { orderData, updateOrderData } = useOrderData();
 
-  const [formData, setFormData] = useState<VehicleFormData>(orderData.vehicleForm);
-  const [carDropdownsOptions, setCarDropdownsOptions] = useState({});
-  const [motorbikeDropdownsOptions, setMotorbikeDropdownsOptions] = useState({});
-  const [visibleFields, setVisibleFields] = useState(orderData.vehicleForm.visibleFields);
+  const [formData, setFormData] = useState<IVehicleFormData>(orderData.vehicleForm);
+  const [carDropdownsOptions, setCarDropdownsOptions] = useState<ICarDropdownOptions>(carDropdownsOptionsInitialState);
+  const [motorbikeDropdownsOptions, setMotorbikeDropdownsOptions] = useState<IMotorbikeDropdownOptions>(
+    motorbikeDropdownOptionsInitialState
+  );
+  const [visibleFields, setVisibleFields] = useState<number>(orderData.vehicleForm.visibleFields);
   const [loading, setLoading] = useState<IFormDataLoading>(formDataLoadingInitialState);
 
   const { vehicle, inputsData } = formData;
@@ -34,8 +43,8 @@ const VehiclesFormStore = () => {
     };
   }, [formData.date]);
 
-  const updateFormData = (data) => {
-    setFormData(data);
+  const updateFormData = (setStateFunc: () => IVehicleFormData) => {
+    setFormData(setStateFunc);
   };
 
   const updateVisibleSteps = () => {
@@ -55,10 +64,12 @@ const VehiclesFormStore = () => {
     const loadCarBrands = async () => {
       setLoading({ brand: true });
       const carBrandNamesOptions = await fetchCarBrands();
-      setCarDropdownsOptions((prevState) => ({
-        ...prevState,
-        brands: carBrandNamesOptions,
-      }));
+      setCarDropdownsOptions(
+        (prevState): ICarDropdownOptions => ({
+          ...prevState,
+          brands: carBrandNamesOptions,
+        })
+      );
       setLoading({ brand: false });
     };
 
@@ -69,7 +80,7 @@ const VehiclesFormStore = () => {
     const loadMotorbikeCCs = async () => {
       setLoading({ cc: true });
       const ccs = await fetchFuelMotorbikeCCs();
-      setMotorbikeDropdownsOptions((prevState) => ({ ...prevState, ccs: ccs }));
+      setMotorbikeDropdownsOptions((prevState): IMotorbikeDropdownOptions => ({ ...prevState, ccs: ccs }));
       setLoading({ cc: false });
     };
 
@@ -83,10 +94,12 @@ const VehiclesFormStore = () => {
       if (updatedDate.day && updatedDate.month && updatedDate.year && brand) {
         setLoading({ fuel: true });
         const carFuelsOptions = await fetchCarFuels(updatedDate.year, brand);
-        setCarDropdownsOptions((prevState) => ({
-          ...prevState,
-          fuels: carFuelsOptions,
-        }));
+        setCarDropdownsOptions(
+          (prevState): ICarDropdownOptions => ({
+            ...prevState,
+            fuels: carFuelsOptions,
+          })
+        );
         setLoading({ fuel: false });
       }
     };
@@ -102,10 +115,12 @@ const VehiclesFormStore = () => {
       if (day && month && year && brand && fuel) {
         setLoading({ model: true });
         const carModelsOptions = await fetchCarModels(year, brand, fuel);
-        setCarDropdownsOptions((prevState) => ({
-          ...prevState,
-          models: carModelsOptions,
-        }));
+        setCarDropdownsOptions(
+          (prevState): ICarDropdownOptions => ({
+            ...prevState,
+            models: carModelsOptions,
+          })
+        );
         setLoading({ model: false });
       }
     };
@@ -130,7 +145,7 @@ const VehiclesFormStore = () => {
         prices,
       }));
 
-    updateCurrentStep(STEPS.SUMMARY);
+    updateCurrentStep(Steps.SUMMARY);
     setLoading({ itp: false });
   };
 
@@ -149,9 +164,9 @@ const VehiclesFormStore = () => {
     {
       title: 'Marca',
       propertyName: 'brand',
-      isFilled: 'brand' in vehicle && vehicle.brand,
-      value: 'brand' in inputsData && inputsData.brand,
-      options: carDropdownsOptions?.brands,
+      isFilled: 'vehicle.brand',
+      value: 'inputsData.brand',
+      options: carDropdownsOptions.brands,
       isVehicleData: true,
     },
     {
@@ -159,7 +174,7 @@ const VehiclesFormStore = () => {
       propertyName: 'fuel',
       isFilled: 'fuel' in vehicle && vehicle.fuel,
       value: 'fuel' in inputsData && inputsData.fuel,
-      options: carDropdownsOptions?.fuels,
+      options: carDropdownsOptions.fuels,
       isVehicleData: true,
     },
     {
@@ -167,7 +182,7 @@ const VehiclesFormStore = () => {
       propertyName: 'model',
       isFilled: 'model' in vehicle && vehicle.model.modelName,
       value: 'model' in inputsData && inputsData.model,
-      options: carDropdownsOptions?.models,
+      options: carDropdownsOptions.models,
       isVehicleData: true,
     },
     ...commonDropdowns,
@@ -179,18 +194,20 @@ const VehiclesFormStore = () => {
       propertyName: 'cc',
       isFilled: 'cc' in vehicle && vehicle.cc,
       value: 'cc' in inputsData && inputsData.cc,
-      options: motorbikeDropdownsOptions?.ccs,
+      options: motorbikeDropdownsOptions.ccs,
       isVehicleData: true,
     },
     ...commonDropdowns,
   ];
 
-  const dropdowns = useMemo(() => {
+  const dropdowns: IVehicleFormDropdown[] = useMemo(() => {
     switch (vehicle.type) {
       case VehicleType.CAR:
         return carDropdowns;
       case VehicleType.MOTORBIKE:
         return motorbikeDropdowns;
+      default:
+        return vehicleDropdownsInitialState;
     }
   }, [formData, carDropdowns, motorbikeDropdowns]);
 
@@ -208,7 +225,7 @@ const VehiclesFormStore = () => {
 
 export const useVehiclesForm = () => useContext(FormDataContext);
 
-export const VehiclesFormProvider = ({ children }) => {
+export const VehiclesFormProvider = ({ children }: { children: ReactNode }) => {
   const vehiclesFormStore = VehiclesFormStore();
 
   return <FormDataContext.Provider value={vehiclesFormStore}>{children}</FormDataContext.Provider>;

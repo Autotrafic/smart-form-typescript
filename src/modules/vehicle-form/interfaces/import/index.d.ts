@@ -1,14 +1,24 @@
 import { MotorbikeCCRange, Fuel, ElectricPowerRange } from './enums';
 
-export type CarBrandsResponse = ICarBrand[];
+export type ICarBrandsResponse = ICarBrand[];
+export type ICarBrandsResponseParsed = IParsedVehicleRequest[];
 
-export type MotorbikesResponse = IMotorbike[];
+export type IMotorbikesResponse = IMotorbike[];
+export type IMotorbikesResponseParsed = IParsedVehicleRequest[];
 
-export type ElectricMotorbikesResponse = IElectricMotorbike[];
+export type IElectricMotorbikesResponse = IElectricMotorbike[];
+export type IElectricMotorbikesResponseParsed = IParsedVehicleRequest[];
 
-export type FuelsResponse = Fuel[];
+export type IFuelsResponse = Fuel[];
+export type IFuelsResponseParsed = IParsedVehicleRequest[];
 
-export type CarModelsResponse = ICarModel[];
+export type ICarModelsResponse = ICarModel[];
+export type ICarModelsResponseParsed = IParsedVehicleRequest[];
+
+interface IParsedVehicleRequest {
+  name: string;
+  value: string;
+}
 
 export interface ITPResponse {
   ITP: number;

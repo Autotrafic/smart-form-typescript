@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { createId } from '@paralleldrive/cuid2';
-import { VehicleFormData } from '@modules/vehicle-form/interfaces';
+import { IVehicleFormData } from '@modules/vehicle-form/interfaces';
 import { formDataInitialState } from '@modules/vehicle-form/utils/initialStates';
 import { INITIAL_VISIBLE_FIELDS } from '@modules/vehicle-form/utils/constants';
 
@@ -9,7 +9,7 @@ const OrderDataStore = (isProduction: boolean, isReferralValid: boolean) => {
     orderId: string;
     isProduction: boolean;
     isReferralValid: boolean;
-    vehicleForm: VehicleFormData;
+    vehicleForm: IVehicleFormData;
     visibleFields: number;
   }
 

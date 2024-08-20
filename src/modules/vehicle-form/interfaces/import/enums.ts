@@ -60,4 +60,5 @@ export enum AutonomousCommunityValue {
   NAVARRA = 'NAV',
   PAIS_VASCO = 'PVA',
   VALENCIA = 'VAL',
+  DEFAULT = '',
 }

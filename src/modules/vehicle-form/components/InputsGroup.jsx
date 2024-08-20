@@ -35,8 +35,6 @@ function InputsGroup() {
     }));
   };
 
-  console.log('dropdowns', dropdowns);
-
   return (
     <InputsGroupStyled>
       <DatePicker isVisible={isComponentVisible(0)} updateFormData={updateFormData} value={formData} />

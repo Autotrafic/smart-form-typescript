@@ -14,8 +14,7 @@ import AfterCheckoutMessage from './modules/documents/components/after-checkout'
 import DocumentsFinalMessage from './modules/documents/components/final-message';
 import DocumentsLaterMessage from './modules/documents/components/documents-later/DocumentsLaterMessage';
 import { OrderDataProvider } from './modules/core/context/orderData';
-import { STEPS } from './modules/core/utils/constants';
-import { createRoot } from 'react-dom/client';
+import { Steps } from '@modules/core/interfaces/enums';
 
 // const stripeKey =
 //   process.env.NODE_ENV === "production"
@@ -40,21 +39,21 @@ function App() {
     <Elements stripe={initStripe}>
       <MultiStepHeader />
       <Container>
-        {currentStep === STEPS.VEHICLE_DATA && (
+        {currentStep === Steps.VEHICLE_FORM && (
           <VehiclesFormProvider>
             <VehiclesForm />
           </VehiclesFormProvider>
         )}
-        {currentStep === STEPS.SUMMARY && <Summary />}
-        {currentStep === STEPS.CHECKOUT && <Checkout />}
-        {currentStep === STEPS.CHECKOUT_MESSAGE && <AfterCheckoutMessage />}
-        {currentStep === STEPS.DOCUMENTS && (
+        {currentStep === Steps.SUMMARY && <Summary />}
+        {currentStep === Steps.CHECKOUT && <Checkout />}
+        {currentStep === Steps.CHECKOUT_MESSAGE && <AfterCheckoutMessage />}
+        {currentStep === Steps.DOCUMENTS && (
           <DocumentsProvider>
             <Documents />
           </DocumentsProvider>
         )}
-        {currentStep === STEPS.FINAL_MESSAGE && <DocumentsFinalMessage />}
-        {currentStep === STEPS.DOCUMENTS_LATER_MESSAGE && <DocumentsLaterMessage />}
+        {currentStep === Steps.FINAL_MESSAGE && <DocumentsFinalMessage />}
+        {currentStep === Steps.DOCUMENTS_LATER_MESSAGE && <DocumentsLaterMessage />}
       </Container>
     </Elements>
   );

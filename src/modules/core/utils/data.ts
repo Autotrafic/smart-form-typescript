@@ -35,7 +35,7 @@ export const autonomousCommunities: AutonomousCommunity[] = [
   { name: 'Valencia', value: AutonomousCommunityValue.VALENCIA },
 ];
 
-interface AutonomousCommunity {
+export interface AutonomousCommunity {
   name: string;
   value: AutonomousCommunityValue;
 }
