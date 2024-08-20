@@ -1,10 +1,10 @@
-import { VehicleType } from '../../vehicle-form/interfaces/enums';
+import { VehicleType } from '@modules/vehicle-form/interfaces/enums';
 import {
   ICarSpecifications,
   IMotorbikeSpecifications,
   IRegisterOrderUser,
   IRequestBodyRegisterOrder,
-} from '../../vehicle-form/interfaces/export';
+} from '@modules/vehicle-form/interfaces/export';
 import { IOrder } from '../interfaces/order';
 
 export function formatFuelToRedeable(fuel) {

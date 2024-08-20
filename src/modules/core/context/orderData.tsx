@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { createId } from '@paralleldrive/cuid2';
-import { VehicleFormData } from '../../vehicle-form/interfaces';
-import { formDataInitialState } from '../../vehicle-form/utils/initialStates';
-import { INITIAL_VISIBLE_FIELDS } from '../../vehicle-form/utils/constants';
+import { VehicleFormData } from '@modules/vehicle-form/interfaces';
+import { formDataInitialState } from '@modules/vehicle-form/utils/initialStates';
+import { INITIAL_VISIBLE_FIELDS } from '@modules/vehicle-form/utils/constants';
 
 const OrderDataStore = (isProduction: boolean, isReferralValid: boolean) => {
   interface IOrderDataInitialState {

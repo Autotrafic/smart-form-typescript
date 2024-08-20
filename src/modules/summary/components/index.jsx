@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import NavigationButtons from "../../core/components/NavigationButtons";
-import { useMultiStep } from "../../core/context/multiStep";
-import { useOrderData } from "../../core/context/orderData";
+import NavigationButtons from "@modules/core/components/NavigationButtons";
+import { useMultiStep } from "@modules/core/context/multiStep";
+import { useOrderData } from "@modules/core/context/orderData";
 import TotalTable from "./TotalTable/TotalTable";
-import DiscountAlert from "../../core/components/DiscountAlert";
+import DiscountAlert from "@modules/core/components/DiscountAlert";
 import { sendSummaryEmail } from "../utils/email";
 
 const Container = styled.div`

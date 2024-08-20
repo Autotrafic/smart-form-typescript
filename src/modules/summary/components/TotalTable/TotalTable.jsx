@@ -1,12 +1,12 @@
 import './total-table.css';
 import { Fragment, useState } from 'react';
 import { CICLOMOTOR_SUMMARY_ITEMS, CROSS_PRODUCTS, DEFAULT_SUMMARY_ITEMS } from '../../utils/constants';
-import { TRANSFERENCE_CAR_PRICE, TRANSFERENCE_CICLOMOTOR_PRICE } from '../../../core/utils/constants';
-import Modal from '../../../core/design-system/Modal';
+import { TRANSFERENCE_CAR_PRICE, TRANSFERENCE_CICLOMOTOR_PRICE } from '@modules/core/utils/constants';
+import Modal from '@modules/core/design-system/Modal';
 import SummaryModalContent from '../SummaryModalContent';
-import { useOrderData } from '../../../core/context/orderData';
-import Checkbox from '../../../core/design-system/Checkbox';
-import { checkIsCiclomotor } from '../../../core/utils/functions';
+import { useOrderData } from '@modules/core/context/orderData';
+import Checkbox from '@modules/core/design-system/Checkbox';
+import { checkIsCiclomotor } from '@modules/core/utils/functions';
 
 export default function TotalTable({ withExtras, addedPrice, setAddedPrice, setCrossSelected, isReferralValid }) {
   const { orderData } = useOrderData();

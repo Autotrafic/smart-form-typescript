@@ -1,7 +1,7 @@
-import { IVehicleFormGeneral } from '../../vehicle-form/interfaces';
-import { VehicleType } from '../../vehicle-form/interfaces/enums';
-import { ICarModel, IMotorbike } from '../../vehicle-form/interfaces/import';
-import { Fuel } from '../../vehicle-form/interfaces/import/enums';
+import { IVehicleFormGeneral } from '@modules/vehicle-form/interfaces';
+import { VehicleType } from '@modules/vehicle-form/interfaces/enums';
+import { ICarModel, IMotorbike } from '@modules/vehicle-form/interfaces/import';
+import { Fuel } from '@modules/vehicle-form/interfaces/import/enums';
 
 export interface IOrder {
   orderId: string;

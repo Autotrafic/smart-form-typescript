@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getVehicleRedeableNameFromOrderData } from '../../core/utils/formatter';
+import { getVehicleRedeableNameFromOrderData } from '@modules/core/utils/formatter';
 import { getFirstTouchWhatsappMessage } from '../utils/functions';
 
 export const sendFirstTouchMessage = async (receiverPhoneNumber, formData, isReferralValid) => {

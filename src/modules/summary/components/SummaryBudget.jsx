@@ -1,8 +1,8 @@
 import styled, { css, keyframes } from "styled-components";
 import { useEffect, useState } from "react";
-import Modal from "../../core/design-system/Modal";
+import Modal from "@modules/core/design-system/Modal";
 import SummaryModalContent from "./SummaryModalContent";
-import { colors, styles } from "../../core/utils/styles";
+import { colors, styles } from "@modules/core/utils/styles";
 
 const growShrink = keyframes`
   0% {

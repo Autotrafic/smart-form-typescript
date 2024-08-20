@@ -1,5 +1,5 @@
-import { TRANSFERENCE_CAR_PRICE, TRANSFERENCE_CICLOMOTOR_PRICE } from '../../core/utils/constants';
-import { checkIsCiclomotor } from '../../core/utils/functions';
+import { TRANSFERENCE_CAR_PRICE, TRANSFERENCE_CICLOMOTOR_PRICE } from '@modules/core/utils/constants';
+import { checkIsCiclomotor } from '@modules/core/utils/functions';
 
 const extractMinCc = (ccText) => {
   if (ccText.startsWith('Hasta')) {

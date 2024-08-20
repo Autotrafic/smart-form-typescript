@@ -1,4 +1,4 @@
-import { IOrderCrossSelling, IOrderITP, IOrderPrices } from '../../../core/interfaces/order';
+import { IOrderCrossSelling, IOrderITP, IOrderPrices } from '@modules/core/interfaces/order';
 import { ICarModel, IMotorbike } from '../import';
 import { AutonomousCommunityValue, Fuel } from '../import/enums';
 import { VehicleType } from '../enums';

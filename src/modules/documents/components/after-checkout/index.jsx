@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import emailjs from 'emailjs-com';
-import { useOrderData } from '../../../core/context/orderData';
-import NavigationButtons from '../../../core/components/NavigationButtons';
-import { AUTOTRAFIC_EMAIL } from '../../../core/utils/constants';
+import { useOrderData } from '@modules/core/context/orderData';
+import NavigationButtons from '@modules/core/components/NavigationButtons';
+import { AUTOTRAFIC_EMAIL } from '@modules/core/utils/constants';
 
 const Container = styled.div`
   display: flex;

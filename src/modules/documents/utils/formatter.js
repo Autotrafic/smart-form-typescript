@@ -1,4 +1,4 @@
-import { autonomousCommunities } from '../../core/utils/data';
+import { autonomousCommunities } from '@modules/core/utils/data';
 import { compressFile } from './functions';
 
 export default function processInputFile(file, newName) {

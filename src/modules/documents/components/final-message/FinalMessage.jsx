@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { useOrderData } from '../../../core/context/orderData';
-import { colors } from '../../../core/utils/styles';
+import { useOrderData } from '@modules/core/context/orderData';
+import { colors } from '@modules/core/utils/styles';
 
 const MessageContainer = styled.div`
   position: relative;

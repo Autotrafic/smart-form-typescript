@@ -2,13 +2,13 @@ import "./stripe-checkout.css";
 import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useMemo, useState } from "react";
 import { createPaymentIntent } from "../../services/stripeService";
-import LegalCheckbox from "../../../core/components/LegalCheckbox";
-import { Chat, MasterCardLogo, ShipmentTruck, Verified, VisaLogo } from "../../../../assets/svgs";
-import Separator from "../../../core/design-system/Separator";
-import Loader from "../../../core/design-system/Loader";
-import { useOrderData } from "../../../core/context/orderData";
-import { registerOrder } from "../../../core/services/order";
-import { TRANSFERENCE_CAR_PRICE } from "../../../core/utils/constants";
+import LegalCheckbox from "@modules/core/components/LegalCheckbox";
+import { Chat, MasterCardLogo, ShipmentTruck, Verified, VisaLogo } from "@assets/svgs";
+import Separator from "@modules/core/design-system/Separator";
+import Loader from "@modules/core/design-system/Loader";
+import { useOrderData } from "@modules/core/context/orderData";
+import { registerOrder } from "@modules/core/services/order";
+import { TRANSFERENCE_CAR_PRICE } from "@modules/core/utils/constants";
 
 const PAYMENT_METHOD = {
   KLARNA: "klarna",

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { faAngleDown, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { colors } from "../../core/utils/styles";
+import { colors } from "@modules/core/utils/styles";
 
 const Container = styled.div`
   margin-top: 5px;

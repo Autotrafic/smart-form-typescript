@@ -1,4 +1,4 @@
-import { formatFuelToRedeable, formatToFullDate } from "../../core/utils/formatter";
+import { formatFuelToRedeable, formatToFullDate } from "@modules/core/utils/formatter";
 import { ItemContent, ItemTitle, ResumeItem, ResumeList } from "./CheckoutStyles";
 import ResumeTitle from "./ResumeTitle";
 

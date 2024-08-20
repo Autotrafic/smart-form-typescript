@@ -1,16 +1,16 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { useOrderData } from '../../core/context/orderData';
+import { useOrderData } from '@modules/core/context/orderData';
 import { fetchItpPrice } from '../services/itp';
-import { useMultiStep } from '../../core/context/multiStep';
+import { useMultiStep } from '@modules/core/context/multiStep';
 import { sendFirstTouchMessage } from '../services/whatsapp';
 import { fetchCarBrands, fetchCarFuels, fetchCarModels, fetchFuelMotorbikeCCs } from '../services/vehicle';
 import { processVehicleFormSubmit } from '../utils/formatter';
 import { countPropertiesWithValue, getPrices } from '../utils/functions';
-import { STEPS } from '../../core/utils/constants';
+import { STEPS } from '@modules/core/utils/constants';
 import { CarFormData, IFormDataLoading, VehicleFormData } from '../interfaces';
 import { VehicleType } from '../interfaces/enums';
 import { formDataLoadingInitialState } from '../utils/initialStates';
-import { autonomousCommunities } from '../../core/utils/data';
+import { autonomousCommunities } from '@modules/core/utils/data';
 
 const FormDataContext = createContext(null);
 

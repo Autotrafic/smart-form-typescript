@@ -11,9 +11,9 @@ import type {
 } from '../interfaces/import';
 import { Fuel } from '../interfaces/import/enums';
 
-import { autotraficApi } from '../../core/utils/request';
+import { autotraficApi } from '@modules/core/utils/request';
 import { sortDisplacements } from '../utils/functions';
-import { formatFuelToRedeable } from '../../core/utils/formatter';
+import { formatFuelToRedeable } from '@modules/core/utils/formatter';
 import { sortBrandsAlphabetically, sortModelsAlphabetically } from '../utils/formatter';
 
 export async function fetchCarBrands() {

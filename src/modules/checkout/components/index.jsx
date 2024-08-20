@@ -1,16 +1,16 @@
 import styled from "styled-components";
-import Title from "../../core/design-system/Title";
+import Title from "@modules/core/design-system/Title";
 import ResumeTitle from "./ResumeTitle";
 import StripeCheckout from "./Stripe/StripeCheckout";
 import VehicleResume from "./VehicleResume";
 import UserResume from "./UserResume";
-import { useOrderData } from "../../core/context/orderData";
-import { useMultiStep } from "../../core/context/multiStep";
-import NavigationButtons from "../../core/components/NavigationButtons";
+import { useOrderData } from "@modules/core/context/orderData";
+import { useMultiStep } from "@modules/core/context/multiStep";
+import NavigationButtons from "@modules/core/components/NavigationButtons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { STEPS } from "../../core/utils/constants";
-import { colors } from "../../core/utils/styles";
+import { STEPS } from "@modules/core/utils/constants";
+import { colors } from "@modules/core/utils/styles";
 
 const Container = styled.div`
   padding: 0.5em 1.4em 1.2em 1.4em;

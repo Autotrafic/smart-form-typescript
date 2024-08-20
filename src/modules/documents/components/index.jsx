@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { useDocuments } from "../context/documents";
-import Title from "../../core/design-system/Title";
+import Title from "@modules/core/design-system/Title";
 import DocumentsButtonGroup from "./utils/DocumentsButtonGroup";
 import InputsGroupDocuments from "./multi-step-form";
 import DocumentsLater from "./documents-later/DocumentsLater";

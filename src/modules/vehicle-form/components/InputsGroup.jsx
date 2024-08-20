@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { useVehiclesForm } from '../context/vehiclesForm';
-import DatePicker from '../../core/design-system/DatePicker';
-import Dropdown from '../../core/design-system/Dropdown';
-import PhoneNumberInput from '../../core/components/PhoneNumberInput';
-import LegalCheckbox from '../../core/components/LegalCheckbox';
+import DatePicker from '@modules/core/design-system/DatePicker';
+import Dropdown from '@modules/core/design-system/Dropdown';
+import PhoneNumberInput from '@modules/core/components/PhoneNumberInput';
+import LegalCheckbox from '@modules/core/components/LegalCheckbox';
 import { parseStringifiedToOriginal } from '../utils/formatter';
 
 const InputsGroupStyled = styled.div`

@@ -1,5 +1,5 @@
-import { useOrderData } from '../../../core/context/orderData';
-import { NOTIFICATIONS_EMAIL } from '../../../core/utils/constants';
+import { useOrderData } from '@modules/core/context/orderData';
+import { NOTIFICATIONS_EMAIL } from '@modules/core/utils/constants';
 import FinalMessage from '../final-message/FinalMessage';
 import styled from 'styled-components';
 

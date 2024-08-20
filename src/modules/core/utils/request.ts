@@ -1,10 +1,10 @@
-import IUpdateOrderNestedPropertiesBody from '../../documents/interfaces/export/order';
+import IUpdateOrderNestedPropertiesBody from '@modules/documents/interfaces/export/order';
 import {
   IRequestBodyCarFuels,
   IRequestBodyCarModels,
   IRequestBodyCalculateITP,
   IRequestBodyRegisterOrder,
-} from '../../vehicle-form/interfaces/export';
+} from '@modules/vehicle-form/interfaces/export';
 import { BASE_API_URL } from './urls';
 
 export const autotraficApi = {

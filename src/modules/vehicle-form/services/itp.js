@@ -1,4 +1,4 @@
-import { autotraficApi } from '../../core/utils/request';
+import { autotraficApi } from '@modules/core/utils/request';
 import { formatSubmitDataForItp } from '../utils/formatter';
 
 export const fetchItpPrice = async (formData) => {

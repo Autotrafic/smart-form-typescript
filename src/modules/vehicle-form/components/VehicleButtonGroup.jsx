@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import VehicleButton from './VehicleButton';
 import { useVehiclesForm } from '../context/vehiclesForm';
-import { colors } from '../../core/utils/styles';
+import { colors } from '@modules/core/utils/styles';
 import { VehicleType } from '../interfaces/enums';
 import { vehiclesInitialState } from '../utils/initialStates';
 

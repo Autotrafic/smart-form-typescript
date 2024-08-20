@@ -1,4 +1,4 @@
-import { AUTOTRAFIC_EMAIL } from '../../core/utils/constants';
+import { AUTOTRAFIC_EMAIL } from '@modules/core/utils/constants';
 const emailjs = require('emailjs-com');
 
 export default function sendLaterDocumentsEmail(orderData) {

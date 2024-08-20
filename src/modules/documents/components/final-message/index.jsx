@@ -1,4 +1,4 @@
-import { useOrderData } from "../../../core/context/orderData";
+import { useOrderData } from "@modules/core/context/orderData";
 import FinalMessage from "./FinalMessage";
 import styled from "styled-components";
 

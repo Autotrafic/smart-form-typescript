@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import Input from "../../core/design-system/Input";
+import Input from "@modules/core/design-system/Input";
 import {
   BillForm,
   ItemContent,
@@ -9,8 +9,8 @@ import {
   ResumeList,
 } from "./CheckoutStyles";
 import ResumeTitle from "./ResumeTitle";
-import { useOrderData } from "../../core/context/orderData";
-import { colors } from "../../core/utils/styles";
+import { useOrderData } from "@modules/core/context/orderData";
+import { colors } from "@modules/core/utils/styles";
 
 const Button = styled.button`
   width: 100% !important;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Car, Caravan, Motorbike } from "../../../assets/svgs";
-import { colors } from "../../core/utils/styles";
+import { Car, Caravan, Motorbike } from "@assets/svgs";
+import { colors } from "@modules/core/utils/styles";
 
 const Container = styled.div`
 max-width: 120px;

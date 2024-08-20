@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Product from "./Product";
-import { colors } from "../../core/utils/styles";
+import { colors } from "@modules/core/utils/styles";
 
 const Container = styled.div`
   margin: 1.5em 0;

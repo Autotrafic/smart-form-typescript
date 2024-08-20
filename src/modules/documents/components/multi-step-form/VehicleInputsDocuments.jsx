@@ -1,18 +1,18 @@
 import styled from 'styled-components';
-import FileInput from '../../../core/design-system/FileInput';
+import FileInput from '@modules/core/design-system/FileInput';
 import { useState } from 'react';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { uploadFilesToDrive } from '../../services/googleDrive';
-import { useOrderData } from '../../../core/context/orderData';
-import Input from '../../../core/design-system/Input';
-import Spinner from '../../../core/design-system/Spinner';
-import LegalCheckbox from '../../../core/components/LegalCheckbox';
-import Modal from '../../../core/design-system/Modal';
+import { useOrderData } from '@modules/core/context/orderData';
+import Input from '@modules/core/design-system/Input';
+import Spinner from '@modules/core/design-system/Spinner';
+import LegalCheckbox from '@modules/core/components/LegalCheckbox';
+import Modal from '@modules/core/design-system/Modal';
 import Lottie from 'react-lottie';
-import carAnimation from '../../../../assets/car-animation.json';
+import carAnimation from '@assets/car-animation.json';
 import processInputFile, { processFilesForSubmit, processOrderDataForSubmit } from '../../utils/formatter';
-import { colors } from '../../../core/utils/styles';
+import { colors } from '@modules/core/utils/styles';
 
 const InputsGroupStyled = styled.form`
   width: 100%;

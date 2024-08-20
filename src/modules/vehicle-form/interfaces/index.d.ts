@@ -1,4 +1,4 @@
-import { DayInMonth } from '../../core/interfaces/general';
+import { DayInMonth } from '@modules/core/interfaces/general';
 import { Fuel, VehicleType } from './enums';
 import { AutonomousCommunityValue, MotorbikeCCRange } from './import/enums';
 

@@ -1,6 +1,3 @@
-import { MotorbikeFormData, VehicleFormData } from '../interfaces';
-import { VehicleType } from '../interfaces/enums';
-
 export function sortBrandsAlphabetically(arr) {
   return arr.sort((a, b) => {
     if (a.brandName < b.brandName) {

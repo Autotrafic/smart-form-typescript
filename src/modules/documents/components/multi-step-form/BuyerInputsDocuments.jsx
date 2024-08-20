@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import FileInput from "../../../core/design-system/FileInput";
+import FileInput from "@modules/core/design-system/FileInput";
 import { useState } from "react";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Input from "../../../core/design-system/Input";
-import PhoneNumberInput from "../../../core/components/PhoneNumberInput";
+import Input from "@modules/core/design-system/Input";
+import PhoneNumberInput from "@modules/core/components/PhoneNumberInput";
 import processInputFile from "../../utils/formatter";
-import { colors } from "../../../core/utils/styles";
+import { colors } from "@modules/core/utils/styles";
 
 const InputsGroupStyled = styled.form`
   width: 100%;

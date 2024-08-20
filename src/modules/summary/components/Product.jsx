@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Checkbox from "../../core/design-system/Checkbox";
-import { colors } from "../../core/utils/styles";
+import Checkbox from "@modules/core/design-system/Checkbox";
+import { colors } from "@modules/core/utils/styles";
 
 const ProductItem = styled.label`
   display: flex;
