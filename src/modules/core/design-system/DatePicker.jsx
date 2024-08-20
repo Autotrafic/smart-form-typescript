@@ -31,9 +31,6 @@ function DatePicker({ updateFormData, value, ...props }) {
   };
 
   useEffect(() => {
-    // updateFormData((prev) => {
-    //   console.log(prev);
-    // });
     if (value.date.month && value.date.year) {
       const days = updateDaysInMonth(value.date.month, value.date.year);
       updateFormData((prev) => (prev ? { ...prev, daysInMonth: days } : { daysInMonth: days }));

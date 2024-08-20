@@ -38,6 +38,14 @@ export const formDataInitialState: VehicleFormData = {
   buyerCommunity: undefined,
   phoneNumber: '',
   vehicle: vehiclesInitialState[VehicleType.CAR],
+  inputsData: {
+    date: { day: '', month: '', year: '' },
+    brand: '',
+    fuel: '',
+    model: '',
+    buyerCommunity: undefined,
+    phoneNumber: '',
+  },
 };
 
 export const formDataLoadingInitialState = {

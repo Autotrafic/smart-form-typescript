@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useOrderData } from '../../core/context/orderData';
-import { commonDropdowns } from '../utils/dropdowns';
 import { fetchItpPrice } from '../services/itp';
 import { useMultiStep } from '../../core/context/multiStep';
 import { sendFirstTouchMessage } from '../services/whatsapp';
@@ -25,7 +24,7 @@ const VehiclesFormStore = () => {
   const [visibleFields, setVisibleFields] = useState(orderData.vehicleForm.visibleFields);
   const [loading, setLoading] = useState<IFormDataLoading>(formDataLoadingInitialState);
 
-  const { vehicle } = formData;
+  const { vehicle, inputsData } = formData;
 
   const updatedDate = useMemo(() => {
     return {
@@ -41,15 +40,15 @@ const VehiclesFormStore = () => {
 
   const updateVisibleSteps = () => {
     const filledFields = countPropertiesWithValue(formData);
-    if (filledFields === visibleFields + 5) {
+    if (filledFields === visibleFields + 1) {
       setTimeout(() => {
-        setVisibleFields((prevState) => prevState + 1);
+        setVisibleFields((prevState: number) => prevState + 1);
       }, 400);
     }
   };
 
   useEffect(() => {
-    updateVisibleSteps();
+    if (vehicle.type === VehicleType.CAR) updateVisibleSteps();
   }, [formData]);
 
   useEffect(() => {
@@ -126,7 +125,7 @@ const VehiclesFormStore = () => {
     if (itp)
       updateOrderData((prev) => ({
         ...prev,
-        vehicleForm: { ...processedFormData, visibleFields },
+        vehicleForm: { ...formData, visibleFields },
         itp,
         prices,
       }));
@@ -140,7 +139,9 @@ const VehiclesFormStore = () => {
       title: 'Comunidad autónoma del comprador',
       propertyName: 'buyerCommunity',
       isFilled: formData.buyerCommunity,
+      value: 'buyerCommunity' in inputsData && inputsData.buyerCommunity,
       options: autonomousCommunities,
+      isVehicleData: false,
     },
   ];
 
@@ -149,19 +150,25 @@ const VehiclesFormStore = () => {
       title: 'Marca',
       propertyName: 'brand',
       isFilled: 'brand' in vehicle && vehicle.brand,
+      value: 'brand' in inputsData && inputsData.brand,
       options: carDropdownsOptions?.brands,
+      isVehicleData: true,
     },
     {
       title: 'Combustible',
       propertyName: 'fuel',
       isFilled: 'fuel' in vehicle && vehicle.fuel,
+      value: 'fuel' in inputsData && inputsData.fuel,
       options: carDropdownsOptions?.fuels,
+      isVehicleData: true,
     },
     {
       title: 'Modelo',
       propertyName: 'model',
       isFilled: 'model' in vehicle && vehicle.model.modelName,
+      value: 'model' in inputsData && inputsData.model,
       options: carDropdownsOptions?.models,
+      isVehicleData: true,
     },
     ...commonDropdowns,
   ];
@@ -169,9 +176,11 @@ const VehiclesFormStore = () => {
   const motorbikeDropdowns = [
     {
       title: 'Cilindrada',
-      propertyName: '',
+      propertyName: 'cc',
       isFilled: 'cc' in vehicle && vehicle.cc,
+      value: 'cc' in inputsData && inputsData.cc,
       options: motorbikeDropdownsOptions?.ccs,
+      isVehicleData: true,
     },
     ...commonDropdowns,
   ];

@@ -18,24 +18,31 @@ function InputsGroup() {
   const isComponentVisible = (componentIndex) => visibleFields >= componentIndex;
 
   const handleChange = (value, propertyToModify) => {
-    updateFormData((prev) => ({ ...prev, [propertyToModify]: value }));
+    updateFormData((prev) => ({
+      ...prev,
+      [propertyToModify]: value,
+      inputsData: { ...prev.inputsData, [propertyToModify]: value },
+    }));
   };
 
   const handleChangeVehicle = (value, propertyToModify) => {
-    const parsedValue = parseStringifiedToOriginal(formData, value);
-    
-    if (propertyToModify) {
-      updateFormData((prev) => ({ ...prev, vehicle: { ...prev.vehicle, [propertyToModify]: parsedValue } }));
-    } else {
-      updateFormData((prev) => ({ ...prev, vehicle: parsedValue }));
-    }
+    const parsedValue = parseStringifiedToOriginal(value);
+
+    updateFormData((prev) => ({
+      ...prev,
+      vehicle: { ...prev.vehicle, [propertyToModify]: parsedValue },
+      inputsData: { ...prev.inputsData, [propertyToModify]: value },
+    }));
   };
+
+  console.log('dropdowns', dropdowns);
 
   return (
     <InputsGroupStyled>
       <DatePicker isVisible={isComponentVisible(0)} updateFormData={updateFormData} value={formData} />
       {dropdowns.map((dropdown, index) => {
-        const { propertyName, title, options, isFilled } = dropdown;
+        const { propertyName, title, options, value, isFilled, isVehicleData } = dropdown;
+        const handler = isVehicleData ? handleChangeVehicle : handleChange;
         return (
           <Dropdown
             key={propertyName}
@@ -43,9 +50,9 @@ function InputsGroup() {
             isVisible={isComponentVisible(index + 1)}
             title={title}
             options={options}
-            value={undefined}
+            value={value}
             hasValue={isFilled}
-            handleChange={(value) => handleChangeVehicle(value, propertyName)}
+            handleChange={(value) => handler(value, propertyName)}
           />
         );
       })}

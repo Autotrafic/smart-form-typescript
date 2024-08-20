@@ -27,7 +27,7 @@ function VehicleButtonGroup() {
   const { type: actualVehicleType } = formData.vehicle;
 
   const handleChangeVehicle = (vehicleType) => {
-    updateFormData((prev) => ({ ...prev, vehicle: vehiclesInitialState[vehicleType] }));
+    updateFormData((prev) => ({ ...prev, vehicle: { ...prev.vehicle, type: vehicleType } }));
   };
 
   return (

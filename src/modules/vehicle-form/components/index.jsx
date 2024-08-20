@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import Title from "../../core/design-system/Title";
-import VehicleButtonGroup from "./VehicleButtonGroup";
-import InputsGroup from "./InputsGroup";
-import Button from "../../core/design-system/Button";
-import { useVehiclesForm } from "../context/vehiclesForm";
+import styled from 'styled-components';
+import Title from '../../core/design-system/Title';
+import VehicleButtonGroup from './VehicleButtonGroup';
+import InputsGroup from './InputsGroup';
+import Button from '../../core/design-system/Button';
+import { useVehiclesForm } from '../context/vehiclesForm';
 
 const StyledForm = styled.form`
   background: #ffffff;
@@ -38,11 +38,7 @@ const VehiclesForm = () => {
         <VehicleButtonGroup />
         <InputsGroup />
       </FormGroup>
-      <Button
-        title="Obtener precio ahora"
-        loading={loading.itp}
-        loadingText="Calculando..."
-      />
+      <Button title="Obtener precio ahora" loading={loading.itp} loadingText="Calculando..." />
     </StyledForm>
   );
 };

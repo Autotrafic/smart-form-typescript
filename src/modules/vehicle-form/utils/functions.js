@@ -32,6 +32,16 @@ const extractMaxCc = (ccText) => {
   }
 };
 
+// export function processCarModelsForOptionsInput(carModels) {
+//   const processedModels = carModels.map((model) => )
+//   return 
+// }
+
+export function extractModelNameFromCarModel(carModel) {
+  const objCarModel = JSON.stringify(carModel);
+  return objCarModel.modelName;
+}
+
 export const sortDisplacements = (arr) => {
   const sortedDisplacements = arr.sort((a, b) => {
     let minCcA = extractMinCc(a.cc);
@@ -47,8 +57,19 @@ export const sortDisplacements = (arr) => {
   return sortedDisplacements;
 };
 
-export function countPropertiesWithValue(obj) {
-  return Object.values(obj).filter((value) => value !== null && value !== undefined).length;
+export function countPropertiesWithValue(formData) {
+  const { date, vehicle, buyerCommunity, phoneNumber } = formData;
+
+  const isDataFilled = {
+    date: date.day && date.month && date.year,
+    brand: vehicle.brand,
+    fuel: vehicle.fuel,
+    model: vehicle.model.modelName,
+    buyerCommunity: buyerCommunity,
+    phoneNumber: phoneNumber,
+  };
+
+  return Object.values(isDataFilled).filter((value) => value && value).length;
 }
 
 const getTransferenceBasePrice = (vehicleData) => {

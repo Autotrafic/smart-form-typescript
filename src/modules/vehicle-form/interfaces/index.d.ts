@@ -1,9 +1,9 @@
 import { DayInMonth } from '../../core/interfaces/general';
-import { Fuel } from './enums';
+import { Fuel, VehicleType } from './enums';
 import { AutonomousCommunityValue, MotorbikeCCRange } from './import/enums';
 
 export interface VehicleFormData extends IVehicleFormGeneral {
-  vehicle: CarFormData | MotorbikeFormData;
+  vehicle: CarFormData & MotorbikeFormData;
 }
 
 export interface IVehicleFormGeneral {
@@ -13,6 +13,24 @@ export interface IVehicleFormGeneral {
   registrationDate: string;
   buyerCommunity: AutonomousCommunityValue | undefined;
   phoneNumber: string;
+  inputsData: IFormInputs;
+}
+
+interface IFormInputs {
+  date: { day: string; month: string; year: string };
+  vehicle: IFormCarInputs & IFormMotorbikeInputs;
+  buyerCommunity: AutonomousCommunityValue | undefined;
+  phoneNumber: string;
+}
+
+interface IFormCarInputs {
+  brand: string;
+  fuel: string;
+  model: string;
+}
+
+interface IFormMotorbikeInputs {
+  cc: string;
 }
 
 export interface IFormDataLoading {
@@ -23,14 +41,14 @@ export interface IFormDataLoading {
 }
 
 interface CarFormData {
-  type: number;
+  type: VehicleType.CAR;
   brand: string;
   fuel: Fuel;
   model: CarModel;
 }
 
 interface MotorbikeFormData {
-  type: number;
+  type: VehicleType.MOTORBIKE;
   cc: MotorbikeCCRange | undefined;
   value: number;
 }

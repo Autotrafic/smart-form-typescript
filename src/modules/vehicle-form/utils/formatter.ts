@@ -54,7 +54,7 @@ function convertStringToNumber(str: string) {
   return parseFloat(normalizedStr);
 }
 
-export function parseStringifiedToOriginal(formData: VehicleFormData, value: object | number | string) {
+export function parseStringifiedToOriginal(value: object | number | string) {
   const isValueStringCC = typeof value === 'string' && value[0] === '{';
   if (isValueStringCC) {
     const parsedValue = JSON.parse(value);
