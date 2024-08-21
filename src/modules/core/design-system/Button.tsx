@@ -1,9 +1,14 @@
+import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../utils/styles';
 
+interface ButtonStyledProps {
+  $variant: 'primary' | 'secondary';
+}
+
 const Container = styled.div``;
 
-const ButtonStyled = styled.button`
+const ButtonStyled = styled.button<ButtonStyledProps>`
   padding: 14px 23px !important;
   background-color: ${({ $variant }) => ($variant === 'secondary' ? '#fff' : colors.primaryColor)} !important;
   border: ${({ $variant }) => ($variant === 'secondary' ? `2px solid ${colors.primaryColor}` : 'none')} !important;
@@ -15,7 +20,14 @@ const ButtonStyled = styled.button`
   cursor: pointer !important;
 `;
 
-function Button({ variant, title, loading, loadingText, ...props }) {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary';
+  title: string;
+  loading?: boolean;
+  loadingText?: string;
+}
+
+const Button: React.FC<ButtonProps> = ({ variant = 'primary', title, loading, loadingText, ...props }) => {
   return (
     <Container>
       <ButtonStyled $variant={variant} {...props}>
@@ -23,6 +35,6 @@ function Button({ variant, title, loading, loadingText, ...props }) {
       </ButtonStyled>
     </Container>
   );
-}
+};
 
 export default Button;

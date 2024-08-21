@@ -14,15 +14,8 @@
     "baseUrl": "src",
     "paths": {
       "@modules/*": ["modules/*"],
-      "@assets/*": ["assets/"]
+      "@assets/*": ["assets/*"]
     }
   },
-  "include": [
-    //   "**/*.ts",
-    // "**/*.tsx",
-    // "**/*.d.ts",
-    "src/modules/vehicle-form/**/*.ts",
-    "src/modules/vehicle-form/**/*.tsx",
-    "src/modules/vehicle-form/**/*.d.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"]
 }

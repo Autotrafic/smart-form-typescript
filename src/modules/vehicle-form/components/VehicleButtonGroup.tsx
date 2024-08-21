@@ -3,7 +3,7 @@ import VehicleButton from './VehicleButton';
 import { useVehiclesForm } from '../context/vehiclesForm';
 import { colors } from '@modules/core/utils/styles';
 import { VehicleType } from '../interfaces/enums';
-import { vehiclesInitialState } from '../utils/initialStates';
+import { IVehicleFormData } from '../interfaces';
 
 const Container = styled.div`
   display: flex;
@@ -26,8 +26,8 @@ function VehicleButtonGroup() {
 
   const { type: actualVehicleType } = formData.vehicle;
 
-  const handleChangeVehicle = (vehicleType) => {
-    updateFormData((prev) => ({ ...prev, vehicle: { ...prev.vehicle, type: vehicleType } }));
+  const handleChangeVehicle = (vehicleType: VehicleType) => {
+    updateFormData((prev: IVehicleFormData) => ({ ...prev, vehicle: { ...prev.vehicle, type: vehicleType } }));
   };
 
   return (
@@ -36,17 +36,17 @@ function VehicleButtonGroup() {
       <Container>
         <VehicleButton
           type={VehicleType.CAR}
-          selected={actualVehicleType === VehicleType.CAR}
+          isSelected={actualVehicleType === VehicleType.CAR}
           updateVehicleType={() => handleChangeVehicle(VehicleType.CAR)}
         />
         <VehicleButton
           type={VehicleType.MOTORBIKE}
-          selected={actualVehicleType === VehicleType.MOTORBIKE}
+          isSelected={actualVehicleType === VehicleType.MOTORBIKE}
           updateVehicleType={() => handleChangeVehicle(VehicleType.MOTORBIKE)}
         />
         {/* <VehicleButton
           type={3}
-          selected={formData.vehicleType === 3}
+          isSelected={formData.vehicleType === 3}
           updateVehicleType={() => handleChangeVehicle(3)}
         /> */}
       </Container>

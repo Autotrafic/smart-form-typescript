@@ -15,7 +15,7 @@ const InputsGroupStyled = styled.div`
 function InputsGroup() {
   const { formData, visibleFields, loading, dropdowns, updateFormData } = useVehiclesForm();
 
-  const isComponentVisible = (componentIndex) => visibleFields >= componentIndex;
+  const isComponentVisible = (componentIndex: number) => visibleFields >= componentIndex;
 
   const handleChange = (value, propertyToModify) => {
     updateFormData((prev) => ({

@@ -25,10 +25,10 @@ const FormGroup = styled.div`
 const VehiclesForm = () => {
   const { loading, submitForm } = useVehiclesForm();
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    await submitForm();
+    submitForm();
   };
 
   return (

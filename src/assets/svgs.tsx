@@ -1,4 +1,4 @@
-export const Car = ({ color }) => {
+export const Car = ({ color }: {color: string}) => {
   return (
     <svg width="68" height="20" viewBox="0 0 68 25" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
