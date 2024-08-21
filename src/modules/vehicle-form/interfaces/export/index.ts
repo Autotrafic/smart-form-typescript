@@ -1,4 +1,4 @@
-import { IOrderCrossSelling, IOrderITP, IOrderPrices } from '@modules/core/interfaces/order';
+import { ICrossSelling, IITP, IOrderPrices } from '@modules/core/interfaces/order';
 import { ICarModel, IMotorbike } from '../import';
 import { AutonomousCommunityValue, Fuel } from '../import/enums';
 import { VehicleType } from '../enums';
@@ -25,9 +25,9 @@ export interface IRequestBodyRegisterOrder {
   orderId: string;
   isProduction: boolean;
   isReferralValid: boolean;
-  itp: IOrderITP;
+  itp: IITP;
   prices: IOrderPrices;
-  crossSelling: IOrderCrossSelling;
+  crossSelling: ICrossSelling;
   vehicle: ICarSpecifications | IMotorbikeSpecifications;
   user: IRegisterOrderUser;
 }

@@ -1,20 +1,24 @@
-import { IVehicleFormGeneral } from '@modules/vehicle-form/interfaces';
-import { VehicleType } from '@modules/vehicle-form/interfaces/enums';
-import { ICarModel, IMotorbike } from '@modules/vehicle-form/interfaces/import';
-import { Fuel } from '@modules/vehicle-form/interfaces/import/enums';
+import { IVehicleFormData } from '@modules/vehicle-form/interfaces';
+
+export interface IOrderDataContext {
+  updateOrderData: (setStateFunc: () => IOrder) => void;
+  orderData: IOrder;
+  isBillDataFilled: boolean | string;
+}
 
 export interface IOrder {
   orderId: string;
   isProduction: boolean;
   isReferralValid: boolean;
-  itp: IOrderITP;
+  vehicleForm: IVehicleFormData;
+  itp: IITP;
   prices: IOrderPrices;
-  crossSelling: IOrderCrossSelling;
-  billData: IOrderBillData;
-  vehicleForm: IOrderVehicleFormCar | IOrderVehicleFormMotorbike;
+  crossSelling: ICrossSelling;
+  billData: IBillData;
+  documentsLaterData: IDocumentsLaterData;
 }
 
-export interface IOrderITP {
+export interface IITP {
   ITP: number;
   valorFiscal: number;
   imputacionItp: number;
@@ -28,24 +32,14 @@ export interface IOrderPrices {
   referralDiscount: number;
 }
 
-export interface IOrderCrossSelling {
+export interface ICrossSelling {
   etiquetaMedioambiental: boolean;
   informeDgt: boolean;
 }
 
-interface IOrderBillData {
+export interface IBillData {
   fullName: string;
   email: string;
 }
 
-interface IOrderVehicleFormCar extends IVehicleFormGeneral {
-  vehicleType: VehicleType.CAR;
-  brand: string;
-  fuel: Fuel;
-  model: ICarModel;
-}
-
-interface IOrderVehicleFormMotorbike extends IVehicleFormGeneral {
-  vehicleType: VehicleType.MOTORBIKE;
-  cc: IMotorbike;
-}
+type IDocumentsLaterData = { vehiclePlate: string };

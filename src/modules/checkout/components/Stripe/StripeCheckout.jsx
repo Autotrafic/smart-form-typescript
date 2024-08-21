@@ -15,7 +15,7 @@ const PAYMENT_METHOD = {
   CARD: "card",
 };
 
-function StripeCheckout({ moveToNextStep, billDataFilled }) {
+function StripeCheckout({ moveToNextStep, isBillDataFilled }) {
   const { orderData } = useOrderData();
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -51,7 +51,7 @@ function StripeCheckout({ moveToNextStep, billDataFilled }) {
   };
 
   const checkErrorBillData = () => {
-    if (billDataFilled) {
+    if (isBillDataFilled) {
       setErrorMessage("");
       return false;
     } else {

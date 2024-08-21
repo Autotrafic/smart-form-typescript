@@ -48,7 +48,7 @@ const ResumeSection = styled.div``;
 
 function Checkout() {
   const { updateCurrentStep } = useMultiStep();
-  const { orderData, billDataFilled } = useOrderData();
+  const { orderData, isBillDataFilled } = useOrderData();
   const [userBillCompleted, setUserBillCompleted] = useState(false);
 
   const moveToNextStep = () => {
@@ -77,7 +77,7 @@ function Checkout() {
 
         <ResumeSection>
           <ResumeTitle title="Pago" hideLink />
-          <StripeCheckout moveToNextStep={moveToNextStep} billDataFilled={billDataFilled} />
+          <StripeCheckout moveToNextStep={moveToNextStep} isBillDataFilled={isBillDataFilled} />
         </ResumeSection>
 
         <NavigationButtons onlyBack />

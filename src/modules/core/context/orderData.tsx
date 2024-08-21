@@ -1,51 +1,45 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { createId } from '@paralleldrive/cuid2';
-import { IVehicleFormData } from '@modules/vehicle-form/interfaces';
+import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { formDataInitialState } from '@modules/vehicle-form/utils/initialStates';
 import { INITIAL_VISIBLE_FIELDS } from '@modules/vehicle-form/utils/constants';
+import { IOrder, IOrderDataContext } from '../interfaces/order';
+import { defaultOrderData, orderDataContextInitialState } from '../utils/initialStates';
 
 const OrderDataStore = (isProduction: boolean, isReferralValid: boolean) => {
-  interface IOrderDataInitialState {
-    orderId: string;
-    isProduction: boolean;
-    isReferralValid: boolean;
-    vehicleForm: IVehicleFormData;
-    visibleFields: number;
-  }
+  const orderDataInitialState: IOrder = { ...defaultOrderData, isProduction, isReferralValid };
 
-  const orderDataInitialState = {
-    orderId: createId(),
-    isProduction,
-    isReferralValid,
-    vehicleForm: formDataInitialState,
-    visibleFields: INITIAL_VISIBLE_FIELDS,
-  };
-
-  const [orderData, setOrderData] = useState<IOrderDataInitialState>(orderDataInitialState);
+  const [orderData, setOrderData] = useState<IOrder>(orderDataInitialState);
 
   useEffect(() => {
     setOrderData((prev) => ({ ...prev, isReferralValid }));
   }, [isReferralValid]);
 
-  const updateOrderData = (value) => {
-    setOrderData(value);
+  const updateOrderData = (setStateFunc: () => IOrder) => {
+    setOrderData(setStateFunc);
   };
 
-  const billDataFilled = orderData?.billData?.fullName && orderData?.billData?.email;
+  const isBillDataFilled = orderData.billData.fullName && orderData.billData.email;
 
   return {
     updateOrderData,
 
     orderData,
-    billDataFilled,
+    isBillDataFilled,
   };
 };
 
-const OrderDataContext = createContext();
+const OrderDataContext = createContext<IOrderDataContext>(orderDataContextInitialState);
 
 export const useOrderData = () => useContext(OrderDataContext);
 
-export const OrderDataProvider = ({ isProduction, isReferralValid = false, children }) => {
+export const OrderDataProvider = ({
+  isProduction,
+  isReferralValid = false,
+  children,
+}: {
+  isProduction: boolean;
+  isReferralValid: boolean;
+  children: ReactNode;
+}) => {
   const orderDataStore = OrderDataStore(isProduction, isReferralValid);
 
   return <OrderDataContext.Provider value={orderDataStore}>{children}</OrderDataContext.Provider>;

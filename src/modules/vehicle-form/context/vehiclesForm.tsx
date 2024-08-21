@@ -16,10 +16,13 @@ import {
   vehicleFormProviderInitialState,
 } from '../utils/initialStates';
 import { autonomousCommunities } from '@modules/core/utils/data';
-import type { ICarDropdownOptions, IMotorbikeDropdownOptions, IVehicleFormDropdown, IVehiclesFormContext } from '../interfaces/states';
+import type {
+  ICarDropdownOptions,
+  IMotorbikeDropdownOptions,
+  IVehicleFormDropdown,
+  IVehiclesFormContext,
+} from '../interfaces/states';
 import { Steps } from '@modules/core/interfaces/enums';
-
-const FormDataContext = createContext(vehicleFormProviderInitialState);
 
 const VehiclesFormStore = (): IVehiclesFormContext => {
   const { updateCurrentStep } = useMultiStep();
@@ -222,6 +225,8 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
     loading,
   };
 };
+
+const FormDataContext = createContext<IVehiclesFormContext>(vehicleFormProviderInitialState);
 
 export const useVehiclesForm = () => useContext(FormDataContext);
 
