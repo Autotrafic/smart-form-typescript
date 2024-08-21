@@ -1,6 +1,6 @@
 import { ICarBrand, ICarModel } from '../interfaces/import';
 import { VehicleType } from '../interfaces/enums';
-import { IVehicleFormData, MotorbikeFormData } from '../interfaces';
+import { IVehicleFormData } from '../interfaces';
 import { IRequestBodyCalculateITP } from '../interfaces/export';
 import { MotorbikeCCRange } from '../interfaces/import/enums';
 

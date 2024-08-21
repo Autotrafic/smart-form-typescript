@@ -1,63 +1,67 @@
 import { TRANSFERENCE_CAR_PRICE, TRANSFERENCE_CICLOMOTOR_PRICE } from '@modules/core/utils/constants';
 import { checkIsCiclomotor } from '@modules/core/utils/functions';
+import { MotorbikeCCRange } from '../interfaces/import/enums';
+import { IMotorbikesResponse } from '../interfaces/import';
+import { IVehicleFormData } from '../interfaces';
+import { IOrderPrices } from '@modules/core/interfaces/order';
 
-const extractMinCc = (ccText) => {
-  if (ccText.startsWith('Hasta')) {
+const extractMinCc = (motorbikeCCRange: MotorbikeCCRange): number => {
+  if (motorbikeCCRange.startsWith('Hasta')) {
     return 0;
-  } else if (ccText.includes('superior')) {
+  } else if (motorbikeCCRange.includes('superior')) {
     return Infinity;
   } else {
-    let number = ccText
-      .match(/[\d.,]+/)[0]
-      .replace(/\./g, '')
-      .replace(',', '.');
-    return parseFloat(number);
-  }
-};
-
-const extractMaxCc = (ccText) => {
-  if (ccText.startsWith('Hasta')) {
-    return parseFloat(
-      ccText
-        .match(/[\d.,]+/)[0]
-        .replace(/\./g, '')
-        .replace(',', '.')
-    );
-  } else if (ccText.includes('superior')) {
-    return Infinity;
-  } else {
-    let numbers = ccText.match(/[\d.,]+/g);
-    let maxNumber = numbers[numbers.length - 1].replace(/\./g, '').replace(',', '.');
-    return parseFloat(maxNumber);
-  }
-};
-
-// export function processCarModelsForOptionsInput(carModels) {
-//   const processedModels = carModels.map((model) => )
-//   return 
-// }
-
-export function extractModelNameFromCarModel(carModel) {
-  const objCarModel = JSON.stringify(carModel);
-  return objCarModel.modelName;
-}
-
-export const sortDisplacements = (arr) => {
-  const sortedDisplacements = arr.sort((a, b) => {
-    let minCcA = extractMinCc(a.cc);
-    let minCcB = extractMinCc(b.cc);
-    if (minCcA === minCcB) {
-      let maxCcA = extractMaxCc(a.cc);
-      let maxCcB = extractMaxCc(b.cc);
-      return maxCcA - maxCcB;
+    const match = motorbikeCCRange.match(/[\d.,]+/);
+    if (match) {
+      let number = match[0].replace(/\./g, '').replace(',', '.');
+      return parseFloat(number);
+    } else {
+      throw new Error('No valid number found in motorbikeCCRange string');
     }
-    return minCcA - minCcB;
-  });
-
-  return sortedDisplacements;
+  }
 };
 
-export function countPropertiesWithValue(formData) {
+const extractMaxCc = (motorbikeCCRange: MotorbikeCCRange): number => {
+  if (motorbikeCCRange.startsWith('Hasta')) {
+    const match = motorbikeCCRange.match(/[\d.,]+/);
+    if (match) {
+      return parseFloat(match[0].replace(/\./g, '').replace(',', '.'));
+    } else {
+      throw new Error('No valid number found in motorbikeCCRange string');
+    }
+  } else if (motorbikeCCRange.includes('superior')) {
+    return Infinity;
+  } else {
+    let numbers = motorbikeCCRange.match(/[\d.,]+/g);
+    if (numbers && numbers.length > 0) {
+      let maxNumber = numbers[numbers.length - 1].replace(/\./g, '').replace(',', '.');
+      return parseFloat(maxNumber);
+    } else {
+      throw new Error('No valid numbers found in motorbikeCCRange string');
+    }
+  }
+};
+
+export const sortDisplacements = (motorbikes: IMotorbikesResponse): IMotorbikesResponse => {
+  try {
+    const sortedDisplacements = motorbikes.sort((a, b) => {
+      let minCcA = extractMinCc(a.cc);
+      let minCcB = extractMinCc(b.cc);
+      if (minCcA === minCcB) {
+        let maxCcA = extractMaxCc(a.cc);
+        let maxCcB = extractMaxCc(b.cc);
+        return maxCcA - maxCcB;
+      }
+      return minCcA - minCcB;
+    });
+
+    return sortedDisplacements;
+  } catch (error) {
+    return motorbikes;
+  }
+};
+
+export function countPropertiesWithValue(formData: IVehicleFormData): number {
   const { date, vehicle, buyerCommunity, phoneNumber } = formData;
 
   const isDataFilled = {
@@ -72,25 +76,22 @@ export function countPropertiesWithValue(formData) {
   return Object.values(isDataFilled).filter((value) => value && value).length;
 }
 
-const getTransferenceBasePrice = (vehicleData) => {
-  let transferenceBasePrice;
-  const isVehicleCiclomotor = checkIsCiclomotor(vehicleData);
+const getTransferenceBasePrice = (formData: IVehicleFormData): number => {
+  const isVehicleCiclomotor = checkIsCiclomotor(formData);
 
   if (isVehicleCiclomotor) {
-    transferenceBasePrice = TRANSFERENCE_CICLOMOTOR_PRICE;
+    return TRANSFERENCE_CICLOMOTOR_PRICE;
   } else {
-    transferenceBasePrice = TRANSFERENCE_CAR_PRICE;
+    return TRANSFERENCE_CAR_PRICE;
   }
-
-  return transferenceBasePrice;
 };
 
-function getFeeForHighTicketOrder(itp) {
-  return itp > 200 ? itp * 0.02 : 0;
+function getFeeForHighTicketOrder(itpValue: number): number {
+  return itpValue > 200 ? itpValue * 0.02 : 0;
 }
 
-export const getPrices = (itpPrice = 0, vehicleData, isReferralValid) => {
-  const basePrice = +getTransferenceBasePrice(vehicleData);
+export const getPrices = (itpPrice = 0, formData: IVehicleFormData, isReferralValid: boolean): IOrderPrices => {
+  const basePrice = getTransferenceBasePrice(formData);
   const highTicketOrderFee = getFeeForHighTicketOrder(itpPrice);
   const referralDiscount = isReferralValid ? 10 : 0;
 
@@ -99,9 +100,9 @@ export const getPrices = (itpPrice = 0, vehicleData, isReferralValid) => {
   return { basePrice, totalPrice, highTicketOrderFee, referralDiscount };
 };
 
-export function getFirstTouchWhatsappMessage(extras, isReferralValid) {
+export function getFirstTouchWhatsappMessage(vehicleDescription: string, isReferralValid: boolean) {
   return `
-  🚗 ¿Quieres hacer el cambio de nombre de ${extras}?
+  🚗 ¿Quieres hacer el cambio de nombre de ${vehicleDescription}?
 
   *👨🏻‍⚖️ Puedes hacer todo el proceso por WhatsApp con ayuda de un gestor*
 
@@ -119,6 +120,5 @@ export function getFirstTouchWhatsappMessage(extras, isReferralValid) {
       ? `
     🎁 Por venir de *HistorialVhículo*, ¡ahora tienes 10€ de descuento!`
       : ''
-  }
-  `;
+  }`;
 }

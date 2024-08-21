@@ -1,12 +1,13 @@
 import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
-import { useOrderData } from '@modules/core/context/orderData';
-import { fetchItpPrice } from '../services/itp';
-import { useMultiStep } from '@modules/core/context/multiStep';
-import { sendFirstTouchMessage } from '../services/whatsapp';
-import { fetchCarBrands, fetchCarFuels, fetchCarModels, fetchFuelMotorbikeCCs } from '../services/vehicle';
-import { countPropertiesWithValue, getPrices } from '../utils/functions';
 import { CarFormData, IFormDataLoading, IVehicleFormData } from '../interfaces';
+import {
+  ICarDropdownOptions,
+  IMotorbikeDropdownOptions,
+  IVehicleFormDropdown,
+  IVehiclesFormContext,
+} from '../interfaces/states';
 import { VehicleType } from '../interfaces/enums';
+import { autonomousCommunities } from '@modules/core/utils/data';
 import {
   carDropdownsOptionsInitialState,
   formDataLoadingInitialState,
@@ -14,13 +15,12 @@ import {
   vehicleDropdownsInitialState,
   vehicleFormProviderInitialState,
 } from '../utils/initialStates';
-import { autonomousCommunities } from '@modules/core/utils/data';
-import type {
-  ICarDropdownOptions,
-  IMotorbikeDropdownOptions,
-  IVehicleFormDropdown,
-  IVehiclesFormContext,
-} from '../interfaces/states';
+import { fetchItpPrice } from '../services/itp';
+import { sendFirstTouchMessage } from '../services/whatsapp';
+import { fetchCarBrands, fetchCarFuels, fetchCarModels, fetchFuelMotorbikeCCs } from '../services/vehicle';
+import { useMultiStep } from '@modules/core/context/multiStep';
+import { useOrderData } from '@modules/core/context/orderData';
+import { countPropertiesWithValue, getPrices } from '../utils/functions';
 import { Steps } from '@modules/core/interfaces/enums';
 import { IOrder } from '@modules/core/interfaces/order';
 

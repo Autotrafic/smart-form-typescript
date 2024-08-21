@@ -7,6 +7,7 @@ import {
 } from '@modules/vehicle-form/interfaces/export';
 import { IOrder } from '../interfaces/order';
 import { Fuel } from '@modules/vehicle-form/interfaces/import/enums';
+import { IVehicleFormData } from '@modules/vehicle-form/interfaces';
 
 export function formatFuelToRedeable(fuel: Fuel): string {
   switch (fuel) {
@@ -53,14 +54,14 @@ export function formatToFullDate(originalDate) {
   }
 }
 
-export function getVehicleRedeableNameFromOrderData(orderData) {
+export function getVehicleRedeableNameFromFormData(formData: IVehicleFormData) {
   let simpleName = '';
 
-  if (orderData?.vehicleType === 1 && orderData?.brand && orderData?.model?.modelName) {
-    const firstModelNameWord = orderData?.model?.modelName.split(' ')[0];
-    simpleName = `un ${orderData.brand} ${firstModelNameWord} del ${orderData?.date?.year}`;
-  } else if (orderData?.vehicleType === 2) {
-    simpleName = `una moto del ${orderData?.date?.year}`;
+  if (formData?.vehicleType === 1 && formData?.brand && formData?.model?.modelName) {
+    const firstModelNameWord = formData?.model?.modelName.split(' ')[0];
+    simpleName = `un ${formData.brand} ${firstModelNameWord} del ${formData?.date?.year}`;
+  } else if (formData?.vehicleType === 2) {
+    simpleName = `una moto del ${formData?.date?.year}`;
   }
 
   return simpleName;

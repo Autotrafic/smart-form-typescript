@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getVehicleRedeableNameFromOrderData } from '@modules/core/utils/formatter';
+import { getVehicleRedeableNameFromFormData } from '@modules/core/utils/formatter';
 import { getFirstTouchWhatsappMessage } from '../utils/functions';
 import { IVehicleFormData } from '../interfaces';
 
@@ -10,7 +10,7 @@ export const sendFirstTouchMessage = async (
 ) => {
   const formattedPhoneNumber = receiverPhoneNumber.replace(/\D/g, '');
 
-  const vehicleRedeableName = getVehicleRedeableNameFromOrderData(formData);
+  const vehicleRedeableName = getVehicleRedeableNameFromFormData(formData);
   const message = getFirstTouchWhatsappMessage(vehicleRedeableName, isReferralValid);
 
   const data = { phoneNumber: formattedPhoneNumber, message };
