@@ -23,6 +23,7 @@ import type {
   IVehiclesFormContext,
 } from '../interfaces/states';
 import { Steps } from '@modules/core/interfaces/enums';
+import { IOrder } from '@modules/core/interfaces/order';
 
 const VehiclesFormStore = (): IVehiclesFormContext => {
   const { updateCurrentStep } = useMultiStep();
@@ -46,7 +47,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
     };
   }, [formData.date]);
 
-  const updateFormData = (setStateFunc: () => IVehicleFormData) => {
+  const updateFormData = (setStateFunc: (prevState: IVehicleFormData) => IVehicleFormData) => {
     setFormData(setStateFunc);
   };
 
@@ -141,12 +142,14 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
     sendFirstTouchMessage(processedFormData.phoneNumber, formData, orderData.isReferralValid);
 
     if (itp)
-      updateOrderData((prev) => ({
-        ...prev,
-        vehicleForm: { ...formData, visibleFields },
-        itp,
-        prices,
-      }));
+      updateOrderData(
+        (prev: IOrder): IOrder => ({
+          ...prev,
+          vehicleForm: { ...formData, visibleFields },
+          itp,
+          prices,
+        })
+      );
 
     updateCurrentStep(Steps.SUMMARY);
     setLoading({ itp: false });

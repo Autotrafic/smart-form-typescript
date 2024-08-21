@@ -1,6 +1,4 @@
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { formDataInitialState } from '@modules/vehicle-form/utils/initialStates';
-import { INITIAL_VISIBLE_FIELDS } from '@modules/vehicle-form/utils/constants';
 import { IOrder, IOrderDataContext } from '../interfaces/order';
 import { defaultOrderData, orderDataContextInitialState } from '../utils/initialStates';
 
@@ -13,7 +11,7 @@ const OrderDataStore = (isProduction: boolean, isReferralValid: boolean) => {
     setOrderData((prev) => ({ ...prev, isReferralValid }));
   }, [isReferralValid]);
 
-  const updateOrderData = (setStateFunc: () => IOrder) => {
+  const updateOrderData = (setStateFunc: (prevOrder: IOrder) => IOrder) => {
     setOrderData(setStateFunc);
   };
 

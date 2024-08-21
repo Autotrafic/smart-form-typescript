@@ -6,6 +6,7 @@ import {
   IMotorbikesResponseParsed,
 } from './import';
 import { Fuel, MotorbikeCCRange } from './import/enums';
+import { IVehicleFormData } from '.';
 
 export interface ICarDropdownOptions {
   brands: ICarBrandsResponseParsed;
@@ -18,7 +19,7 @@ export interface IMotorbikeDropdownOptions {
 }
 
 export interface IVehiclesFormContext {
-  updateFormData: (setStateFunc: () => IVehicleFormData) => void;
+  updateFormData: (setStateFunc: (prevOrder: IVehicleFormData) => IVehicleFormData) => void;
   updateVisibleSteps: () => void;
   submitForm: () => void;
   formData: IVehicleFormData;
