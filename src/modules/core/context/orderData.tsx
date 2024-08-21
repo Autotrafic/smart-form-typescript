@@ -8,7 +8,7 @@ const OrderDataStore = (isProduction: boolean, isReferralValid: boolean) => {
   const [orderData, setOrderData] = useState<IOrder>(orderDataInitialState);
 
   useEffect(() => {
-    setOrderData((prev) => ({ ...prev, isReferralValid }));
+    setOrderData((prev: IOrder) => ({ ...prev, isReferralValid }));
   }, [isReferralValid]);
 
   const updateOrderData = (setStateFunc: (prevOrder: IOrder) => IOrder) => {

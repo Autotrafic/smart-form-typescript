@@ -32,8 +32,8 @@ export function formatFuelToRedeable(fuel: Fuel): string {
   }
 }
 
-export function processPhoneNumber(phoneNumber) {
-  if (!phoneNumber) return;
+export function processPhoneNumber(phoneNumber: string): string {
+  if (!phoneNumber) return '';
 
   const parts = phoneNumber.split(' ');
   parts.shift();
@@ -43,7 +43,7 @@ export function processPhoneNumber(phoneNumber) {
   return finalNumber;
 }
 
-export function formatToFullDate(originalDate) {
+export function formatToFullDate(originalDate: `${number}/${number}/${number}`): string {
   let parts = originalDate.split('/');
 
   if (parts[0].length === 2 && parts[1].length === 2) {
@@ -54,14 +54,15 @@ export function formatToFullDate(originalDate) {
   }
 }
 
-export function getVehicleRedeableNameFromFormData(formData: IVehicleFormData) {
+export function getVehicleRedeableNameFromFormData(formData: IVehicleFormData): string {
+  const { type, brand, model } = formData.vehicle;
   let simpleName = '';
 
-  if (formData?.vehicleType === 1 && formData?.brand && formData?.model?.modelName) {
-    const firstModelNameWord = formData?.model?.modelName.split(' ')[0];
-    simpleName = `un ${formData.brand} ${firstModelNameWord} del ${formData?.date?.year}`;
-  } else if (formData?.vehicleType === 2) {
-    simpleName = `una moto del ${formData?.date?.year}`;
+  if (type === VehicleType.CAR && brand && model.modelName) {
+    const firstModelNameWord = model.modelName.split(' ')[0];
+    simpleName = `un ${brand} ${firstModelNameWord} del ${formData?.date?.year}`;
+  } else if (type === VehicleType.MOTORBIKE) {
+    simpleName = `una moto del ${formData.date.year}`;
   }
 
   return simpleName;
@@ -69,21 +70,23 @@ export function getVehicleRedeableNameFromFormData(formData: IVehicleFormData) {
 
 export function parseOrderForRequest(order: IOrder): IRequestBodyRegisterOrder {
   const { orderId, isProduction, isReferralValid, itp, prices, crossSelling, billData, vehicleForm } = order;
+  const { type, brand, model, cc, value } = vehicleForm.vehicle;
 
   let vehicle;
 
-  if (vehicleForm.vehicleType === VehicleType.CAR) {
+  if (type === VehicleType.CAR) {
     vehicle = {
-      type: vehicleForm.vehicleType,
+      type,
       registrationDate: vehicleForm.registrationDate,
-      brand: vehicleForm.brand,
-      ...vehicleForm.model,
+      brand,
+      ...model,
     } as ICarSpecifications;
   } else {
     vehicle = {
-      type: vehicleForm.vehicleType,
+      type,
       registrationDate: vehicleForm.registrationDate,
-      ...vehicleForm.cc,
+      cc,
+      value,
     } as IMotorbikeSpecifications;
   }
 

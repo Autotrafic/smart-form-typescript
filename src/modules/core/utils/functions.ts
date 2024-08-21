@@ -1,13 +1,16 @@
+import { IVehicleFormData } from '@modules/vehicle-form/interfaces';
 import { CICLOMOTOR_VALUE, ELEMENT_TO_SCROLL_ID } from './constants';
 import { autonomousCommunities } from './data';
+import { VehicleType } from '@modules/vehicle-form/interfaces/enums';
 
-export function getCommunityByCode(code: string) {
+export function getCommunityByCode(code: string): string {
   const community = autonomousCommunities.find((c) => c.value === code);
   return community ? community.name : 'CCAA';
 }
 
-export const checkIsCiclomotor = (vehicleData) => {
-  return vehicleData.vehicleType === 2 && vehicleData.cc.value === CICLOMOTOR_VALUE;
+export const checkIsCiclomotor = (formData: IVehicleFormData): boolean => {
+  const { vehicle } = formData;
+  return vehicle.type === VehicleType.MOTORBIKE && vehicle.value === CICLOMOTOR_VALUE;
 };
 
 export function scrollToNextStep() {
