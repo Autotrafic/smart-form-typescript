@@ -100,7 +100,7 @@ export const getPrices = (itpPrice = 0, formData: IVehicleFormData, isReferralVa
   return { basePrice, totalPrice, highTicketOrderFee, referralDiscount };
 };
 
-export function getFirstTouchWhatsappMessage(vehicleDescription: string, isReferralValid: boolean) {
+export function getFirstTouchWhatsappMessage(vehicleDescription: string, isReferralValid: boolean): string {
   return `
   🚗 ¿Quieres hacer el cambio de nombre de ${vehicleDescription}?
 
