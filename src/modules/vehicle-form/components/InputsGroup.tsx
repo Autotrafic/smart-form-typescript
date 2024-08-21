@@ -5,6 +5,8 @@ import Dropdown from '@modules/core/design-system/Dropdown';
 import PhoneNumberInput from '@modules/core/components/PhoneNumberInput';
 import LegalCheckbox from '@modules/core/components/LegalCheckbox';
 import { parseStringVehicleDataToObject } from '../utils/formatter';
+import { IVehicleFormData } from '../interfaces';
+import { IPropertyToModifyProps } from '../interfaces/states';
 
 const InputsGroupStyled = styled.div`
   width: 100%;
@@ -13,22 +15,22 @@ const InputsGroupStyled = styled.div`
 `;
 
 function InputsGroup() {
-  const { formData, visibleFields, loading, dropdowns, updateFormData } = useVehiclesForm();
+  const { formData, visibleFields, dropdowns, updateFormData } = useVehiclesForm();
 
   const isComponentVisible = (componentIndex: number) => visibleFields >= componentIndex;
 
-  const handleChange = (value, propertyToModify) => {
-    updateFormData((prev) => ({
+  const handleChange = (value: string | boolean, propertyToModify: IPropertyToModifyProps) => {
+    updateFormData((prev: IVehicleFormData) => ({
       ...prev,
       [propertyToModify]: value,
       inputsData: { ...prev.inputsData, [propertyToModify]: value },
     }));
   };
 
-  const handleChangeVehicle = (value, propertyToModify) => {
+  const handleChangeVehicle = (value: string, propertyToModify: IPropertyToModifyProps) => {
     const parsedValue = parseStringVehicleDataToObject(value);
 
-    updateFormData((prev) => ({
+    updateFormData((prev: IVehicleFormData) => ({
       ...prev,
       vehicle: { ...prev.vehicle, [propertyToModify]: parsedValue },
       inputsData: { ...prev.inputsData, [propertyToModify]: value },
@@ -39,18 +41,18 @@ function InputsGroup() {
     <InputsGroupStyled>
       <DatePicker isVisible={isComponentVisible(0)} updateFormData={updateFormData} value={formData} />
       {dropdowns.map((dropdown, index) => {
-        const { propertyName, title, options, value, isFilled, isVehicleData } = dropdown;
+        const { propertyName, title, options, value, isFilled, isVehicleData, isLoading } = dropdown;
         const handler = isVehicleData ? handleChangeVehicle : handleChange;
         return (
           <Dropdown
             key={propertyName}
-            loading={loading[propertyName]}
+            loading={isLoading}
             isVisible={isComponentVisible(index + 1)}
             title={title}
             options={options}
             value={value}
             hasValue={isFilled}
-            handleChange={(value) => handler(value, propertyName)}
+            handleChange={(value: string) => handler(value, propertyName)}
           />
         );
       })}
@@ -58,11 +60,11 @@ function InputsGroup() {
       <PhoneNumberInput
         isVisible={isComponentVisible(dropdowns.length + 1)}
         value={formData.phoneNumber}
-        handleChange={(value) => handleChange(value, 'phoneNumber')}
+        handleChange={(value: string) => handleChange(value, 'phoneNumber')}
       />
       <LegalCheckbox
-        value={formData.vehicleTermsAccepted}
-        handleChange={(e) => handleChange(e.target.checked, 'vehicleTermsAccepted')}
+        value={null}
+        handleChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e.target.checked, 'vehicleTermsAccepted')}
       />
     </InputsGroupStyled>
   );

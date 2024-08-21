@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { IDropdownOptions } from '../interfaces/states';
 
 interface ContainerProps {
   isVisible: boolean;
@@ -21,7 +22,7 @@ const Container = styled.div<ContainerProps>`
       opacity: 1;
       transform: translateY(0);
       visibility: visible;
-      transition-delay: 0s; 
+      transition-delay: 0s;
       max-height: 500px;
       overflow: visible;
       margin-bottom: ${props.isSmall ? '.4em' : '1em'};
@@ -31,6 +32,12 @@ const Container = styled.div<ContainerProps>`
 type WrappedComponentProps = {
   isVisible: boolean;
   isSmall?: boolean;
+  title: string;
+  loading: boolean;
+  options: IDropdownOptions;
+  value: string;
+  hasValue: string;
+  handleChange: (value: string) => void;
 };
 
 const fieldWithVisibility =

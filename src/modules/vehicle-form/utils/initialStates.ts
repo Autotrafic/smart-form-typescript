@@ -58,6 +58,7 @@ export const formDataLoadingInitialState: IFormDataLoading = {
   fuel: false,
   model: false,
   itp: false,
+  cc: false,
 };
 
 export const carDropdownsOptionsInitialState: ICarDropdownOptions = {
@@ -78,6 +79,7 @@ export const vehicleDropdownsInitialState: IVehicleFormDropdown[] = [
     value: '',
     options: [{ name: '', value: AutonomousCommunityValue.DEFAULT }],
     isVehicleData: false,
+    isLoading: false,
   },
 ];
 

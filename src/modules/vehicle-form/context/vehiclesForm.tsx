@@ -65,7 +65,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
 
   useEffect(() => {
     const loadCarBrands = async () => {
-      setLoading({ brand: true });
+      setLoading((prev: IFormDataLoading) => ({ ...prev, brand: true }));
       const carBrandNamesOptions = await fetchCarBrands();
       setCarDropdownsOptions(
         (prevState): ICarDropdownOptions => ({
@@ -73,7 +73,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
           brands: carBrandNamesOptions,
         })
       );
-      setLoading({ brand: false });
+      setLoading((prev: IFormDataLoading) => ({ ...prev, brand: false }));
     };
 
     loadCarBrands();
@@ -81,10 +81,10 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
 
   useEffect(() => {
     const loadMotorbikeCCs = async () => {
-      setLoading({ cc: true });
+      setLoading((prev: IFormDataLoading) => ({ ...prev, cc: true }));
       const ccs = await fetchFuelMotorbikeCCs();
       setMotorbikeDropdownsOptions((prevState): IMotorbikeDropdownOptions => ({ ...prevState, ccs: ccs }));
-      setLoading({ cc: false });
+      setLoading((prev: IFormDataLoading) => ({ ...prev, cc: false }));
     };
 
     loadMotorbikeCCs();
@@ -95,7 +95,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
       const { brand } = vehicle as CarFormData;
 
       if (updatedDate.day && updatedDate.month && updatedDate.year && brand) {
-        setLoading({ fuel: true });
+        setLoading((prev: IFormDataLoading) => ({ ...prev, fuel: true }));
         const carFuelsOptions = await fetchCarFuels(updatedDate.year, brand);
         setCarDropdownsOptions(
           (prevState): ICarDropdownOptions => ({
@@ -103,7 +103,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
             fuels: carFuelsOptions,
           })
         );
-        setLoading({ fuel: false });
+        setLoading((prev: IFormDataLoading) => ({ ...prev, fuel: false }));
       }
     };
 
@@ -116,7 +116,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
       const { brand, fuel } = vehicle as CarFormData;
 
       if (day && month && year && brand && fuel) {
-        setLoading({ model: true });
+        setLoading((prev: IFormDataLoading) => ({ ...prev, model: true }));
         const carModelsOptions = await fetchCarModels(year, brand, fuel);
         setCarDropdownsOptions(
           (prevState): ICarDropdownOptions => ({
@@ -124,7 +124,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
             models: carModelsOptions,
           })
         );
-        setLoading({ model: false });
+        setLoading((prev: IFormDataLoading) => ({ ...prev, model: false }));
       }
     };
 
@@ -132,7 +132,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
   }, [updatedDate, vehicle]);
 
   const submitForm = async () => {
-    setLoading({ itp: true });
+    setLoading((prev: IFormDataLoading) => ({ ...prev, itp: true }));
 
     const itp = await fetchItpPrice(formData);
     const prices = getPrices(itp.ITP, formData, orderData.isReferralValid);
@@ -150,10 +150,10 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
       );
 
     updateCurrentStep(Steps.SUMMARY);
-    setLoading({ itp: false });
+    setLoading((prev: IFormDataLoading) => ({ ...prev, itp: false }));
   };
 
-  const commonDropdowns = [
+  const commonDropdowns: IVehicleFormDropdown[] = [
     {
       title: 'Comunidad autónoma del comprador',
       propertyName: 'buyerCommunity',
@@ -161,10 +161,11 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
       value: inputsData.buyerCommunity,
       options: autonomousCommunities,
       isVehicleData: false,
+      isLoading: false,
     },
   ];
 
-  const carDropdowns = [
+  const carDropdowns: IVehicleFormDropdown[] = [
     {
       title: 'Marca',
       propertyName: 'brand',
@@ -172,6 +173,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
       value: inputsData.brand,
       options: carDropdownsOptions.brands,
       isVehicleData: true,
+      isLoading: loading.brand,
     },
     {
       title: 'Combustible',
@@ -180,6 +182,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
       value: inputsData.fuel,
       options: carDropdownsOptions.fuels,
       isVehicleData: true,
+      isLoading: loading.fuel,
     },
     {
       title: 'Modelo',
@@ -188,11 +191,12 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
       value: inputsData.model,
       options: carDropdownsOptions.models,
       isVehicleData: true,
+      isLoading: loading.model,
     },
     ...commonDropdowns,
   ];
 
-  const motorbikeDropdowns = [
+  const motorbikeDropdowns: IVehicleFormDropdown[] = [
     {
       title: 'Cilindrada',
       propertyName: 'cc',
@@ -200,6 +204,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
       value: inputsData.cc,
       options: motorbikeDropdownsOptions.ccs,
       isVehicleData: true,
+      isLoading: loading.cc,
     },
     ...commonDropdowns,
   ];

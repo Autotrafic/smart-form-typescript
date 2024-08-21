@@ -34,11 +34,11 @@ interface IFormMotorbikeInputs {
 }
 
 export interface IFormDataLoading {
-  brand?: boolean;
-  fuel?: boolean;
-  model?: boolean;
-  itp?: boolean;
-  cc?: boolean;
+  brand: boolean;
+  fuel: boolean;
+  model: boolean;
+  itp: boolean;
+  cc: boolean;
 }
 
 interface CarFormData {

@@ -28,16 +28,30 @@ export interface IVehiclesFormContext {
   loading: IFormDataLoading;
 }
 
+export type IPropertyToModifyProps =
+  | 'buyerCommunity'
+  | 'brand'
+  | 'fuel'
+  | 'model'
+  | 'cc'
+  | 'phoneNumber'
+  | 'vehicleTermsAccepted'
+  | '';
+
+export type IDropdownOptions =
+  | AutonomousCommunity[]
+  | ICarBrandsResponseParsed
+  | IFuelsResponseParsed
+  | ICarModelsResponseParsed
+  | IMotorbikesResponseParsed;
+
 interface IVehicleFormDropdown {
   title: string;
-  propertyName: string;
-  isFilled: IBuyerCommunity | Fuel | MotorbikeCCRange | string;
+  propertyName: IPropertyToModifyProps;
   value: IBuyerCommunity | Fuel | MotorbikeCCRange | string;
-  options:
-    | AutonomousCommunity[]
-    | ICarBrandsResponseParsed
-    | IFuelsResponseParsed
-    | ICarModelsResponseParsed
-    | IMotorbikesResponseParsed;
+  options: IDropdownOptions;
+
   isVehicleData: boolean;
+  isFilled: IBuyerCommunity | Fuel | MotorbikeCCRange | string;
+  isLoading: boolean;
 }
