@@ -6,7 +6,7 @@ import {
   IMotorbikesResponseParsed,
 } from './import';
 import { Fuel, MotorbikeCCRange } from './import/enums';
-import { IVehicleFormData } from '.';
+import { IBuyerCommunity, IFormDataLoading, IVehicleFormData } from '.';
 
 export interface ICarDropdownOptions {
   brands: ICarBrandsResponseParsed;

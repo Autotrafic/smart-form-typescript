@@ -4,7 +4,6 @@ import { fetchItpPrice } from '../services/itp';
 import { useMultiStep } from '@modules/core/context/multiStep';
 import { sendFirstTouchMessage } from '../services/whatsapp';
 import { fetchCarBrands, fetchCarFuels, fetchCarModels, fetchFuelMotorbikeCCs } from '../services/vehicle';
-import { processVehicleFormSubmit } from '../utils/formatter';
 import { countPropertiesWithValue, getPrices } from '../utils/functions';
 import { CarFormData, IFormDataLoading, IVehicleFormData } from '../interfaces';
 import { VehicleType } from '../interfaces/enums';
@@ -30,12 +29,12 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
   const { orderData, updateOrderData } = useOrderData();
 
   const [formData, setFormData] = useState<IVehicleFormData>(orderData.vehicleForm);
+  const [visibleFields, setVisibleFields] = useState<number>(orderData.vehicleForm.visibleFields);
+  const [loading, setLoading] = useState<IFormDataLoading>(formDataLoadingInitialState);
   const [carDropdownsOptions, setCarDropdownsOptions] = useState<ICarDropdownOptions>(carDropdownsOptionsInitialState);
   const [motorbikeDropdownsOptions, setMotorbikeDropdownsOptions] = useState<IMotorbikeDropdownOptions>(
     motorbikeDropdownOptionsInitialState
   );
-  const [visibleFields, setVisibleFields] = useState<number>(orderData.vehicleForm.visibleFields);
-  const [loading, setLoading] = useState<IFormDataLoading>(formDataLoadingInitialState);
 
   const { vehicle, inputsData } = formData;
 
@@ -135,11 +134,10 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
   const submitForm = async () => {
     setLoading({ itp: true });
 
-    const processedFormData = processVehicleFormSubmit(formData);
-    const itp = await fetchItpPrice(processedFormData);
-    const prices = getPrices(itp.ITP, processedFormData, orderData.isReferralValid);
+    const itp = await fetchItpPrice(formData);
+    const prices = getPrices(itp.ITP, formData, orderData.isReferralValid);
 
-    sendFirstTouchMessage(processedFormData.phoneNumber, formData, orderData.isReferralValid);
+    sendFirstTouchMessage(formData.phoneNumber, formData, orderData.isReferralValid);
 
     if (itp)
       updateOrderData(

@@ -2,7 +2,7 @@ import { DayInMonth } from '@modules/core/interfaces';
 import { Fuel, VehicleType } from './enums';
 import { AutonomousCommunityValue, MotorbikeCCRange } from './import/enums';
 
-export type IBuyerCommunity = AutonomousCommunityValue | undefined;
+export type IBuyerCommunity = AutonomousCommunityValue;
 
 
 export interface IVehicleFormData {
@@ -50,7 +50,7 @@ interface CarFormData {
 
 interface MotorbikeFormData {
   type: VehicleType;
-  cc: MotorbikeCCRange | "";
+  cc: MotorbikeCCRange;
   value: number;
 }
 

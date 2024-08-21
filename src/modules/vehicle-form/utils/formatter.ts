@@ -1,5 +1,11 @@
-export function sortBrandsAlphabetically(arr) {
-  return arr.sort((a, b) => {
+import { ICarBrand, ICarModel } from '../interfaces/import';
+import { VehicleType } from '../interfaces/enums';
+import { IVehicleFormData, MotorbikeFormData } from '../interfaces';
+import { IRequestBodyCalculateITP } from '../interfaces/export';
+import { MotorbikeCCRange } from '../interfaces/import/enums';
+
+export function sortBrandsAlphabetically(brands: ICarBrand[]): ICarBrand[] {
+  return brands.sort((a, b) => {
     if (a.brandName < b.brandName) {
       return -1;
     }
@@ -10,8 +16,8 @@ export function sortBrandsAlphabetically(arr) {
   });
 }
 
-export function sortModelsAlphabetically(arr) {
-  return arr.sort((a, b) => {
+export function sortModelsAlphabetically(models: ICarModel[]): ICarModel[] {
+  return models.sort((a, b) => {
     if (a.modelName < b.modelName) {
       return -1;
     }
@@ -22,38 +28,44 @@ export function sortModelsAlphabetically(arr) {
   });
 }
 
-export function formatSubmitDataForItp(orderData) {
-  const { vehicleType, registrationDate, buyerCommunity, cc, model } = orderData;
+export function formatSubmitDataForItp(formData: IVehicleFormData): IRequestBodyCalculateITP {
+  const { vehicle, registrationDate, buyerCommunity } = formData;
+  const { type, model: carModel, cc, value } = vehicle;
 
-  const parsedVehicleModel = model ? model : null;
+  let vehicleCC: number = 0;
+  let vehicleValue: number = 0;
 
-  const ccMotorbike = cc ? extractDataFromCC(cc) : null;
-  const vehicleCC = ccMotorbike?.cc ?? model?.cc;
-
-  const vehicleValue = vehicleType === 1 ? parsedVehicleModel?.value : ccMotorbike?.vehicleValue;
+  if (type === VehicleType.CAR) {
+    vehicleCC = carModel.cc;
+    vehicleValue = carModel.value;
+  } else {
+    const ccMotorbike = extractDataFromCC(cc, value);
+    vehicleCC = ccMotorbike.cc;
+    vehicleValue = ccMotorbike.vehicleValue;
+  }
 
   const formattedData = {
-    tipoVehiculo: vehicleType,
+    tipoVehiculo: type,
     fechaMatriculacion: registrationDate,
     comunidadAutonoma: buyerCommunity,
     valorVehiculo: vehicleValue ?? 0,
-    potenciaFiscal: convertStringToNumber(parsedVehicleModel?.cvf),
+    potenciaFiscal: convertStringToNumber(carModel.cvf ?? ''),
     cilindrada: vehicleCC,
   };
 
   return formattedData;
 }
 
-function convertStringToNumber(str: string) {
+function convertStringToNumber(str: string): number | null {
   if (!str) return null;
 
   const normalizedStr = str.replace(',', '.');
   return parseFloat(normalizedStr);
 }
 
-export function parseStringifiedToOriginal(value: object | number | string) {
-  const isValueStringCC = typeof value === 'string' && value[0] === '{';
-  if (isValueStringCC) {
+export function parseStringVehicleDataToObject(value: string): string | object {
+  const isStringVehicleData = typeof value === 'string' && value[0] === '{';
+  if (isStringVehicleData) {
     const parsedValue = JSON.parse(value);
     return parsedValue;
   }
@@ -61,10 +73,9 @@ export function parseStringifiedToOriginal(value: object | number | string) {
   return value;
 }
 
-function extractDataFromCC(ccObject) {
-  const name = ccObject.cc;
+function extractDataFromCC(ccString: MotorbikeCCRange, vehicleValue: number): { cc: number; vehicleValue: number } {
   const regex = /[\d,.]+/g;
-  const matches = name.match(regex);
+  const matches = ccString.match(regex);
 
   if (matches) {
     const numbers = matches.map((match) => {
@@ -84,20 +95,8 @@ function extractDataFromCC(ccObject) {
     const floats = numbers.map((num) => parseFloat(num));
     const number = floats.sort((a, b) => a - b)[0];
 
-    return { cc: number, vehicleValue: ccObject.value };
+    return { cc: number, vehicleValue };
   }
 
-  return null;
-}
-
-export function processVehicleFormSubmit(vehicleFormData) {
-  const processedData = vehicleFormData;
-  delete processedData.vehicleTermsAccepted;
-  if (vehicleFormData?.model)
-    processedData.model =
-      typeof vehicleFormData.model === 'string' ? JSON.parse(vehicleFormData.model) : vehicleFormData.model;
-  if (vehicleFormData?.cc)
-    processedData.cc = typeof vehicleFormData.cc === 'string' ? JSON.parse(vehicleFormData.cc) : vehicleFormData.cc;
-
-  return processedData;
+  return { cc: -1, vehicleValue };
 }

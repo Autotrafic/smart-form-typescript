@@ -1,6 +1,6 @@
 import { CarFormData, IFormDataLoading, IFormInputs, IVehicleFormData, MotorbikeFormData } from '../interfaces';
 import { VehicleType } from '../interfaces/enums';
-import { AutonomousCommunityValue } from '../interfaces/import/enums';
+import { AutonomousCommunityValue, MotorbikeCCRange } from '../interfaces/import/enums';
 import {
   ICarDropdownOptions,
   IMotorbikeDropdownOptions,
@@ -27,13 +27,13 @@ const vehicleInitialState: CarFormData & MotorbikeFormData = {
     modelOf: '',
     id: '',
   },
-  cc: '',
+  cc: MotorbikeCCRange.DEFAULT,
   value: 0,
 };
 
 const inputsDataInitialState: IFormInputs = {
   date: { day: '', month: '', year: '' },
-  buyerCommunity: undefined,
+  buyerCommunity: AutonomousCommunityValue.DEFAULT,
   phoneNumber: '',
   vehicleTermsAccepted: false,
   brand: '',
@@ -47,7 +47,7 @@ export const formDataInitialState: IVehicleFormData = {
   date: { day: '', month: '', year: '' },
   daysInMonth: [{ name: 0, value: 0 }],
   registrationDate: '',
-  buyerCommunity: undefined,
+  buyerCommunity: AutonomousCommunityValue.DEFAULT,
   phoneNumber: '',
   vehicle: vehicleInitialState,
   inputsData: inputsDataInitialState,

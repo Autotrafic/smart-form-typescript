@@ -23,6 +23,7 @@ export enum MotorbikeCCRange {
   FROM_751_TO_1000_CC = 'Entre 750,01 y 1.000 c.c.',
   FROM_1001_TO_1200_CC = 'Entre 1.000,01 y 1.200 c.c.',
   FROM_1201_TO_INFINITE_CC = 'Entre 1.200,01 c.c. y superior cilindrada',
+  DEFAULT = '',
 }
 
 export enum ElectricPowerRange {

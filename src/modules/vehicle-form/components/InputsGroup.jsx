@@ -4,7 +4,7 @@ import DatePicker from '@modules/core/design-system/DatePicker';
 import Dropdown from '@modules/core/design-system/Dropdown';
 import PhoneNumberInput from '@modules/core/components/PhoneNumberInput';
 import LegalCheckbox from '@modules/core/components/LegalCheckbox';
-import { parseStringifiedToOriginal } from '../utils/formatter';
+import { parseStringVehicleDataToObject } from '../utils/formatter';
 
 const InputsGroupStyled = styled.div`
   width: 100%;
@@ -26,7 +26,7 @@ function InputsGroup() {
   };
 
   const handleChangeVehicle = (value, propertyToModify) => {
-    const parsedValue = parseStringifiedToOriginal(value);
+    const parsedValue = parseStringVehicleDataToObject(value);
 
     updateFormData((prev) => ({
       ...prev,
