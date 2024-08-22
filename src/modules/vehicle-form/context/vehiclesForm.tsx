@@ -38,6 +38,8 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
 
   const { vehicle, inputsData } = formData;
 
+  console.log('formdata', formData);
+
   const updatedDate = useMemo(() => {
     return {
       day: formData.date.day,
@@ -96,7 +98,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
 
       if (updatedDate.day && updatedDate.month && updatedDate.year && brand) {
         setLoading((prev: IFormDataLoading) => ({ ...prev, fuel: true }));
-        const carFuelsOptions = await fetchCarFuels(updatedDate.year, brand);
+        const carFuelsOptions = await fetchCarFuels(Number(updatedDate.year), brand);
         setCarDropdownsOptions(
           (prevState): ICarDropdownOptions => ({
             ...prevState,
@@ -117,7 +119,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
 
       if (day && month && year && brand && fuel) {
         setLoading((prev: IFormDataLoading) => ({ ...prev, model: true }));
-        const carModelsOptions = await fetchCarModels(year, brand, fuel);
+        const carModelsOptions = await fetchCarModels(Number(year), brand, fuel);
         setCarDropdownsOptions(
           (prevState): ICarDropdownOptions => ({
             ...prevState,
@@ -157,7 +159,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
     {
       title: 'Comunidad autónoma del comprador',
       propertyName: 'buyerCommunity',
-      isFilled: formData.buyerCommunity,
+      isFilled: !!formData.buyerCommunity,
       value: inputsData.buyerCommunity,
       options: autonomousCommunities,
       isVehicleData: false,
@@ -169,7 +171,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
     {
       title: 'Marca',
       propertyName: 'brand',
-      isFilled: vehicle.brand,
+      isFilled: !!vehicle.brand,
       value: inputsData.brand,
       options: carDropdownsOptions.brands,
       isVehicleData: true,
@@ -178,7 +180,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
     {
       title: 'Combustible',
       propertyName: 'fuel',
-      isFilled: vehicle.fuel,
+      isFilled: !!vehicle.fuel,
       value: inputsData.fuel,
       options: carDropdownsOptions.fuels,
       isVehicleData: true,
@@ -187,7 +189,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
     {
       title: 'Modelo',
       propertyName: 'model',
-      isFilled: vehicle.model.modelName,
+      isFilled: !!vehicle.model.modelName,
       value: inputsData.model,
       options: carDropdownsOptions.models,
       isVehicleData: true,
@@ -200,7 +202,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
     {
       title: 'Cilindrada',
       propertyName: 'cc',
-      isFilled: vehicle.cc,
+      isFilled: !!vehicle.cc,
       value: inputsData.cc,
       options: motorbikeDropdownsOptions.ccs,
       isVehicleData: true,

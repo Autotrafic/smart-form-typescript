@@ -29,19 +29,36 @@ const Container = styled.div<ContainerProps>`
     `}
 `;
 
-type WrappedComponentProps = {
+export interface WrappedInputProps {
   isVisible: boolean;
-  isSmall?: boolean;
   title: string;
-  loading: boolean;
+  isLoading: boolean;
   options: IDropdownOptions;
   value: string;
-  hasValue: string;
-  handleChange: (value: string) => void;
-};
+  isFilled: boolean;
+  handleChange: React.ChangeEventHandler<HTMLInputElement>;
+  fontSize: string;
+  isSmall: boolean;
+  type: 'text';
+  fixedValue: string;
+  width: number;
+}
+
+export interface WrappedDropdownProps {
+  isVisible: boolean;
+  title: string;
+  options: IDropdownOptions;
+  value: string;
+  isFilled: boolean;
+  handleChange: React.ChangeEventHandler<HTMLSelectElement>;
+  isLoading?: boolean;
+  fontSize?: `${string}px`;
+}
+
+type WrappedProps = WrappedInputProps | WrappedDropdownProps;
 
 const fieldWithVisibility =
-  <P extends WrappedComponentProps>(WrappedComponent: React.ComponentType<P>) =>
+  <P extends WrappedProps>(WrappedComponent: React.ComponentType<P>) =>
   (props: P) => {
     return (
       <Container {...props}>

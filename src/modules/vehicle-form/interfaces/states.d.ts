@@ -43,15 +43,17 @@ export type IDropdownOptions =
   | ICarBrandsResponseParsed
   | IFuelsResponseParsed
   | ICarModelsResponseParsed
-  | IMotorbikesResponseParsed;
+  | IMotorbikesResponseParsed
+  | VehicleDate;
+
+export type IDropdownValue = IBuyerCommunity | Fuel | MotorbikeCCRange | string;
 
 interface IVehicleFormDropdown {
   title: string;
   propertyName: IPropertyToModifyProps;
-  value: IBuyerCommunity | Fuel | MotorbikeCCRange | string;
+  value: IDropdownValue;
   options: IDropdownOptions;
-
   isVehicleData: boolean;
-  isFilled: IBuyerCommunity | Fuel | MotorbikeCCRange | string;
+  isFilled: boolean;
   isLoading: boolean;
 }

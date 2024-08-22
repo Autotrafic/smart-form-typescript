@@ -2,8 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import fieldWithVisibility from '@modules/vehicle-form/HOC/filedWithVisibility';
+import fieldWithVisibility, { WrappedDropdownProps } from '@modules/vehicle-form/HOC/filedWithVisibility';
 import { colors } from '../utils/styles';
+import { IDropdownOptions, IDropdownValue } from '@modules/vehicle-form/interfaces/states';
+
+interface StyledSelectProps {
+  $fontSize: string;
+  $hasValue: boolean;
+}
 
 const SelectContainer = styled.div`
   width: 100%;
@@ -18,7 +24,7 @@ const SelectContainer = styled.div`
   color: blue;
 `;
 
-const StyledSelect = styled.select`
+const StyledSelect = styled.select<StyledSelectProps>`
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -52,19 +58,39 @@ const Icon = styled(FontAwesomeIcon)`
   background-color: white;
 `;
 
-const Dropdown = ({ title, options, value, hasValue, defaultValue = '', handleChange, loading, fontSize = '15px' }) => {
+interface DropdownProps {
+  title: string;
+  options: IDropdownOptions;
+  value: IDropdownValue;
+  isFilled: boolean;
+  handleChange: React.ChangeEventHandler<HTMLSelectElement>;
+  isLoading?: boolean;
+  fontSize?: string;
+  defaultValue?: string;
+}
+
+const Dropdown = ({
+  title,
+  options,
+  value,
+  isFilled,
+  handleChange,
+  isLoading,
+  fontSize = '15px',
+  defaultValue = '',
+}: DropdownProps) => {
   return (
     <SelectContainer>
       <StyledSelect
         required
-        onChange={(e) => handleChange(e.target.value)}
-        $hasValue={hasValue}
+        $hasValue={isFilled}
         $fontSize={fontSize}
-        disabled={loading}
+        disabled={isLoading}
         value={typeof value === 'object' ? JSON.stringify(value) : value}
+        onChange={handleChange}
       >
-        <TitleOption value={defaultValue}>{loading ? 'Cargando...' : title}</TitleOption>
-        {options?.map((option, index) => (
+        <TitleOption value={defaultValue}>{isLoading ? 'Cargando...' : title}</TitleOption>
+        {options?.map((option: { value: string; name: string }, index: number) => (
           <option key={index} value={option.value}>
             {option.name}
           </option>
@@ -75,4 +101,4 @@ const Dropdown = ({ title, options, value, hasValue, defaultValue = '', handleCh
   );
 };
 
-export default fieldWithVisibility(Dropdown);
+export default fieldWithVisibility<WrappedDropdownProps>(Dropdown);

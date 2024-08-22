@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Dropdown from './Dropdown';
 import { colors } from '../utils/styles';
 import { months } from '../utils/data';
+import { IVehicleFormData } from '@modules/vehicle-form/interfaces';
+import { DayInMonth } from '../interfaces';
 
 const Container = styled.div`
   display: flex;
@@ -17,36 +19,43 @@ const Label = styled.div`
   font-size: 14px;
 `;
 
-function DatePicker({ updateFormData, value, ...props }) {
-  const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 100 }, (_, i) => {
-    return { name: currentYear - i, value: currentYear - i };
-  });
+interface DatePickerProps {
+  formData: IVehicleFormData;
+  updateFormData: (setStateFunc: (prevOrder: IVehicleFormData) => IVehicleFormData) => void;
+}
 
-  const updateDaysInMonth = (month, year) => {
-    const days = new Date(year, month, 0).getDate();
+function DatePicker({ updateFormData, formData, ...props }: DatePickerProps) {
+  const { day, month, year } = formData.date;
+
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 100 }, (_, i) => ({ name: currentYear - i, value: currentYear - i }));
+
+  const updateDaysInMonth = (month: string, year: string): DayInMonth[] => {
+    const days = new Date(Number(year), Number(month), 0).getDate();
+
     return Array.from({ length: days }, (_, i) => {
       return { name: i + 1, value: i + 1 };
     });
   };
 
   useEffect(() => {
-    if (value.date.month && value.date.year) {
-      const days = updateDaysInMonth(value.date.month, value.date.year);
-      updateFormData((prev) => (prev ? { ...prev, daysInMonth: days } : { daysInMonth: days }));
-      if (!days.some((day) => day.value === Number(value.date.day))) {
-        updateFormData((prev) => (prev ? { ...prev, date: { ...prev.date, day: '' } } : { day: '' }));
+    if (month && year) {
+      const daysInMonth: DayInMonth[] = updateDaysInMonth(month, year);
+      updateFormData((prev: IVehicleFormData) => ({ ...prev, daysInMonth: daysInMonth }));
+
+      if (!daysInMonth.some((dayInMonth: DayInMonth) => dayInMonth.value === Number(day))) {
+        updateFormData((prev: IVehicleFormData) => ({ ...prev, date: { ...prev.date, day: '' } }));
       }
     }
-  }, [value.date.month, value.date.year]);
+  }, [month, year]);
 
   useEffect(() => {
-    if (value.date.month && value.date.year && value.date.day)
-      updateFormData((prev) => ({
+    if (month && year && day)
+      updateFormData((prev: IVehicleFormData) => ({
         ...prev,
-        registrationDate: `${value.date.day}/${value.date.month}/${value.date.year}`,
+        registrationDate: `${day}/${month}/${year}`,
       }));
-  }, [value.date.month, value.date.year, value.date.day]);
+  }, [month, year, day]);
 
   return (
     <div>
@@ -55,32 +64,35 @@ function DatePicker({ updateFormData, value, ...props }) {
         <Dropdown
           title="Año"
           options={years}
-          value={value.date.year && value.date.year}
-          hasValue={value.date.year}
-          handleChange={(value) =>
-            updateFormData((prev) => (prev ? { ...prev, date: { ...prev.date, year: value } } : { year: value }))
+          value={year && year}
+          isFilled={!!year}
+          handleChange={(e) =>
+            updateFormData((prev: IVehicleFormData) => ({ ...prev, date: { ...prev.date, year: e.target.value } }))
           }
+          isVisible
           {...props}
         />
         <Dropdown
           title="Mes"
           options={months}
-          value={value.date.month && value.date.month}
-          hasValue={value.date.month}
-          handleChange={(value) =>
-            updateFormData((prev) => (prev ? { ...prev, date: { ...prev.date, month: value } } : { month: value }))
+          value={month && month}
+          isFilled={!!month}
+          handleChange={(e) =>
+            updateFormData((prev: IVehicleFormData) => ({ ...prev, date: { ...prev.date, month: e.target.value } }))
           }
+          isVisible
           fontSize="12px"
           {...props}
         />
         <Dropdown
           title="Día"
-          options={value?.daysInMonth}
-          value={value.date.day && +value.date.day}
-          hasValue={value.date.day}
-          handleChange={(value) =>
-            updateFormData((prev) => (prev ? { ...prev, date: { ...prev.date, day: value } } : { day: value }))
+          options={formData.daysInMonth}
+          value={day && day}
+          isFilled={!!day}
+          handleChange={(e) =>
+            updateFormData((prev: IVehicleFormData) => ({ ...prev, date: { ...prev.date, day: e.target.value } }))
           }
+          isVisible
           {...props}
         />
       </Container>

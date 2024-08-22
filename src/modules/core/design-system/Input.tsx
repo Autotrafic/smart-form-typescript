@@ -1,11 +1,19 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import fieldWithVisibility from '@modules/vehicle-form/HOC/filedWithVisibility';
+import fieldWithVisibility, { WrappedInputProps } from '@modules/vehicle-form/HOC/filedWithVisibility';
 import { colors } from '../utils/styles';
+
+interface InputStyledProps {
+  $width: number;
+  $isActive: boolean;
+  $isSmall: boolean;
+  $border?: string;
+  value?: string;
+}
 
 const Container = styled.div``;
 
-const InputStyled = styled.div`
+const InputStyled = styled.div<InputStyledProps>`
   width: ${({ $width }) => ($width ? $width : '100%')};
   border: ${({ $isActive }) => ($isActive ? '2px' : '1px')} solid ${({ $isActive }) => ($isActive ? colors.primaryColor : colors.lightGrey)};
   border: ${({ value }) => value && `2px solid ${colors.primaryGreen}`};
@@ -37,6 +45,7 @@ const StyledInput = styled.input`
     margin: 0 !important;
   }
 `;
+
 const LabelContainer = styled.div`
   width: 100%;
   display: flex;
@@ -54,23 +63,31 @@ const FixedValue = styled.span`
   line-height: normal;
 `;
 
-function Input({ title, value, type = 'text', handleChange, fixedValue, isSmall, width, ...props }) {
+interface InputProps extends React.HTMLProps<HTMLInputElement> {
+  title: string;
+  value: string;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isSmall: boolean;
+  type: 'text';
+  fixedValue: string;
+  width: number;
+}
+
+function Input({ title, value, type = 'text', handleChange, fixedValue, isSmall, width, ...props }: InputProps) {
   const [borderActive, setBorderActive] = useState(false);
 
-  const handleBlur = (e) => {
+  const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     setBorderActive(value !== '');
   };
 
   return (
     <Container>
-      <InputStyled $isActive={borderActive} $isSmall={isSmall} $width={width} $border={props?.border}>
+      <InputStyled $isActive={borderActive} $isSmall={isSmall} $width={width}>
         <LabelContainer>
           {fixedValue && <FixedValue>{fixedValue}</FixedValue>}
           <StyledInput
             required
-            $isSmall={isSmall}
-            $width={width}
             type={type}
             placeholder={title}
             onFocus={() => setBorderActive(true)}
@@ -85,4 +102,4 @@ function Input({ title, value, type = 'text', handleChange, fixedValue, isSmall,
   );
 }
 
-export default fieldWithVisibility(Input);
+export default fieldWithVisibility<WrappedInputProps>(Input);

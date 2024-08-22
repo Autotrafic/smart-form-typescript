@@ -29,7 +29,11 @@ const BottomLine = styled.div`
   border-radius: 2px;
 `;
 
-function Title({ children, ...props }) {
+interface TitleProps extends React.HTMLProps<HTMLSpanElement> {
+  children: React.ReactNode;
+}
+
+function Title({ children, ...props }: TitleProps) {
   return (
     <Container>
       <TitleText {...props}>{children}</TitleText>

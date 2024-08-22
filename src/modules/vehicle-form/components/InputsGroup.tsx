@@ -39,20 +39,20 @@ function InputsGroup() {
 
   return (
     <InputsGroupStyled>
-      <DatePicker isVisible={isComponentVisible(0)} updateFormData={updateFormData} value={formData} />
+      <DatePicker updateFormData={updateFormData} formData={formData} />
       {dropdowns.map((dropdown, index) => {
         const { propertyName, title, options, value, isFilled, isVehicleData, isLoading } = dropdown;
         const handler = isVehicleData ? handleChangeVehicle : handleChange;
         return (
           <Dropdown
             key={propertyName}
-            loading={isLoading}
+            isLoading={isLoading}
             isVisible={isComponentVisible(index + 1)}
             title={title}
             options={options}
             value={value}
-            hasValue={isFilled}
-            handleChange={(value: string) => handler(value, propertyName)}
+            isFilled={isFilled}
+            handleChange={(e: React.ChangeEvent<HTMLSelectElement>) => handler(e.target.value, propertyName)}
           />
         );
       })}
@@ -63,7 +63,7 @@ function InputsGroup() {
         handleChange={(value: string) => handleChange(value, 'phoneNumber')}
       />
       <LegalCheckbox
-        value={null}
+        value={formData.inputsData.vehicleTermsAccepted}
         handleChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e.target.checked, 'vehicleTermsAccepted')}
       />
     </InputsGroupStyled>

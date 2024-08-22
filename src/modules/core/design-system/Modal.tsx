@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { colors } from '../utils/styles';
 
@@ -44,7 +44,13 @@ const CloseButton = styled.span`
   cursor: pointer;
 `;
 
-function Modal({ showModal, setShowModal, children }) {
+interface ModalProps {
+  showModal: boolean;
+  setShowModal: (p: boolean) => void;
+  children: ReactNode;
+}
+
+function Modal({ showModal, setShowModal, children }: ModalProps) {
   return (
     <>
       {showModal ? (
