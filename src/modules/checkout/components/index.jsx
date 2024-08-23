@@ -22,28 +22,6 @@ const ResumeSectionWrapper = styled.div`
   gap: 1.5em;
 `;
 
-const ErrorWarning = styled.div`
-  border: 2px solid ${colors.errorRed};
-  border-radius: 3px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ErrorWarningText = styled.p`
-  font-size: 12px;
-  margin: 5px 6px;
-  color: ${colors.errorRed};
-  font-weight: bold;
-`;
-
-const ExclamationIcon = styled(FontAwesomeIcon)`
-  color: ${colors.errorRed};
-  width: 18px;
-  height: 18px;
-  margin: 5px 4px 5px 8px;
-`;
-
 const ResumeSection = styled.div``;
 
 function Checkout() {

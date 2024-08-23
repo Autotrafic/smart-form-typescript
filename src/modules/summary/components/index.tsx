@@ -6,6 +6,7 @@ import { useOrderData } from "@modules/core/context/orderData";
 import TotalTable from "./TotalTable/TotalTable";
 import DiscountAlert from "@modules/core/components/DiscountAlert";
 import { sendSummaryEmail } from "../utils/email";
+import { Steps } from "@modules/core/interfaces/enums";
 
 const Container = styled.div`
   width: 100%;
@@ -32,7 +33,7 @@ function Summary() {
     if (orderData.isProduction) sendSummaryEmail(orderData);
   }, []);
 
-  const handleNextStep = (step) => {
+  const handleNextStep = (setStepState: (step: Steps) => number) => {
     updateOrderData((prev) => ({
       ...prev,
       prices: {
@@ -41,7 +42,7 @@ function Summary() {
       },
       crossSelling: crossSelected,
     }));
-    updateCurrentStep(step);
+    updateCurrentStep(setStepState);
   };
 
   const vehicleData = orderData.vehicleForm;

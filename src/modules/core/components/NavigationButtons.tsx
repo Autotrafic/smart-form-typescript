@@ -1,8 +1,14 @@
 import styled from 'styled-components';
 import Button from '../design-system/Button';
 import { useMultiStep } from '../context/multiStep';
+import { Steps } from '../interfaces/enums';
 
-const Container = styled.div`
+interface ContainerProps {
+  $onlyBack: boolean | undefined;
+  $onlyNext: boolean | undefined;
+}
+
+const Container = styled.div<ContainerProps>`
   width: 100%;
   display: flex;
   align-items: center;
@@ -10,17 +16,24 @@ const Container = styled.div`
   justify-content: ${({ $onlyNext }) => ($onlyNext ? 'end' : 'space-between')};
 `;
 
-function NavigationButtons({ updateCurrentStep, onlyBack, onlyNext }) {
+interface NavigationButtonsProps {
+  onlyBack?: boolean;
+  onlyNext?: boolean;
+  updateCurrentStep?: (setStepFunc: (prev: Steps) => number) => void;
+}
+
+function NavigationButtons({ updateCurrentStep, onlyBack, onlyNext }: NavigationButtonsProps) {
   const { updateCurrentStep: handleStep } = useMultiStep();
 
-  const updateStepFunc = updateCurrentStep ?? handleStep;
+  const existsUpdateFunc = !!updateCurrentStep;
+  const updateStepFunc = existsUpdateFunc ? updateCurrentStep : handleStep;
 
   const navigateToPreviousStep = () => {
-    updateStepFunc((prevStep) => prevStep - 1);
+    updateStepFunc((prevStep: Steps) => prevStep - 1);
   };
 
   const navigateToNextStep = () => {
-    updateStepFunc((prevStep) => prevStep + 1);
+    updateStepFunc((prevStep: Steps) => prevStep + 1);
   };
 
   return (

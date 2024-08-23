@@ -12,6 +12,6 @@ export interface DayInMonth {
 }
 
 export interface IMultiStepContext {
-  updateCurrentStep: (newStep: Steps) => void;
+  updateCurrentStep: ((step: Steps | ((prevState: Steps) => Steps)) => void);
   currentStep: Steps;
 }

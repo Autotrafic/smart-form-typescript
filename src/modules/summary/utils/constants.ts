@@ -1,3 +1,5 @@
+import { ISummaryItem } from "../interfaces";
+
 const DEFAULT_PRICES = {
     TASAS_DGT: 55.70,
     IVA: 10.20,
@@ -10,13 +12,13 @@ const DEFAULT_PRICES = {
     PROFIT: 55.07,
   };
   
-  export const DEFAULT_SUMMARY_ITEMS = [
+  export const DEFAULT_SUMMARY_ITEMS: ISummaryItem[] = [
     { name: "Tasas DGT", price: DEFAULT_PRICES.TASAS_DGT },
     { name: "IVA", price: DEFAULT_PRICES.IVA },
     { name: "Gestión", price: DEFAULT_PRICES.PROFIT },
   ];
   
-  export const CICLOMOTOR_SUMMARY_ITEMS = [
+  export const CICLOMOTOR_SUMMARY_ITEMS: ISummaryItem[] = [
     { name: "Tasas DGT", price: CICLOMOTOR_PRICES.TASAS_DGT },
     { name: "IVA", price: CICLOMOTOR_PRICES.IVA },
     { name: "Gestión", price: CICLOMOTOR_PRICES.PROFIT },

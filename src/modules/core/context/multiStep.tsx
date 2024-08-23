@@ -8,7 +8,7 @@ const MultiStepStore = (): IMultiStepContext => {
   const [currentStep, setCurrentStep] = useState<Steps>(Steps.VEHICLE_FORM);
 
   return {
-    updateCurrentStep(step: Steps) {
+    updateCurrentStep(step: ((prevState: Steps) => Steps) | Steps) {
       setCurrentStep(step);
       scrollToNextStep();
     },

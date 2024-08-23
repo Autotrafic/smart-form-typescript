@@ -30,7 +30,12 @@ const Link = styled.a`
   color: ${colors.primaryColor} !important;
 `;
 
-function LegalCheckbox({ value, handleChange }) {
+interface LegalCheckboxProps {
+  value: string;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function LegalCheckbox({ value, handleChange }: LegalCheckboxProps) {
   return (
     <Container>
       <Checkbox type="checkbox" id="legal" required checked={!!value} onChange={handleChange} />
