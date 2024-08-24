@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { colors, styles } from "@modules/core/utils/styles";
+import styled from 'styled-components';
+import { colors, styles } from '@modules/core/utils/styles';
 
 const Container = styled.div`
   margin-bottom: 0.9em;
@@ -30,7 +30,13 @@ const Line = styled.div`
   margin-top: 2px;
 `;
 
-function ResumeTitle({ title, hideLink, handleLink }) {
+interface ResumeTitle {
+  title: string;
+  hideLink?: boolean;
+  handleLink?: () => void;
+}
+
+function ResumeTitle({ title, hideLink, handleLink }: ResumeTitle) {
   return (
     <Container>
       <Header>

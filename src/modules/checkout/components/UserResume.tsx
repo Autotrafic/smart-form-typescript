@@ -1,16 +1,10 @@
-import { useState } from "react";
-import styled from "styled-components";
-import Input from "@modules/core/design-system/Input";
-import {
-  BillForm,
-  ItemContent,
-  ItemTitle,
-  ResumeItem,
-  ResumeList,
-} from "./CheckoutStyles";
-import ResumeTitle from "./ResumeTitle";
-import { useOrderData } from "@modules/core/context/orderData";
-import { colors } from "@modules/core/utils/styles";
+import { useState } from 'react';
+import styled from 'styled-components';
+import Input from '@modules/core/design-system/Input';
+import { BillForm, ItemContent, ItemTitle, ResumeItem, ResumeList } from './CheckoutStyles';
+import ResumeTitle from './ResumeTitle';
+import { useOrderData } from '@modules/core/context/orderData';
+import { colors } from '@modules/core/utils/styles';
 
 const Button = styled.button`
   width: 100% !important;
@@ -26,25 +20,30 @@ const Button = styled.button`
   cursor: pointer !important;
 `;
 
-function UserResume({ userBillCompleted, setUserBillCompleted }) {
+interface UserResume {
+  isUserBillCompleted: boolean;
+  setIsUserBillCompleted: (newValue: boolean) => void;
+}
+
+function UserResume({ isUserBillCompleted, setIsUserBillCompleted }: UserResume) {
   const { orderData, updateOrderData } = useOrderData();
 
   const [billData, setBillData] = useState(orderData?.billData);
 
-  const handleSubmitBillInfo = (e) => {
+  const handleSubmitBillInfo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     updateOrderData((prev) => ({ ...prev, billData }));
-    setUserBillCompleted(true);
+    setIsUserBillCompleted(true);
   };
 
   return (
     <>
       <ResumeTitle
         title="Introduce tus datos:"
-        hideLink={!userBillCompleted}
-        handleLink={() => setUserBillCompleted(false)}
+        hideLink={!isUserBillCompleted}
+        handleLink={() => setIsUserBillCompleted(false)}
       />
-      {userBillCompleted ? (
+      {isUserBillCompleted ? (
         <ResumeList>
           <ResumeItem>
             <ItemTitle>Nombre completo:</ItemTitle>
@@ -62,7 +61,8 @@ function UserResume({ userBillCompleted, setUserBillCompleted }) {
             isSmall
             title="Nombre y apellidos"
             value={billData?.fullName}
-            onChange={(e) =>
+            type="text"
+            handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setBillData((prevState) => ({
                 ...prevState,
                 fullName: e.target.value,
@@ -72,10 +72,10 @@ function UserResume({ userBillCompleted, setUserBillCompleted }) {
           <Input
             isVisible
             isSmall
-            type="email"
+            type="text"
             title="Correo electrónico"
             value={billData?.email}
-            onChange={(e) =>
+            handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setBillData((prevState) => ({
                 ...prevState,
                 email: e.target.value,

@@ -35,7 +35,7 @@ export interface WrappedInputProps {
   value: string;
   handleChange: React.ChangeEventHandler<HTMLInputElement>;
   type: 'text' | 'number';
-  fixedValue: string;
+  fixedValue?: string;
   isSmall?: boolean;
   width?: string;
 }

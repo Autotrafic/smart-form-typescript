@@ -3,7 +3,7 @@ import { IVehicleFormData } from '@modules/vehicle-form/interfaces';
 export interface IOrderDataContext {
   updateOrderData: (setStateFunc: (prevOrder: IOrder) => IOrder) => void;
   orderData: IOrder;
-  isBillDataFilled: boolean | string;
+  isBillDataFilled: boolean;
 }
 
 export interface IOrder {

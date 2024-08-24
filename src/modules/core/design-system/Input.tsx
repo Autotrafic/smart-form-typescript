@@ -68,7 +68,7 @@ interface InputProps extends React.HTMLProps<HTMLInputElement> {
   value: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type: 'text' | 'number';
-  fixedValue: string;
+  fixedValue?: string;
   isSmall?: boolean;
   width?: string;
 }

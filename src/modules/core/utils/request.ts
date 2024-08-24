@@ -4,6 +4,7 @@ import {
   IRequestBodyCarModels,
   IRequestBodyCalculateITP,
   IRequestBodyRegisterOrder,
+  CreateIntentRequestBody,
 } from '@modules/vehicle-form/interfaces/export';
 import { BASE_API_URL } from './urls';
 
@@ -20,6 +21,9 @@ export const autotraficApi = {
     register: (data: IRequestBodyRegisterOrder) => makeRequest('order/register', data),
     update: (orderId: string, data: IUpdateOrderNestedPropertiesBody) => makeRequest(`order/nested/${orderId}`, data),
   },
+  payment: {
+    createIntent: (data: CreateIntentRequestBody) => makeRequest('payment/create-intent', data),
+  },
 };
 
 type RequestParams =
@@ -27,7 +31,8 @@ type RequestParams =
   | IRequestBodyCarModels
   | IRequestBodyCalculateITP
   | IRequestBodyRegisterOrder
-  | IUpdateOrderNestedPropertiesBody;
+  | IUpdateOrderNestedPropertiesBody
+  | CreateIntentRequestBody;
 
 const makeRequest = async (endpoint: string, data?: RequestParams) => {
   const response = await fetch(`${BASE_API_URL}/${endpoint}`, {

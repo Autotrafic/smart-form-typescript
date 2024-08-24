@@ -2,7 +2,7 @@ import React, { createContext, ReactNode, useContext, useEffect, useState } from
 import { IOrder, IOrderDataContext } from '../interfaces/order';
 import { defaultOrderData, orderDataContextInitialState } from '../utils/initialStates';
 
-const OrderDataStore = (isProduction: boolean, isReferralValid: boolean) => {
+const OrderDataStore = (isProduction: boolean, isReferralValid: boolean): IOrderDataContext => {
   const orderDataInitialState: IOrder = { ...defaultOrderData, isProduction, isReferralValid };
 
   const [orderData, setOrderData] = useState<IOrder>(orderDataInitialState);
@@ -15,7 +15,7 @@ const OrderDataStore = (isProduction: boolean, isReferralValid: boolean) => {
     setOrderData(setStateFunc);
   };
 
-  const isBillDataFilled = orderData.billData.fullName && orderData.billData.email;
+  const isBillDataFilled: boolean = !!orderData.billData.fullName && !!orderData.billData.email;
 
   return {
     updateOrderData,

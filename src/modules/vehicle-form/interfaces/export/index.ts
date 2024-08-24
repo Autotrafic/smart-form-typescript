@@ -2,6 +2,7 @@ import { ICrossSelling, IITP, IOrderPrices } from '@modules/core/interfaces/orde
 import { ICarModel, IMotorbike } from '../import';
 import { AutonomousCommunityValue, Fuel } from '../import/enums';
 import { VehicleType } from '../enums';
+import { StripeUserData } from '@modules/checkout/interfaces';
 
 export interface IRequestBodyCarFuels {
   carYear: number;
@@ -48,4 +49,9 @@ export interface IRegisterOrderUser {
   phoneNumber: string;
   email: string;
   buyerCommunity: AutonomousCommunityValue;
+}
+
+export interface CreateIntentRequestBody {
+  amount: number;
+  userData: StripeUserData;
 }

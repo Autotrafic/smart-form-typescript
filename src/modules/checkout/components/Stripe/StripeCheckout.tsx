@@ -1,49 +1,53 @@
-import "./stripe-checkout.css";
-import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useMemo, useState } from "react";
-import { createPaymentIntent } from "../../services/stripeService";
-import LegalCheckbox from "@modules/core/components/LegalCheckbox";
-import { Chat, MasterCardLogo, ShipmentTruck, Verified, VisaLogo } from "@assets/svgs";
-import Separator from "@modules/core/design-system/Separator";
-import Loader from "@modules/core/design-system/Loader";
-import { useOrderData } from "@modules/core/context/orderData";
-import { registerOrder } from "@modules/core/services/order";
-import { TRANSFERENCE_CAR_PRICE } from "@modules/core/utils/constants";
+import './stripe-checkout.css';
+import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import * as stripeJs from '@stripe/stripe-js';
+import { useMemo, useState } from 'react';
+import { createPaymentIntent } from '../../services/stripeService';
+import LegalCheckbox from '@modules/core/components/LegalCheckbox';
+import { Chat, MasterCardLogo, ShipmentTruck, Verified, VisaLogo } from '@assets/svgs';
+import Separator from '@modules/core/design-system/Separator';
+import Loader from '@modules/core/design-system/Loader';
+import { useOrderData } from '@modules/core/context/orderData';
+import { registerOrder } from '@modules/core/services/order';
+import { TRANSFERENCE_CAR_PRICE } from '@modules/core/utils/constants';
+import { cardChecksInitialState } from '@modules/checkout/utils/initialStates';
+import { CardChecks, StripeElementEvent } from '@modules/checkout/interfaces';
 
 const PAYMENT_METHOD = {
-  KLARNA: "klarna",
-  CARD: "card",
+  KLARNA: 'klarna',
+  CARD: 'card',
 };
 
-function StripeCheckout({ moveToNextStep, isBillDataFilled }) {
+interface StripeCheckout {
+  moveToNextStep: () => void;
+  isBillDataFilled: boolean;
+}
+
+function StripeCheckout({ moveToNextStep, isBillDataFilled }: StripeCheckout) {
   const { orderData } = useOrderData();
 
-  const [errorMessage, setErrorMessage] = useState("");
-  const [cardChecks, setCardChecks] = useState({
-    cardExpiry: false,
-    cardNumber: false,
-    cardCvc: false,
-  });
-  const [termsAccepted, setTermsAccepted] = useState(false);
-  const [isPaymentLoading, setPaymentLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [cardChecks, setCardChecks] = useState<CardChecks>(cardChecksInitialState);
+  const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
+  const [isPaymentLoading, setPaymentLoading] = useState<boolean>(false);
   const stripe = useStripe();
   const elements = useElements();
-  const totalPrice = orderData?.prices?.totalPrice || TRANSFERENCE_CAR_PRICE;
+  const totalPrice = orderData.prices.totalPrice || TRANSFERENCE_CAR_PRICE;
 
-  const handleError = (event) => {
+  const handleError = (event: StripeElementEvent) => {
     if (event?.error) {
       setErrorMessage(event.error.message);
     } else {
-      setErrorMessage("");
+      setErrorMessage('');
     }
     const { elementType, complete } = event;
     if (complete) {
-      setCardChecks((prevState) => ({
+      setCardChecks((prevState: CardChecks) => ({
         ...prevState,
         [elementType]: true,
       }));
     } else {
-      setCardChecks((prevState) => ({
+      setCardChecks((prevState: CardChecks) => ({
         ...prevState,
         [elementType]: false,
       }));
@@ -52,15 +56,15 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }) {
 
   const checkErrorBillData = () => {
     if (isBillDataFilled) {
-      setErrorMessage("");
+      setErrorMessage('');
       return false;
     } else {
-      setErrorMessage("Por favor, pulsa el botón Guardar en tus datos de facturación.");
+      setErrorMessage('Por favor, pulsa el botón Guardar en tus datos de facturación.');
       return true;
     }
   };
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (checkErrorBillData()) return;
@@ -69,7 +73,7 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }) {
 
     const preparedPrice = +(totalPrice * 100).toFixed();
     const { fullName, email } = orderData.billData;
-    const {phoneNumber} = orderData.vehicleForm;
+    const { phoneNumber } = orderData.vehicleForm;
 
     const userData = { fullName, email, phoneNumber };
 
@@ -77,12 +81,12 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }) {
     await stripePayHandler(clientSecret);
   };
 
-  const stripePayHandler = async (clientSecret) => {
+  const stripePayHandler = async (clientSecret: string) => {
     if (!stripe || !elements) {
       return;
     }
 
-    const card = elements.getElement(CardNumberElement);
+    const card = elements.getElement(CardNumberElement) as stripeJs.StripeCardNumberElement;
     const result = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card,
@@ -91,9 +95,9 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }) {
 
     if (result.error) {
       setPaymentLoading(false);
-      setErrorMessage(result.error.message);
+      setErrorMessage(result.error.message ?? '');
     } else {
-      if (result.paymentIntent.status === "succeeded") {
+      if (result.paymentIntent.status === 'succeeded') {
         await registerOrder(orderData);
         setPaymentLoading(false);
         moveToNextStep();
@@ -141,13 +145,21 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }) {
           </div>
         </div>
         <span className="stripe-box__card-payment">
-          <CardNumberElement onChange={(event) => handleError(event)} options={{ placeholder: "Número de tarjeta" }} className="stripe__card" />
+          <CardNumberElement
+            onChange={(event) => handleError(event)}
+            options={{ placeholder: 'Número de tarjeta' }}
+            className="stripe__card"
+          />
           <CardExpiryElement
             onChange={(event) => handleError(event)}
-            options={{ placeholder: "Fecha de exp." }}
+            options={{ placeholder: 'Fecha de exp.' }}
             className="stripe__card stripe__card-expiry"
           />
-          <CardCvcElement onChange={(event) => handleError(event)} options={{ placeholder: "CVC / CVV" }} className="stripe__card stripe__card-cvc" />
+          <CardCvcElement
+            onChange={(event) => handleError(event)}
+            options={{ placeholder: 'CVC / CVV' }}
+            className="stripe__card stripe__card-cvc"
+          />
           {errorMessage && (
             <div className="stripe__error-container">
               <span className="stripe__error-message">{errorMessage}</span>

@@ -9,7 +9,7 @@ export interface IVehicleFormData {
   visibleFields: number;
   date: VehicleDate;
   daysInMonth: DayInMonth[];
-  registrationDate: string;
+  registrationDate: `${number}/${number}/${number}`;
   buyerCommunity: IBuyerCommunity;
   phoneNumber: string;
   inputsData: IFormInputs;
