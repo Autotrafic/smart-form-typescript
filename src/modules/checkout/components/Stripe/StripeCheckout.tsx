@@ -1,6 +1,5 @@
 import './stripe-checkout.css';
 import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import * as stripeJs from '@stripe/stripe-js';
 import { useMemo, useState } from 'react';
 import { createPaymentIntent } from '../../services/stripeService';
 import LegalCheckbox from '@modules/core/components/LegalCheckbox';
@@ -11,7 +10,7 @@ import { useOrderData } from '@modules/core/context/orderData';
 import { registerOrder } from '@modules/core/services/order';
 import { TRANSFERENCE_CAR_PRICE } from '@modules/core/utils/constants';
 import { cardChecksInitialState } from '@modules/checkout/utils/initialStates';
-import { CardChecks, StripeElementEvent } from '@modules/checkout/interfaces';
+import { CardChecks, StripeCardNumberElement, StripeElementEvent } from '@modules/checkout/interfaces';
 
 const PAYMENT_METHOD = {
   KLARNA: 'klarna',
@@ -35,7 +34,7 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }: StripeCheckout) {
   const totalPrice = orderData.prices.totalPrice || TRANSFERENCE_CAR_PRICE;
 
   const handleError = (event: StripeElementEvent) => {
-    if (event?.error) {
+    if (event.error) {
       setErrorMessage(event.error.message);
     } else {
       setErrorMessage('');
@@ -86,7 +85,7 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }: StripeCheckout) {
       return;
     }
 
-    const card = elements.getElement(CardNumberElement) as stripeJs.StripeCardNumberElement;
+    const card = elements.getElement(CardNumberElement) as StripeCardNumberElement;
     const result = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card,

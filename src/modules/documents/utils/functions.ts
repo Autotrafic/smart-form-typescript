@@ -1,6 +1,6 @@
-import Compressor from "compressorjs";
+import Compressor from 'compressorjs';
 
-export async function compressFile(file) {
+export async function compressFile(file: File): Promise<File> {
   if (file.type.startsWith('image/')) {
     return new Promise((resolve, reject) => {
       new Compressor(file, {

@@ -38,8 +38,6 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
 
   const { vehicle, inputsData } = formData;
 
-  console.log('formdata', formData);
-
   const updatedDate = useMemo(() => {
     return {
       day: formData.date.day,

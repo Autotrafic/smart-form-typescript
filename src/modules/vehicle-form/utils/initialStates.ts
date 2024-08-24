@@ -46,7 +46,7 @@ export const formDataInitialState: IVehicleFormData = {
   visibleFields: INITIAL_VISIBLE_FIELDS,
   date: { day: '', month: '', year: '' },
   daysInMonth: [{ name: 0, value: 0 }],
-  registrationDate: '',
+  registrationDate: '00/00/00',
   buyerCommunity: AutonomousCommunityValue.DEFAULT,
   phoneNumber: '',
   vehicle: vehicleInitialState,

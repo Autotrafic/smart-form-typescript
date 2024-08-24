@@ -1,3 +1,4 @@
+import { DocumentsData, IDocumentsLaterData } from '@modules/documents/interfaces';
 import { IVehicleFormData } from '@modules/vehicle-form/interfaces';
 
 export interface IOrderDataContext {
@@ -15,6 +16,7 @@ export interface IOrder {
   prices: IOrderPrices;
   crossSelling: ICrossSelling;
   billData: IBillData;
+  documentsData: DocumentsData;
   documentsLaterData: IDocumentsLaterData;
 }
 
@@ -41,5 +43,3 @@ export interface IBillData {
   fullName: string;
   email: string;
 }
-
-type IDocumentsLaterData = { vehiclePlate: string };

@@ -171,10 +171,11 @@ export default function VehicleInputsDocuments({ setStep, step, documentsData, h
 
       const processedFiles = await processFilesForSubmit(allDocumentsInfo);
       const processedData = allData?.documents?.vehiclePlate ? processOrderDataForSubmit(allData) : null;
-
-      await uploadFilesToDrive(processedFiles, processedData);
+      console.log('documentsinfo', allDocumentsInfo);
+      console.log('orderdata', allData);
+      // await uploadFilesToDrive(processedFiles, processedData);
       setLoading(false);
-      window.location.href = `https://transferencia.autotrafic.es/gracias-documentacion/${orderData.orderId}`;
+      // window.location.href = `https://transferencia.autotrafic.es/gracias-documentacion/${orderData.orderId}`;
     } catch (error) {
       setLoading(false);
       console.log(error);

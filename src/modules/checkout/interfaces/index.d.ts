@@ -12,6 +12,7 @@ type StripeElementEvent =
   | stripeJs.StripeCardNumberElementChangeEvent
   | StripeCvcEvent;
 
+type StripeCardNumberElement = stripeJs.StripeCardNumberElement;
 
 interface CardChecks {
   cardExpiry: boolean;

@@ -1,7 +1,9 @@
 import { autonomousCommunities } from '@modules/core/utils/data';
 import { compressFile } from './functions';
+import { IOrder } from '@modules/core/interfaces/order';
+import { AutonomousCommunityValue } from '@modules/vehicle-form/interfaces/import/enums';
 
-export default function processInputFile(file, newName) {
+export default function updateFileName(file: File, newName: string): File {
   const extensionIndex = file.name.lastIndexOf('.');
   const extension = file.name.substring(extensionIndex);
 
@@ -12,7 +14,7 @@ export default function processInputFile(file, newName) {
   return renamedFile;
 }
 
-export function processOrderDataForSubmit(orderData) {
+export function processOrderDataForSubmit(orderData: IOrder) {
   const { vehicleForm, billData, itp, prices, documents, crossSelling } = orderData;
 
   const vehicle = {
@@ -53,7 +55,7 @@ export function processOrderDataForSubmit(orderData) {
   return { vehicle, buyer, seller, customer, plusServices, order };
 }
 
-function getCommunityName(communityCode) {
+function getCommunityName(communityCode: AutonomousCommunityValue) {
   if (!communityCode) return;
 
   const lookup = {};
