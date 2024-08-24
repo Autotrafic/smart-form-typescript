@@ -19,20 +19,26 @@ const CountryInputContainer = styled.div`
   flex: 1;
 `;
 
-function PhoneNumberInput({ value, handleChange, ...rest }) {
+interface PhoneNumberInputProps {
+  value: string;
+  handleChange: (s: string) => void;
+  isVisible?: boolean;
+}
+
+function PhoneNumberInput({ value, handleChange, ...rest }: PhoneNumberInputProps) {
   const [selectedCountry, setSelectedCountry] = useState(SPAIN);
 
   const formattedCountries = COUNTRIES.map((country) => {
     return { name: `${country.flag} ${country.name}`, value: country };
   });
 
-  const handleChangeFlag = (value) => {
-    const selectedFlag = JSON.parse(value);
+  const handleChangeFlag = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedFlag = JSON.parse(e.target.value);
 
     setSelectedCountry(selectedFlag);
   };
 
-  const handleChangePhoneNumber = (e) => {
+  const handleChangePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleChange(`${selectedCountry.phoneCode} ${e.target.value}`);
   };
 
@@ -43,6 +49,7 @@ function PhoneNumberInput({ value, handleChange, ...rest }) {
           title={`${selectedCountry.flag} ${selectedCountry.name}`}
           options={formattedCountries}
           value={selectedCountry.flag}
+          isFilled={!!selectedCountry.flag}
           handleChange={handleChangeFlag}
           defaultValue="ES"
           {...rest}
@@ -51,10 +58,11 @@ function PhoneNumberInput({ value, handleChange, ...rest }) {
       <CountryInputContainer>
         <Input
           title={'Teléfono de contacto'}
-          type={'number'}
+          type='number'
           value={processPhoneNumber(value)}
           handleChange={handleChangePhoneNumber}
           fixedValue={selectedCountry?.phoneCode}
+          isSmall={false}
           {...rest}
         />
       </CountryInputContainer>

@@ -4,9 +4,9 @@ import fieldWithVisibility, { WrappedInputProps } from '@modules/vehicle-form/HO
 import { colors } from '../utils/styles';
 
 interface InputStyledProps {
-  $width: number;
   $isActive: boolean;
-  $isSmall: boolean;
+  $isSmall?: boolean;
+  $width?: string;
   $border?: string;
   value?: string;
 }
@@ -67,13 +67,13 @@ interface InputProps extends React.HTMLProps<HTMLInputElement> {
   title: string;
   value: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  isSmall: boolean;
-  type: 'text';
+  type: 'text' | 'number';
   fixedValue: string;
-  width: number;
+  isSmall?: boolean;
+  width?: string;
 }
 
-function Input({ title, value, type = 'text', handleChange, fixedValue, isSmall, width, ...props }: InputProps) {
+function Input({ title, value, type = 'text', handleChange, fixedValue, isSmall, width = '100%', ...props }: InputProps) {
   const [borderActive, setBorderActive] = useState(false);
 
   const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {

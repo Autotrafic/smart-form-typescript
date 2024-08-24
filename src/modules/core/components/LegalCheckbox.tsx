@@ -31,14 +31,14 @@ const Link = styled.a`
 `;
 
 interface LegalCheckboxProps {
-  value: string;
+  value: boolean;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function LegalCheckbox({ value, handleChange }: LegalCheckboxProps) {
   return (
     <Container>
-      <Checkbox type="checkbox" id="legal" required checked={!!value} onChange={handleChange} />
+      <Checkbox type="checkbox" id="legal" required checked={value} onChange={handleChange} />
       <label htmlFor="legal">
         <LegalPhrase>He leído y acepto los </LegalPhrase>
         <Link href={TERMS_URL} target="_blank">

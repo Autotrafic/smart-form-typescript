@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { IDropdownOptions } from '../interfaces/states';
 
 interface ContainerProps {
-  isVisible: boolean;
+  isVisible?: boolean;
   isSmall?: boolean;
 }
 
@@ -30,27 +30,24 @@ const Container = styled.div<ContainerProps>`
 `;
 
 export interface WrappedInputProps {
-  isVisible: boolean;
+  isVisible?: boolean;
   title: string;
-  isLoading: boolean;
-  options: IDropdownOptions;
   value: string;
-  isFilled: boolean;
   handleChange: React.ChangeEventHandler<HTMLInputElement>;
-  fontSize: string;
-  isSmall: boolean;
-  type: 'text';
+  type: 'text' | 'number';
   fixedValue: string;
-  width: number;
+  isSmall?: boolean;
+  width?: string;
 }
 
 export interface WrappedDropdownProps {
-  isVisible: boolean;
   title: string;
   options: IDropdownOptions;
   value: string;
   isFilled: boolean;
   handleChange: React.ChangeEventHandler<HTMLSelectElement>;
+  isVisible?: boolean;
+  defaultValue?: string;
   isLoading?: boolean;
   fontSize?: `${string}px`;
 }
