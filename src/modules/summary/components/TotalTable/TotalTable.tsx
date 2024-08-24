@@ -7,32 +7,41 @@ import SummaryModalContent from '../SummaryModalContent';
 import { useOrderData } from '@modules/core/context/orderData';
 import Checkbox from '@modules/core/design-system/Checkbox';
 import { checkIsCiclomotor } from '@modules/core/utils/functions';
+import { CrossProduct, CrossSelected } from '@modules/summary/interfaces';
 
-export default function TotalTable({ withExtras, addedPrice, setAddedPrice, setCrossSelected, isReferralValid }) {
+interface TotalTableProps {
+  withExtras: boolean;
+  addedPrice: number;
+  setAddedPrice: (p: (prevState: number) => number) => void;
+  setCrossSelected: (p: (prevState: CrossSelected) => CrossSelected) => void;
+  isReferralValid: boolean;
+}
+
+export default function TotalTable({ withExtras, addedPrice, setAddedPrice, setCrossSelected, isReferralValid }: TotalTableProps) {
   const { orderData } = useOrderData();
 
-  const vehicleData = orderData?.vehicleForm;
+  const vehicleData = orderData.vehicleForm;
   const isCiclomotor = checkIsCiclomotor(vehicleData);
-  const itp = orderData?.itp;
-  const feeForHighTicketOrder = orderData?.prices?.highTicketOrderFee;
+  const itp = orderData.itp;
+  const feeForHighTicketOrder = orderData.prices.highTicketOrderFee;
 
   const [showModal, setShowModal] = useState(false);
 
-  const handleProduct = (e, product) => {
+  const handleProduct = (e: React.ChangeEvent<HTMLInputElement>, product: CrossProduct) => {
     const { id: productId, price: productPrice } = product;
-    setCrossSelected((prev) => ({ ...prev, [productId]: e.target.checked }));
+    setCrossSelected((prev: CrossSelected) => ({ ...prev, [productId]: e.target.checked }));
 
     if (e.target.checked) {
-      setAddedPrice((prevState) => prevState + productPrice);
+      setAddedPrice((prevState: number) => prevState + productPrice);
     } else if (!e.target.checked && addedPrice) {
-      setAddedPrice((prevState) => prevState - productPrice);
+      setAddedPrice((prevState: number) => prevState - productPrice);
     }
   };
 
   return (
     <Fragment>
       <Modal showModal={showModal} setShowModal={setShowModal}>
-        <SummaryModalContent data={orderData} />
+        <SummaryModalContent orderData={orderData} />
       </Modal>
       <div className="total-transfer">
         <div className="total-transfer__header">
@@ -68,39 +77,19 @@ export default function TotalTable({ withExtras, addedPrice, setAddedPrice, setC
             </div>
 
             <p className="total-transfer__price">
-              {itp ? itp?.ITP : itp?.ITP === 0 ? 0 : '--'}
+              {itp.ITP === 0 ? 0 : '--'}
               &nbsp;€
             </p>
           </li>
-          {/* {withCupon && (
-            <li className="total-transfer__cupon">
-              <form className="total-transfer__cupon-form" onSubmit={handleCupon}>
-                <Input
-                  notWide
-                  register={register}
-                  value="discount.code"
-                  placeholder="Cupón de descuento"
-                  type="text"
-                  inputmode="text"
-                  error={cuponError}
-                  errorMessage="Cupón caducado o agotado."
-                />
-                <button type="submit" className="cupon-button">
-                  Usar
-                </button>
-              </form>
-              <p>{discountCode && Boolean(amount) ? `-${fixIfNotInteger(amount)} €` : "--"}</p>
-            </li>
-          )} */}
           {withExtras && (
             <Fragment>
               <div className="total-transfer__line-wide" />
               <div className="total-transfer__cross-selling">
                 <p className="section-title">Te recomendamos añadir:</p>
-                {CROSS_PRODUCTS.map((product) => (
+                {CROSS_PRODUCTS.map((product: CrossProduct) => (
                   <li className="total-transfer__item-container">
                     <label htmlFor={product.title} className="total-transfer__product-label">
-                      <Checkbox id={product.title} onChange={(e) => handleProduct(e, product)} />
+                      <Checkbox id={product.title} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleProduct(e, product)} />
                       <span className="total-transfer__product-name">{product.title}</span>
                     </label>
                     <span className="total-transfer__item">{`${product.price} €`}</span>

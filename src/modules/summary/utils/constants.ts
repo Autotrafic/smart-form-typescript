@@ -1,4 +1,4 @@
-import { ISummaryItem } from "../interfaces";
+import { CrossProduct, ISummaryItem } from "../interfaces";
 
 const DEFAULT_PRICES = {
     TASAS_DGT: 55.70,
@@ -24,7 +24,7 @@ const DEFAULT_PRICES = {
     { name: "Gestión", price: CICLOMOTOR_PRICES.PROFIT },
   ];
 
-  export const CROSS_PRODUCTS = [
+  export const CROSS_PRODUCTS: CrossProduct[] = [
     {
       title: "Añadir informe DGT",
       description: "¡Conoce las cargas y el historial del vehículo!",
