@@ -6,13 +6,9 @@ import VehiclesForm from './modules/vehicle-form/components';
 import MultiStepHeader from './modules/core/components/MultiStepHeader/MultiStepHeader';
 import { MultiStepProvider, useMultiStep } from './modules/core/context/multiStep';
 import Summary from './modules/summary/components';
-import Documents from './modules/documents/components';
 import Checkout from './modules/checkout/components';
+import AfterCheckoutMessage from './modules/checkout/components/after-checkout';
 import { VehiclesFormProvider } from './modules/vehicle-form/context/vehiclesForm';
-import { DocumentsProvider } from './modules/documents/context/documents';
-import AfterCheckoutMessage from './modules/documents/components/after-checkout';
-import DocumentsFinalMessage from './modules/documents/components/final-message';
-import DocumentsLaterMessage from './modules/documents/components/documents-later/DocumentsLaterMessage';
 import { OrderDataProvider } from './modules/core/context/orderData';
 import { Steps } from '@modules/core/interfaces/enums';
 
@@ -47,19 +43,12 @@ function App() {
         {currentStep === Steps.SUMMARY && <Summary />}
         {currentStep === Steps.CHECKOUT && <Checkout />}
         {currentStep === Steps.CHECKOUT_MESSAGE && <AfterCheckoutMessage />}
-        {currentStep === Steps.DOCUMENTS && (
-          <DocumentsProvider>
-            <Documents />
-          </DocumentsProvider>
-        )}
-        {currentStep === Steps.FINAL_MESSAGE && <DocumentsFinalMessage />}
-        {currentStep === Steps.DOCUMENTS_LATER_MESSAGE && <DocumentsLaterMessage />}
       </Container>
     </Elements>
   );
 }
 
-export default function SmartForm({ isReferralValid }: { isReferralValid?: boolean }) {
+export default function SmartForm({ isReferralValid }: { isReferralValid: boolean }) {
   return (
     <MultiStepProvider>
       <OrderDataProvider isProduction={isProduction} isReferralValid={isReferralValid}>

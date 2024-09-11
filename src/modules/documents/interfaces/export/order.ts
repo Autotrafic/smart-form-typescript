@@ -1,6 +1,8 @@
 export default interface IUpdateOrderNestedPropertiesBody {
-  vehicle: { vechiclePlate: string };
-  buyer?: { phoneNumber: string };
-  seller?: { phoneNumber: string };
-  user?: { shipmentAddress: string };
+  generalData: {
+    vehicle: { vechiclePlate: string };
+    buyer?: { phoneNumber: string };
+    seller?: { phoneNumber: string };
+    user?: { shipmentAddress: { street: string; city: string; postalCode: string } };
+  };
 }

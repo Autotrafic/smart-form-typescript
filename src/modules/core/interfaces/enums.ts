@@ -3,9 +3,6 @@ export enum Steps {
   SUMMARY = 2,
   CHECKOUT = 3,
   CHECKOUT_MESSAGE = 4,
-  DOCUMENTS = 5,
-  FINAL_MESSAGE = 6,
-  DOCUMENTS_LATER_MESSAGE = 7,
 }
 
 export enum FileInputs {

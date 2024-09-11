@@ -1,9 +1,9 @@
-export interface DocumentsData extends Documents {
+interface DocumentsData extends Documents {
   documentGroup: number;
   vehicleForm: { vehicleType: number; visibleFields: number };
 }
 
-export interface Documents {
+interface Documents {
   vehiclePlate: string;
   shippingAddress: string;
   postalCode: string;
@@ -26,9 +26,9 @@ interface VehicleDocuments {
   fichaTecnica: File;
 }
 
-export interface DocumentsContext {
+interface DocumentsContext {
   documentsData: DocumentsData;
   updateDocumentsData: (setStateFunc: (prev: DocumentsData) => DocumentsData) => void;
 }
 
-export type IDocumentsLaterData = { vehiclePlate: string };
+type IDocumentsLaterData = { vehiclePlate: string };
