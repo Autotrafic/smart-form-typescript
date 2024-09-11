@@ -8,7 +8,7 @@ module.exports = (_: any, argv: any) => ({
   mode: (process.env.NODE_ENV as 'production' | 'development' | undefined) ?? 'development',
 
   output: {
-    publicPath: argv.mode === 'development' ? 'http://localhost:5100/' : 'https://smart-form-7ewb.onrender.com',
+    publicPath: argv.mode === 'development' ? 'http://localhost:5100/' : 'https://smart-form-7ewb.onrender.com/',
   },
 
   resolve: {
@@ -23,7 +23,6 @@ module.exports = (_: any, argv: any) => ({
     port: 5100,
     historyApiFallback: true,
   },
-  devtool: 'inline-source-map',
 
   module: {
     rules: [
