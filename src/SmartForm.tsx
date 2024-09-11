@@ -1,3 +1,4 @@
+import "@assets/globals.css";
 import React, { useMemo } from 'react';
 import { loadStripe } from '@stripe/stripe-js/pure';
 import { Elements } from '@stripe/react-stripe-js';

@@ -85,8 +85,5 @@ module.exports = (_: any, argv: any) => ({
       template: './public/index.html',
     }),
     new Dotenv({ systemvars: true }),
-    new CopyWebpackPlugin({
-      patterns: [{ from: 'public', to: '.' }], // copies all files from 'public' to your output folder
-    }),
   ],
 });
