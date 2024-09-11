@@ -1,47 +1,40 @@
 import styled from 'styled-components';
 import emailjs from 'emailjs-com';
 import { useOrderData } from '@modules/core/context/orderData';
-import NavigationButtons from '@modules/core/components/NavigationButtons';
 import { AUTOTRAFIC_EMAIL } from '@modules/core/utils/constants';
 import { VehicleType } from '@modules/vehicle-form/interfaces/enums';
+import Button from '@modules/core/design-system/Button';
+import { UPLOAD_DOCUMENTS_URL } from '@modules/core/utils/urls';
+import { CelebrationEmoji } from '@assets/svgs';
 
 export default function AfterCheckoutMessage() {
   const { orderData } = useOrderData();
-  const { type, brand, model } = orderData.vehicleForm.vehicle;
-
-  const templateParams = {
-    customer_name: orderData.billData.fullName,
-    vehicle: `${type === VehicleType.CAR ? brand + '  ' + model.modelName : 'Moto'}`,
-    order_cost: orderData.prices.totalPrice,
-    user_email: `${orderData.billData.email}, ${AUTOTRAFIC_EMAIL}`,
-  };
-
-  emailjs.send('service_5lr8jdc', 'template_se2isto', templateParams, 'p4ieMe8wklkzdu-TK').then(
-    (response) => {
-      console.log('SUCCESS!', response.status, response.text);
-    },
-    (err) => {
-      console.log('FAILED...', err);
-    }
-  );
 
   return (
     <Container>
       <MessageContainer>
         <ConfirmationText>
-          ¡Recibido! ✅ <br /> Pago realizado con éxito.
+          ¡Pago confirmado con éxito! <Emoji width={24} height={24} />
         </ConfirmationText>
+
+        <TopExplicationText>El siguiente paso es adjuntar la documentación de tu vehículo.</TopExplicationText>
         <TopExplicationText>
-          Acaba de recibir un correo electrónico de confirmación a la dirección
-          <TopBoldText> {orderData.billData.email}</TopBoldText>
+          Te hemos enviado un correo electrónico{' '}
+          {orderData.billData.email && (
+            <>
+              a la dirección:
+              <TopBoldText> {orderData.billData.email} </TopBoldText>
+            </>
+          )}
+          con los detalles de tu pedido y un enlace para subir los documentos. No es necesario que los subas de inmediato,
+          puedes hacerlo cuando te sea más conveniente.
         </TopExplicationText>
-        <ExplicationText>
-          Pulse el botón
-          <BoldText> 'Siguiente' </BoldText> para adjuntar los documentos y finalizar el trámite.
-        </ExplicationText>
+        <TopExplicationText>Si deseas acelerar el proceso, puedes adjuntarlos ahora mismo:</TopExplicationText>
       </MessageContainer>
       <ButtonContainer>
-        <NavigationButtons onlyNext />
+        <a href={`${UPLOAD_DOCUMENTS_URL}/${orderData.orderId}`}>
+          <Button title="Subir documentos" />
+        </a>
       </ButtonContainer>
     </Container>
   );
@@ -50,8 +43,6 @@ export default function AfterCheckoutMessage() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 140px;
   padding-bottom: 70px;
 `;
 
@@ -59,16 +50,21 @@ const MessageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 12% 30px 12%;
+  padding: 0 12% 0 12%;
   text-align: center;
   color: #111111;
 `;
 
-const ConfirmationText = styled.p`
+const Emoji = styled(CelebrationEmoji)`
+  margin-left: 10px;
+`;
+
+const ConfirmationText = styled.span`
   margin: 0;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: bold;
   margin-top: 50px;
+  margin-bottom: 20px;
 `;
 
 const TopExplicationText = styled.p`
@@ -81,19 +77,8 @@ const TopBoldText = styled.span`
   margin: 0;
 `;
 
-const ExplicationText = styled.p`
-  font-size: 18px;
-`;
-
-const BoldText = styled.span`
-  font-size: 18px;
-  font-weight: bold;
-  margin: 0;
-`;
-
 const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: end;
-  padding: 0 30px;
+  justify-content: center;
 `;

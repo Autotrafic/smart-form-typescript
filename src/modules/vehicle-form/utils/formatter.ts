@@ -32,8 +32,6 @@ export function formatSubmitDataForItp(formData: IVehicleFormData): IRequestBody
   const { vehicle, registrationDate, buyerCommunity } = formData;
   const { type, model: carModel, cc, value } = vehicle;
 
-  console.log(vehicle);
-
   let vehicleCC: number = 0;
   let vehicleValue: number = 0;
 

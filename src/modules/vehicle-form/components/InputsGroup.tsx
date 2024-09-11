@@ -29,7 +29,6 @@ function InputsGroup() {
   };
 
   const handleChangeVehicle = (value: string, propertyToModify: IPropertyToModifyProps) => {
-    console.log(propertyToModify);
     const parsedValue = parseStringVehicleDataToObject(value);
 
     updateFormData((prev: IVehicleFormData) => ({

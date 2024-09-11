@@ -11,6 +11,7 @@ import { registerOrder } from '@modules/core/services/order';
 import { TRANSFERENCE_CAR_PRICE } from '@modules/core/utils/constants';
 import { cardChecksInitialState } from '@modules/checkout/utils/initialStates';
 import { CardChecks, StripeCardNumberElement, StripeElementEvent } from '@modules/checkout/interfaces';
+import { sendConfirmationOrderEmail } from '@modules/core/utils/email';
 
 const PAYMENT_METHOD = {
   KLARNA: 'klarna',
@@ -98,6 +99,7 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }: StripeCheckout) {
     } else {
       if (result.paymentIntent.status === 'succeeded') {
         await registerOrder(orderData);
+        sendConfirmationOrderEmail(orderData);
         setPaymentLoading(false);
         moveToNextStep();
       }
