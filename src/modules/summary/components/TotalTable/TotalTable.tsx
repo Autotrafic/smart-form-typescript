@@ -17,7 +17,13 @@ interface TotalTableProps {
   isReferralValid: boolean;
 }
 
-export default function TotalTable({ withExtras, addedPrice, setAddedPrice, setCrossSelected, isReferralValid }: TotalTableProps) {
+export default function TotalTable({
+  withExtras,
+  addedPrice,
+  setAddedPrice,
+  setCrossSelected,
+  isReferralValid,
+}: TotalTableProps) {
   const { orderData } = useOrderData();
 
   const vehicleData = orderData.vehicleForm;
@@ -76,10 +82,7 @@ export default function TotalTable({ withExtras, addedPrice, setAddedPrice, setC
               </span>
             </div>
 
-            <p className="total-transfer__price">
-              {itp.ITP === 0 ? 0 : '--'}
-              &nbsp;€
-            </p>
+            <p className="total-transfer__price">{itp.ITP} &nbsp;€</p>
           </li>
           {withExtras && (
             <Fragment>
@@ -89,7 +92,10 @@ export default function TotalTable({ withExtras, addedPrice, setAddedPrice, setC
                 {CROSS_PRODUCTS.map((product: CrossProduct) => (
                   <li className="total-transfer__item-container">
                     <label htmlFor={product.title} className="total-transfer__product-label">
-                      <Checkbox id={product.title} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleProduct(e, product)} />
+                      <Checkbox
+                        id={product.title}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleProduct(e, product)}
+                      />
                       <span className="total-transfer__product-name">{product.title}</span>
                     </label>
                     <span className="total-transfer__item">{`${product.price} €`}</span>
