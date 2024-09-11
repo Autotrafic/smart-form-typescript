@@ -7,6 +7,7 @@ import LegalCheckbox from '@modules/core/components/LegalCheckbox';
 import { parseStringVehicleDataToObject } from '../utils/formatter';
 import { IVehicleFormData } from '../interfaces';
 import { IPropertyToModifyProps } from '../interfaces/states';
+import { MotorbikeCCRange } from '../interfaces/import/enums';
 
 const InputsGroupStyled = styled.div`
   width: 100%;
@@ -28,6 +29,7 @@ function InputsGroup() {
   };
 
   const handleChangeVehicle = (value: string, propertyToModify: IPropertyToModifyProps) => {
+    console.log(propertyToModify);
     const parsedValue = parseStringVehicleDataToObject(value);
 
     updateFormData((prev: IVehicleFormData) => ({
@@ -37,12 +39,28 @@ function InputsGroup() {
     }));
   };
 
+  const handleChangeMotorbikeCC = (value: string) => {
+    const parsedValue = parseStringVehicleDataToObject(value) as { cc: MotorbikeCCRange; value: number };
+    const motorbikeValue = parsedValue.value;
+    const motorbikeCc = parsedValue.cc;
+
+    updateFormData((prev: IVehicleFormData) => ({
+      ...prev,
+      vehicle: { ...prev.vehicle, cc: motorbikeCc, value: motorbikeValue },
+      inputsData: { ...prev.inputsData, cc: value },
+    }));
+  };
+
   return (
     <InputsGroupStyled>
       <DatePicker updateFormData={updateFormData} formData={formData} />
       {dropdowns.map((dropdown, index) => {
         const { propertyName, title, options, value, isFilled, isVehicleData, isLoading } = dropdown;
-        const handler = isVehicleData ? handleChangeVehicle : handleChange;
+        const handler = isVehicleData
+          ? propertyName === 'cc'
+            ? handleChangeMotorbikeCC
+            : handleChangeVehicle
+          : handleChange;
         return (
           <Dropdown
             key={propertyName}

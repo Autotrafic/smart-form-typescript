@@ -5,4 +5,4 @@ const rootElement = document.getElementById('root');
 
 const root = createRoot(rootElement!);
 
-root.render(<SmartForm isReferralValid />);
+root.render(<SmartForm isReferralValid={false} />);
