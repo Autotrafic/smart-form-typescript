@@ -3,6 +3,7 @@ const deps = require('./package.json').dependencies;
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (_: any, argv: any) => ({
   mode: (process.env.NODE_ENV as 'production' | 'development' | undefined) ?? 'development',
@@ -84,5 +85,8 @@ module.exports = (_: any, argv: any) => ({
       template: './public/index.html',
     }),
     new Dotenv({ systemvars: true }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: 'public', to: '.' }], // copies all files from 'public' to your output folder
+    }),
   ],
 });
