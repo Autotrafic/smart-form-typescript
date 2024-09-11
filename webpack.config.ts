@@ -3,7 +3,6 @@ const deps = require('./package.json').dependencies;
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (_: any, argv: any) => ({
   mode: (process.env.NODE_ENV as 'production' | 'development' | undefined) ?? 'development',
