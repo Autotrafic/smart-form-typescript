@@ -1,4 +1,3 @@
-import IUpdateOrderNestedPropertiesBody from '@modules/documents/interfaces/export/order';
 import {
   IRequestBodyCarFuels,
   IRequestBodyCarModels,

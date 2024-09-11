@@ -43,7 +43,7 @@ export function processPhoneNumber(phoneNumber: string): string {
   return finalNumber;
 }
 
-export function formatToFullDate(originalDate: `${number}/${number}/${number}`): string {
+export function formatToFullDate(originalDate: `${string}/${string}/${string}`): string {
   let parts = originalDate.split('/');
 
   if (parts[0].length === 2 && parts[1].length === 2) {

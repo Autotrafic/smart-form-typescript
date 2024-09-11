@@ -43,7 +43,6 @@ export const defaultOrderData: IOrder = {
   prices: orderPricesInitialState,
   crossSelling: crossSellingInitialState,
   billData: billDataInitialState,
-  documentsLaterData: { vehiclePlate: '' },
 };
 
 export const orderDataContextInitialState: IOrderDataContext = {

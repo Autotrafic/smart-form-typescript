@@ -1,4 +1,3 @@
-import IUpdateOrderNestedPropertiesBody from '@modules/documents/interfaces/export/order';
 import { IRequestBodyRegisterOrder } from '@modules/vehicle-form/interfaces/export';
 import { IOrder } from '../interfaces/order';
 import { parseOrderForRequest } from '../utils/formatter';

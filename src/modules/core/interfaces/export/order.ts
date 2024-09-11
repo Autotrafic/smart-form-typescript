@@ -1,4 +1,4 @@
-export default interface IUpdateOrderNestedPropertiesBody {
+interface IUpdateOrderNestedPropertiesBody {
   generalData: {
     vehicle: { vechiclePlate: string };
     buyer?: { phoneNumber: string };

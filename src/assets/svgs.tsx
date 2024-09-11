@@ -11,7 +11,7 @@ export const Car = ({ color }: {color: string}) => {
   );
 };
 
-export const Motorbike = ({ color }) => {
+export const Motorbike = ({ color }: {color: string}) => {
   return (
     <svg width="46" height="23" viewBox="0 0 46 29" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -22,7 +22,7 @@ export const Motorbike = ({ color }) => {
   );
 };
 
-export const Caravan = ({ color }) => {
+export const Caravan = ({ color }: {color: string}) => {
   return (
     <>
       {color === '#fff' ? (
@@ -60,7 +60,7 @@ export const Caravan = ({ color }) => {
   );
 };
 
-export const VisaLogo = ({ width, height }) => {
+export const VisaLogo = ({ width, height }: {width: number; height: number}) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 1000.046 323.653">
       <path
@@ -75,7 +75,7 @@ export const VisaLogo = ({ width, height }) => {
   );
 };
 
-export const MasterCardLogo = ({ width, height }) => {
+export const MasterCardLogo = ({ width, height }: {width: number; height: number}) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 152.407 108">
       <path fill="none" d="M0 0h152.407v108H0z" />
@@ -130,7 +130,7 @@ export const TopImageMessage = () => (
     style={{
       shapeRendering: 'geometricPrecision',
       textRendering: 'geometricPrecision',
-      imageRendering: 'optimizeQuality',
+      imageRendering: 'optimizeQuality' as any,
       fillRule: 'evenodd',
       clipRule: 'evenodd',
     }}
