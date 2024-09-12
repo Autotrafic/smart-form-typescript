@@ -18,7 +18,7 @@ import { Steps } from '@modules/core/interfaces/enums';
 //     ? process.env.STRIPE_PUBLIC_KEY_PROD
 //     : process.env.STRIPE_PUBLIC_KEY_DEV;
 
-const isProduction = false;
+const isProduction = true;
 
 const liveStripeKey =
   'pk_live_51OAXtLJa5DLxJFBC7aB2X6WUKjNNJo24CrqewKWtBArD07qq4e72w84fBhew0cF2KC3uvvJz2DQZufq3KTzIEGne000knW0qAA';
