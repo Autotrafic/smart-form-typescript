@@ -7,7 +7,7 @@ import { Chat, MasterCardLogo, ShipmentTruck, Verified, VisaLogo } from '@assets
 import Separator from '@modules/core/design-system/Separator';
 import Loader from '@modules/core/design-system/Loader';
 import { useOrderData } from '@modules/core/context/orderData';
-import { registerOrder } from '@modules/core/services/order';
+import { createTotalumOrder, registerOrder } from '@modules/core/services/order';
 import { TRANSFERENCE_CAR_PRICE } from '@modules/core/utils/constants';
 import { cardChecksInitialState } from '@modules/checkout/utils/initialStates';
 import { CardChecks, StripeCardNumberElement, StripeElementEvent } from '@modules/checkout/interfaces';
@@ -99,6 +99,8 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }: StripeCheckout) {
     } else {
       if (result.paymentIntent.status === 'succeeded') {
         await registerOrder(orderData);
+        await createTotalumOrder(orderData.orderId);
+
         sendConfirmationOrderEmail(orderData);
         setPaymentLoading(false);
         moveToNextStep();

@@ -12,3 +12,7 @@ export const registerOrder = async (order: IOrder) => {
 export const updateNestedOrder = async (orderId: string, newData: IUpdateOrderNestedPropertiesBody) => {
   await autotraficApi.order.update(orderId, newData);
 };
+
+export const createTotalumOrder = async (orderId: string) => {
+  await autotraficApi.order.createTotalum({ orderId });
+};

@@ -4,6 +4,7 @@ import {
   IRequestBodyCalculateITP,
   IRequestBodyRegisterOrder,
   CreateIntentRequestBody,
+  CreateTotalumOrderBody,
 } from '@modules/vehicle-form/interfaces/export';
 import { BASE_API_URL } from './urls';
 
@@ -19,6 +20,7 @@ export const autotraficApi = {
   order: {
     register: (data: IRequestBodyRegisterOrder) => makeRequest('order/register', data),
     update: (orderId: string, data: IUpdateOrderNestedPropertiesBody) => makeRequest(`order/nested/${orderId}`, data),
+    createTotalum: (orderId: CreateTotalumOrderBody) => makeRequest('order/totalum/create', orderId),
   },
   payment: {
     createIntent: (data: CreateIntentRequestBody) => makeRequest('payment/create-intent', data),
@@ -26,6 +28,7 @@ export const autotraficApi = {
 };
 
 type RequestParams =
+  | CreateTotalumOrderBody
   | IRequestBodyCarFuels
   | IRequestBodyCarModels
   | IRequestBodyCalculateITP

@@ -33,6 +33,10 @@ export interface IRequestBodyRegisterOrder {
   user: IRegisterOrderUser;
 }
 
+export interface CreateTotalumOrderBody {
+  orderId: string;
+}
+
 export interface ICarSpecifications extends ICarModel {
   type: VehicleType.CAR;
   registrationDate: string;
