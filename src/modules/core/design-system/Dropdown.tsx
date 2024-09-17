@@ -7,8 +7,9 @@ import { colors } from '../utils/styles';
 import { IDropdownOptions, IDropdownValue } from '@modules/vehicle-form/interfaces/states';
 
 interface StyledSelectProps {
-  $fontSize: string;
-  $hasValue: boolean;
+  $fontSize?: string;
+  $hasValue?: boolean;
+  $disabled?: boolean;
 }
 
 const SelectContainer = styled.div`
@@ -33,7 +34,7 @@ const StyledSelect = styled.select<StyledSelectProps>`
   width: 100%;
   font-size: ${({ $fontSize }) => $fontSize};
   cursor: pointer;
-  background: transparent;
+  background: ${({ $disabled }) => ($disabled ? colors.backgroundDisabled : 'transparent')};
   text-align: left;
   color: ${({ $hasValue }) => ($hasValue ? colors.black : colors.placeholderGrey)};
 
@@ -50,12 +51,12 @@ const TitleOption = styled.option`
   color: ${colors.placeholderGrey};
 `;
 
-const Icon = styled(FontAwesomeIcon)`
+const Icon = styled(FontAwesomeIcon)<StyledSelectProps>`
   position: absolute;
   right: 10px;
   min-width: 22px;
   pointer-events: none;
-  background-color: white;
+  background-color: ${({$disabled }) => ($disabled ? colors.backgroundDisabled : 'white')};
 `;
 
 interface DropdownProps {
@@ -64,6 +65,7 @@ interface DropdownProps {
   value: IDropdownValue;
   isFilled: boolean;
   handleChange: React.ChangeEventHandler<HTMLSelectElement>;
+  disabled: boolean;
   isLoading?: boolean;
   fontSize?: string;
   defaultValue?: string;
@@ -75,6 +77,7 @@ const Dropdown = ({
   value,
   isFilled,
   handleChange,
+  disabled,
   isLoading,
   fontSize = '15px',
   defaultValue = '',
@@ -85,7 +88,8 @@ const Dropdown = ({
         required
         $hasValue={isFilled}
         $fontSize={fontSize}
-        disabled={isLoading}
+        $disabled={disabled}
+        disabled={isLoading || disabled}
         value={typeof value === 'object' ? JSON.stringify(value) : value}
         onChange={handleChange}
       >
@@ -96,7 +100,7 @@ const Dropdown = ({
           </option>
         ))}
       </StyledSelect>
-      <Icon icon={faChevronDown} color={colors.primaryColor} />
+      <Icon icon={faChevronDown} color={colors.primaryColor} $disabled={disabled} />
     </SelectContainer>
   );
 };

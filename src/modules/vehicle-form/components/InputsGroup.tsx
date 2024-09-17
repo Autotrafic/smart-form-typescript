@@ -54,7 +54,7 @@ function InputsGroup() {
     <InputsGroupStyled>
       <DatePicker updateFormData={updateFormData} formData={formData} />
       {dropdowns.map((dropdown, index) => {
-        const { propertyName, title, options, value, isFilled, isVehicleData, isLoading } = dropdown;
+        const { propertyName, title, options, value, isFilled, isVehicleData, isLoading, disabled } = dropdown;
         const handler = isVehicleData
           ? propertyName === 'cc'
             ? handleChangeMotorbikeCC
@@ -67,6 +67,7 @@ function InputsGroup() {
             isVisible={isComponentVisible(index + 1)}
             title={title}
             options={options}
+            disabled={disabled}
             value={value}
             isFilled={isFilled}
             handleChange={(e: React.ChangeEvent<HTMLSelectElement>) => handler(e.target.value, propertyName)}

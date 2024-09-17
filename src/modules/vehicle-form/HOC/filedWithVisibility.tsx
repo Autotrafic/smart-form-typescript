@@ -46,6 +46,7 @@ export interface WrappedDropdownProps {
   value: string;
   isFilled: boolean;
   handleChange: React.ChangeEventHandler<HTMLSelectElement>;
+  disabled: boolean;
   isVisible?: boolean;
   defaultValue?: string;
   isLoading?: boolean;

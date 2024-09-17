@@ -78,6 +78,7 @@ export const vehicleDropdownsInitialState: IVehicleFormDropdown[] = [
     isFilled: false,
     value: '',
     options: [{ name: '', value: AutonomousCommunityValue.DEFAULT }],
+    disabled: false,
     isVehicleData: false,
     isLoading: false,
   },

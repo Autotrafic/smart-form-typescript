@@ -41,7 +41,7 @@ function PhoneNumberInput({ value, handleChange, ...rest }: PhoneNumberInputProp
   const handleChangePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleChange(`${selectedCountry.phoneCode} ${e.target.value}`);
   };
-
+  
   return (
     <Container>
       <CountryFlagContainer>
@@ -52,6 +52,7 @@ function PhoneNumberInput({ value, handleChange, ...rest }: PhoneNumberInputProp
           isFilled={!!selectedCountry.flag}
           handleChange={handleChangeFlag}
           defaultValue="ES"
+          disabled={false}
           {...rest}
         />
       </CountryFlagContainer>

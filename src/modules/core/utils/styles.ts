@@ -1,15 +1,16 @@
-import { css } from "styled-components";
+import { css } from 'styled-components';
 
 export const colors = {
-  black: "#111111",
-  primaryColor: "#4154F1",
-  secondaryColor: "#8080FF",
-  primaryGrey: "#787878",
-  secondaryGrey: "rgb(230, 230, 230, 40)",
-  placeholderGrey: "rgb(118, 118, 118)",
-  lightGrey: "#ccc",
-  primaryGreen: "#30C03A",
-  errorRed: "#CA2020",
+  black: '#111111',
+  primaryColor: '#4154F1',
+  secondaryColor: '#8080FF',
+  primaryGrey: '#787878',
+  secondaryGrey: 'rgb(230, 230, 230, 40)',
+  placeholderGrey: 'rgb(118, 118, 118)',
+  lightGrey: '#ccc',
+  primaryGreen: '#30C03A',
+  errorRed: '#CA2020',
+  backgroundDisabled: '#dfdddd',
 };
 
 export const styles = {

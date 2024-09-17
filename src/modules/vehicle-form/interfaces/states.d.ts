@@ -53,6 +53,7 @@ interface IVehicleFormDropdown {
   propertyName: IPropertyToModifyProps;
   value: IDropdownValue;
   options: IDropdownOptions;
+  disabled: boolean;
   isVehicleData: boolean;
   isFilled: boolean;
   isLoading: boolean;
