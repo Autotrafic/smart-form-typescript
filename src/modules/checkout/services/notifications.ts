@@ -9,3 +9,7 @@ export async function sendWhatsAppConfirmation(orderData: IOrder) {
 
   await autotraficApi.notification.sendWhatsApp({ phoneNumber, message });
 }
+
+export async function sendSlackNotification(message: string) {
+  await autotraficApi.notification.sendSlack({ message });
+}

@@ -12,7 +12,7 @@ import { TRANSFERENCE_CAR_PRICE } from '@modules/core/utils/constants';
 import { cardChecksInitialState } from '@modules/checkout/utils/initialStates';
 import { CardChecks, StripeCardNumberElement, StripeElementEvent } from '@modules/checkout/interfaces';
 import { sendConfirmationOrderEmail } from '@modules/core/utils/email';
-import { sendWhatsAppConfirmation } from '@modules/checkout/services/notifications';
+import { sendSlackNotification, sendWhatsAppConfirmation } from '@modules/checkout/services/notifications';
 
 const PAYMENT_METHOD = {
   KLARNA: 'klarna',
@@ -99,9 +99,12 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }: StripeCheckout) {
       setErrorMessage(result.error.message ?? '');
     } else {
       if (result.paymentIntent.status === 'succeeded') {
+        const slackMessage = `Se ha realizado un pedido por la web: ${orderData.orderId} / ${orderData.vehicleForm.phoneNumber}`;
+
         await registerOrder(orderData);
         await createTotalumOrder(orderData.orderId);
         await sendWhatsAppConfirmation(orderData);
+        await sendSlackNotification(slackMessage);
 
         sendConfirmationOrderEmail(orderData);
         setPaymentLoading(false);
