@@ -59,3 +59,8 @@ export interface CreateIntentRequestBody {
   amount: number;
   userData: StripeUserData;
 }
+
+export interface SendNotificationBody {
+  phoneNumber: string;
+  message: string;
+}

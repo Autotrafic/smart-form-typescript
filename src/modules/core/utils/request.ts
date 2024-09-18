@@ -5,6 +5,7 @@ import {
   IRequestBodyRegisterOrder,
   CreateIntentRequestBody,
   CreateTotalumOrderBody,
+  SendNotificationBody,
 } from '@modules/vehicle-form/interfaces/export';
 import { BASE_API_URL } from './urls';
 
@@ -25,6 +26,9 @@ export const autotraficApi = {
   payment: {
     createIntent: (data: CreateIntentRequestBody) => makeRequest('payment/create-intent', data),
   },
+  notification: {
+    send: (data: SendNotificationBody) => makeRequest('messages', data),
+  },
 };
 
 type RequestParams =
@@ -34,7 +38,8 @@ type RequestParams =
   | IRequestBodyCalculateITP
   | IRequestBodyRegisterOrder
   | IUpdateOrderNestedPropertiesBody
-  | CreateIntentRequestBody;
+  | CreateIntentRequestBody
+  | SendNotificationBody;
 
 const makeRequest = async (endpoint: string, data?: RequestParams) => {
   const response = await fetch(`${BASE_API_URL}/${endpoint}`, {

@@ -16,7 +16,7 @@ export function sendConfirmationOrderEmail(orderData: IOrder) {
     user_email: `${orderData.billData.email}, ${AUTOTRAFIC_EMAIL}`,
   };
 
-  emailjs.send('service_5lr8jdc', 'template_se2isto', templateParams, 'p4ieMe8wklkzdu-TK').then(
+  emailjs.send('service_oaeyetb', 'template_se2isto', templateParams, 'p4ieMe8wklkzdu-TK').then(
     (response) => {
       console.log('SUCCESS!', response.status, response.text);
     },

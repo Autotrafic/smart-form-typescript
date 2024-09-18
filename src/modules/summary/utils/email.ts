@@ -20,7 +20,7 @@ export const sendSummaryEmail = (orderData: IOrder) => {
   };
 
   const sendEmail = (params: typeof templateParams) => {
-    emailjs.send('service_wfn5pwq', 'template_5edqhid', params, 'KlThHuwvIjg13ds4v').then(
+    emailjs.send('service_ez0gqsl', 'template_5edqhid', params, 'KlThHuwvIjg13ds4v').then(
       (response) => {
         console.log('SUCCESS!', response.status, response.text);
       },

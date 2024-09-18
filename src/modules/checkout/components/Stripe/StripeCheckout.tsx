@@ -1,7 +1,7 @@
 import './stripe-checkout.css';
 import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useMemo, useState } from 'react';
-import { createPaymentIntent } from '../../services/stripeService';
+import { createPaymentIntent } from '../../services/stripe';
 import LegalCheckbox from '@modules/core/components/LegalCheckbox';
 import { Chat, MasterCardLogo, ShipmentTruck, Verified, VisaLogo } from '@assets/svgs';
 import Separator from '@modules/core/design-system/Separator';
@@ -12,6 +12,7 @@ import { TRANSFERENCE_CAR_PRICE } from '@modules/core/utils/constants';
 import { cardChecksInitialState } from '@modules/checkout/utils/initialStates';
 import { CardChecks, StripeCardNumberElement, StripeElementEvent } from '@modules/checkout/interfaces';
 import { sendConfirmationOrderEmail } from '@modules/core/utils/email';
+import { sendWhatsAppConfirmation } from '@modules/checkout/services/notifications';
 
 const PAYMENT_METHOD = {
   KLARNA: 'klarna',
@@ -100,6 +101,7 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }: StripeCheckout) {
       if (result.paymentIntent.status === 'succeeded') {
         await registerOrder(orderData);
         await createTotalumOrder(orderData.orderId);
+        await sendWhatsAppConfirmation(orderData);
 
         sendConfirmationOrderEmail(orderData);
         setPaymentLoading(false);

@@ -1,5 +1,4 @@
-import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import fieldWithVisibility, { WrappedDropdownProps } from '@modules/vehicle-form/HOC/filedWithVisibility';
@@ -10,9 +9,22 @@ interface StyledSelectProps {
   $fontSize?: string;
   $hasValue?: boolean;
   $disabled?: boolean;
+  $isAnimating?: boolean;
 }
 
-const SelectContainer = styled.div`
+const growAndShrink = keyframes`
+  0% {
+    transform: scale(1); // normal size
+  }
+  50% {
+    transform: scale(1.5); // bigger size
+  }
+  100% {
+    transform: scale(1); // back to normal size
+  }
+`;
+
+const SelectContainer = styled.div<StyledSelectProps>`
   width: 100%;
   height: 33px;
   position: relative;
@@ -23,6 +35,7 @@ const SelectContainer = styled.div`
   background: white;
   overflow: hidden;
   color: blue;
+  animation: ${({ $isAnimating }) => $isAnimating && `${growAndShrink} 0.5s ease-in-out`};
 `;
 
 const StyledSelect = styled.select<StyledSelectProps>`
@@ -56,7 +69,7 @@ const Icon = styled(FontAwesomeIcon)<StyledSelectProps>`
   right: 10px;
   min-width: 22px;
   pointer-events: none;
-  background-color: ${({$disabled }) => ($disabled ? colors.backgroundDisabled : 'white')};
+  background-color: ${({ $disabled }) => ($disabled ? colors.backgroundDisabled : 'white')};
 `;
 
 interface DropdownProps {
@@ -66,6 +79,7 @@ interface DropdownProps {
   isFilled: boolean;
   handleChange: React.ChangeEventHandler<HTMLSelectElement>;
   disabled: boolean;
+  isAnimating?: boolean;
   isLoading?: boolean;
   fontSize?: string;
   defaultValue?: string;
@@ -78,12 +92,13 @@ const Dropdown = ({
   isFilled,
   handleChange,
   disabled,
+  isAnimating,
   isLoading,
   fontSize = '15px',
   defaultValue = '',
 }: DropdownProps) => {
   return (
-    <SelectContainer>
+    <SelectContainer $isAnimating={isAnimating}>
       <StyledSelect
         required
         $hasValue={isFilled}

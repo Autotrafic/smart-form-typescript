@@ -70,6 +70,7 @@ function DatePicker({ updateFormData, formData, ...props }: DatePickerProps) {
             updateFormData((prev: IVehicleFormData) => ({ ...prev, date: { ...prev.date, year: e.target.value } }))
           }
           isVisible
+          disabled={false}
           {...props}
         />
         <Dropdown
@@ -82,6 +83,7 @@ function DatePicker({ updateFormData, formData, ...props }: DatePickerProps) {
           }
           isVisible
           fontSize="12px"
+          disabled={false}
           {...props}
         />
         <Dropdown
@@ -89,6 +91,7 @@ function DatePicker({ updateFormData, formData, ...props }: DatePickerProps) {
           options={formData.daysInMonth}
           value={day && day}
           isFilled={!!day}
+          disabled={false}
           handleChange={(e) =>
             updateFormData((prev: IVehicleFormData) => ({ ...prev, date: { ...prev.date, day: e.target.value } }))
           }
