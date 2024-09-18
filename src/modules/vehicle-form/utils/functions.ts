@@ -102,23 +102,23 @@ export const getPrices = (itpPrice = 0, formData: IVehicleFormData, isReferralVa
 
 export function getFirstTouchWhatsappMessage(vehicleDescription: string, isReferralValid: boolean): string {
   return `
-  🚗 ¿Quieres hacer el cambio de nombre de ${vehicleDescription}?
+🚗 ¿Quieres hacer el cambio de nombre de ${vehicleDescription}?
 
-  *👨🏻‍⚖️ Puedes hacer todo el proceso por WhatsApp con ayuda de un gestor*
+*👨🏻‍⚖️ Puedes hacer todo el proceso por WhatsApp con ayuda de un gestor*
 
-  🚀 Te explico cómo funcionamos en Gestoría AutoTrafic
+🚀 Te explico cómo funcionamos en Gestoría AutoTrafic
 
-  El trámite se realiza de forma 100% online y con un proceso muy simple:
+El trámite se realiza de forma 100% online y con un proceso muy simple:
 
-  1) Debes mandarnos foto de los documentos del vehículo 
+1) Debes mandarnos foto de los documentos del vehículo 
 
-  2) Te enviamos el permiso provisional
+2) Te enviamos el permiso provisional
 
-  3) En 1/2 semanas te llegará el nuevo permiso de circulación a tu domicilio✅
+3) En 1/2 semanas te llegará el nuevo permiso de circulación a tu domicilio✅
   ${
     isReferralValid
       ? `
-    🎁 Por venir de *HistorialVhículo*, ¡ahora tienes 10€ de descuento!`
+🎁 Por venir de *HistorialVhículo*, ¡ahora tienes 10€ de descuento!`
       : ''
   }`;
 }
