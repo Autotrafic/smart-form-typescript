@@ -6,8 +6,9 @@ import {
   CreateIntentRequestBody,
   CreateTotalumOrderBody,
   SendNotificationBody,
+  SendWhatsAppNotificationBody,
 } from '@modules/vehicle-form/interfaces/export';
-import { BASE_API_URL } from './urls';
+import { BASE_API_URL } from '@modules/core/utils/urls';
 
 export const autotraficApi = {
   vehicle: {
@@ -27,7 +28,8 @@ export const autotraficApi = {
     createIntent: (data: CreateIntentRequestBody) => makeRequest('payment/create-intent', data),
   },
   notification: {
-    send: (data: SendNotificationBody) => makeRequest('messages', data),
+    sendWhatsApp: (data: SendWhatsAppNotificationBody) => makeRequest('messages', data),
+    sendSlack: (data: SendNotificationBody) => makeRequest('messages/slack', data),
   },
 };
 
@@ -39,6 +41,7 @@ type RequestParams =
   | IRequestBodyRegisterOrder
   | IUpdateOrderNestedPropertiesBody
   | CreateIntentRequestBody
+  | SendWhatsAppNotificationBody
   | SendNotificationBody;
 
 const makeRequest = async (endpoint: string, data?: RequestParams) => {

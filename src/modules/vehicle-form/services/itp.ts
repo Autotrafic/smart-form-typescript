@@ -1,4 +1,4 @@
-import { autotraficApi } from '@modules/core/utils/request';
+import { autotraficApi } from '@modules/core/services';
 import { formatSubmitDataForItp } from '../utils/formatter';
 import { IVehicleFormData } from '../interfaces';
 import { ITPResponse } from '../interfaces/import';

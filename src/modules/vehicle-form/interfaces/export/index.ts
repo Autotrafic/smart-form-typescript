@@ -61,6 +61,9 @@ export interface CreateIntentRequestBody {
 }
 
 export interface SendNotificationBody {
-  phoneNumber: string;
   message: string;
+}
+
+export interface SendWhatsAppNotificationBody extends SendNotificationBody {
+  phoneNumber: string;
 }

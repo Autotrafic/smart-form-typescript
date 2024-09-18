@@ -16,7 +16,7 @@ import type {
 } from '../interfaces/import';
 import { Fuel } from '../interfaces/import/enums';
 
-import { autotraficApi } from '@modules/core/utils/request';
+import { autotraficApi } from '@modules/core/services';
 import { sortDisplacements } from '../utils/functions';
 import { formatFuelToRedeable } from '@modules/core/utils/formatter';
 import { sortBrandsAlphabetically, sortModelsAlphabetically } from '../utils/formatter';

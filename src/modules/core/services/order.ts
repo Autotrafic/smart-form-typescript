@@ -1,7 +1,7 @@
 import { IRequestBodyRegisterOrder } from '@modules/vehicle-form/interfaces/export';
 import { IOrder } from '../interfaces/order';
 import { parseOrderForRequest } from '../utils/formatter';
-import { autotraficApi } from '../utils/request';
+import { autotraficApi } from '@modules/core/services';
 
 export const registerOrder = async (order: IOrder) => {
   const parsedOrder: IRequestBodyRegisterOrder = parseOrderForRequest(order);

@@ -1,8 +1,7 @@
-import axios from 'axios';
 import { getVehicleRedeableNameFromFormData } from '@modules/core/utils/formatter';
 import { getFirstTouchWhatsappMessage } from '../utils/functions';
 import { IVehicleFormData } from '../interfaces';
-import { autotraficApi } from '@modules/core/utils/request';
+import { autotraficApi } from '@modules/core/services';
 
 export const sendFirstTouchMessage = async (
   receiverPhoneNumber: string,
@@ -16,5 +15,5 @@ export const sendFirstTouchMessage = async (
 
   const data = { phoneNumber: formattedPhoneNumber, message };
 
-  await autotraficApi.notification.send(data);
+  await autotraficApi.notification.sendWhatsApp(data);
 };
