@@ -8,7 +8,7 @@ import {
   SendNotificationBody,
   SendWhatsAppNotificationBody,
 } from '@modules/vehicle-form/interfaces/export';
-import { BASE_API_URL } from '@modules/core/utils/urls';
+import { BASE_API_URL, WHATSAPP_API_URL } from '@modules/core/utils/urls';
 
 export const autotraficApi = {
   vehicle: {
@@ -28,7 +28,8 @@ export const autotraficApi = {
     createIntent: (data: CreateIntentRequestBody) => makeRequest('payment/create-intent', data),
   },
   notification: {
-    sendWhatsApp: (data: SendWhatsAppNotificationBody) => makeRequest('messages', data),
+    sendWhatsapp: (data: SendWhatsAppNotificationBody) => makeWhatsappRequest('messages/send', data),
+    sendWhatsappFirstTouch: (data: SendWhatsAppNotificationBody) => makeWhatsappRequest('messages/first-touch-whtspp', data),
     sendSlack: (data: SendNotificationBody) => makeRequest('messages/slack', data),
   },
 };
@@ -46,6 +47,21 @@ type RequestParams =
 
 const makeRequest = async (endpoint: string, data?: RequestParams) => {
   const response = await fetch(`${BASE_API_URL}/${endpoint}`, {
+    method: data ? 'POST' : 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: data ? JSON.stringify({ ...data }) : null,
+  });
+
+  const result = await response.json();
+
+  if (result) return result;
+};
+
+const makeWhatsappRequest = async (endpoint: string, data?: SendWhatsAppNotificationBody) => {
+  const response = await fetch(`${WHATSAPP_API_URL}/${endpoint}`, {
     method: data ? 'POST' : 'GET',
     mode: 'cors',
     headers: {

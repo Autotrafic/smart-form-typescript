@@ -15,5 +15,5 @@ export const sendFirstTouchMessage = async (
 
   const data = { phoneNumber: formattedPhoneNumber, message };
 
-  await autotraficApi.notification.sendWhatsApp(data);
+  await autotraficApi.notification.sendWhatsappFirstTouch(data);
 };

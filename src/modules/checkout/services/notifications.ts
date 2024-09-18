@@ -7,7 +7,7 @@ export async function sendWhatsAppConfirmation(orderData: IOrder) {
 
   const phoneNumber = orderData.vehicleForm.phoneNumber.replace(/\D/g, '');
 
-  await autotraficApi.notification.sendWhatsApp({ phoneNumber, message });
+  await autotraficApi.notification.sendWhatsapp({ phoneNumber, message });
 }
 
 export async function sendSlackNotification(message: string) {
