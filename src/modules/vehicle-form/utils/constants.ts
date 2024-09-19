@@ -5,7 +5,6 @@ export const BRANDS_REDUCED_LIST_OPTION = { name: 'Mostrar lista de marcas reduc
 
 export const REDUCED_BRAND_NAMES = [
   'ALFA ROMEO',
-  'KTM',
   'DACIA',
   'HONDA',
   'IVECO',
