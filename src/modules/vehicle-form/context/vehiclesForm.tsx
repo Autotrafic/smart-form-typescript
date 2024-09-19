@@ -93,9 +93,9 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
   }, []);
 
   useEffect(() => {
-    const loadCarFuels = async () => {
-      const { brand } = vehicle as CarFormData;
+    const { brand } = vehicle as CarFormData;
 
+    const loadCarFuels = async () => {
       if (updatedDate.day && updatedDate.month && updatedDate.year && brand) {
         setLoading((prev: IFormDataLoading) => ({ ...prev, fuel: true }));
         const carFuelsOptions = await fetchCarFuels(Number(updatedDate.year), brand);
@@ -109,7 +109,12 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
       }
     };
 
-    if (vehicle.type === VehicleType.CAR) loadCarFuels();
+    if (
+      vehicle.type === VehicleType.CAR &&
+      brand !== BRANDS_FULL_LIST_OPTION.value &&
+      brand !== BRANDS_REDUCED_LIST_OPTION.value
+    )
+      loadCarFuels();
   }, [updatedDate, formData.registrationDate, vehicle]);
 
   useEffect(() => {
