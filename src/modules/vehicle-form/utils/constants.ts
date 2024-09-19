@@ -1,1 +1,43 @@
 export const INITIAL_VISIBLE_FIELDS = 3;
+
+export const BRANDS_FULL_LIST_OPTION = { name: 'Otra marca. Mostrar lista completa', value: 'more' }
+export const BRANDS_REDUCED_LIST_OPTION = { name: 'Mostrar lista de marcas reducida', value: 'less' }
+
+export const REDUCED_BRAND_NAMES = [
+  'ALFA ROMEO',
+  'KTM',
+  'DACIA',
+  'HONDA',
+  'IVECO',
+  'JEEP',
+  'FIAT',
+  'LINK & CO',
+  'JAGUAR',
+  'KIA',
+  'CITROEN',
+  'BMW',
+  'MINI',
+  'FORD',
+  'LAND ROVER',
+  'MITSUBISHI',
+  'PORSCHE',
+  'SAAB',
+  'HYUNDAI',
+  'SUBARU',
+  'SMART',
+  'AUDI',
+  'SSANYONG',
+  'MAZDA',
+  'NISSAN',
+  'SUZUKI',
+  'TESLA',
+  'SEAT',
+  'PEUGEOT',
+  'OPEL',
+  'TOYOTA',
+  'SKODA',
+  'MERCEDES',
+  'VOLVO',
+  'VOLKSWAGEN',
+  'RENAULT',
+].sort();

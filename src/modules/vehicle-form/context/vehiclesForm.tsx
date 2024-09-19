@@ -20,9 +20,11 @@ import { sendFirstTouchMessage } from '../services/whatsapp';
 import { fetchCarBrands, fetchCarFuels, fetchCarModels, fetchFuelMotorbikeCCs } from '../services/vehicle';
 import { useMultiStep } from '@modules/core/context/multiStep';
 import { useOrderData } from '@modules/core/context/orderData';
-import { countPropertiesWithValue, getPrices } from '../utils/functions';
+import { countPropertiesWithValue, filterBrandsToCommon, getPrices } from '../utils/functions';
 import { Steps } from '@modules/core/interfaces/enums';
 import { IOrder } from '@modules/core/interfaces/order';
+import { IParsedVehicleRequest } from '../interfaces/import';
+import { BRANDS_FULL_LIST_OPTION, BRANDS_REDUCED_LIST_OPTION } from '../utils/constants';
 
 const VehiclesFormStore = (): IVehiclesFormContext => {
   const { updateCurrentStep } = useMultiStep();
@@ -153,6 +155,17 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
     setLoading((prev: IFormDataLoading) => ({ ...prev, itp: false }));
   };
 
+  const toggleCarBrandsOptions = (allBrands: IParsedVehicleRequest[], brandSelected: string) => {
+    const fullList = [...allBrands, BRANDS_REDUCED_LIST_OPTION];
+    const reducedList = [...filterBrandsToCommon(allBrands), BRANDS_FULL_LIST_OPTION];
+
+    if (brandSelected === BRANDS_FULL_LIST_OPTION.value) {
+      return fullList;
+    } else {
+      return reducedList;
+    }
+  };
+
   const commonDropdowns: IVehicleFormDropdown[] = [
     {
       title: 'Comunidad autónoma del comprador',
@@ -172,7 +185,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
       propertyName: 'brand',
       isFilled: !!vehicle.brand,
       value: inputsData.brand,
-      options: carDropdownsOptions.brands,
+      options: toggleCarBrandsOptions(carDropdownsOptions.brands, inputsData.brand),
       disabled: false,
       isVehicleData: true,
       isLoading: loading.brand,

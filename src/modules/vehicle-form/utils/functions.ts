@@ -1,9 +1,10 @@
 import { TRANSFERENCE_CAR_PRICE, TRANSFERENCE_CICLOMOTOR_PRICE } from '@modules/core/utils/constants';
 import { checkIsCiclomotor } from '@modules/core/utils/functions';
 import { MotorbikeCCRange } from '../interfaces/import/enums';
-import { IMotorbikesResponse } from '../interfaces/import';
+import { IMotorbikesResponse, IParsedVehicleRequest } from '../interfaces/import';
 import { IVehicleFormData } from '../interfaces';
 import { IOrderPrices } from '@modules/core/interfaces/order';
+import { REDUCED_BRAND_NAMES } from './constants';
 
 const extractMinCc = (motorbikeCCRange: MotorbikeCCRange): number => {
   if (motorbikeCCRange.startsWith('Hasta')) {
@@ -99,6 +100,12 @@ export const getPrices = (itpPrice = 0, formData: IVehicleFormData, isReferralVa
 
   return { basePrice, totalPrice, highTicketOrderFee, referralDiscount };
 };
+
+export function filterBrandsToCommon(allBrands: IParsedVehicleRequest[]): IParsedVehicleRequest[] {
+  const filteredBrands = allBrands.filter((brandObj) => REDUCED_BRAND_NAMES.includes(brandObj.name));
+
+  return filteredBrands;
+}
 
 export function getFirstTouchWhatsappMessage(vehicleDescription: string, isReferralValid: boolean): string {
   return `
