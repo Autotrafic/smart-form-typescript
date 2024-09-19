@@ -164,7 +164,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
     const fullList = [...allBrands, BRANDS_REDUCED_LIST_OPTION];
     const reducedList = [...filterBrandsToCommon(allBrands), BRANDS_FULL_LIST_OPTION];
 
-    if (brandSelected === BRANDS_FULL_LIST_OPTION.value) {
+    if (brandSelected !== BRANDS_REDUCED_LIST_OPTION.value && brandSelected !== '') {
       return fullList;
     } else {
       return reducedList;
@@ -190,7 +190,7 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
       propertyName: 'brand',
       isFilled: !!vehicle.brand,
       value: inputsData.brand,
-      options: toggleCarBrandsOptions(carDropdownsOptions.brands, inputsData.brand),
+      options: toggleCarBrandsOptions(carDropdownsOptions.brands, vehicle.brand),
       disabled: false,
       isVehicleData: true,
       isLoading: loading.brand,
@@ -201,9 +201,15 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
       isFilled: !!vehicle.fuel,
       value: inputsData.fuel,
       options: carDropdownsOptions.fuels,
-      disabled: !vehicle.brand || (!updatedDate.day && !updatedDate.month && !updatedDate.year),
       isVehicleData: true,
       isLoading: loading.fuel,
+      disabled:
+        !vehicle.brand ||
+        !(vehicle.brand !== BRANDS_FULL_LIST_OPTION.value) ||
+        !(vehicle.brand !== BRANDS_REDUCED_LIST_OPTION.value) ||
+        !updatedDate.day ||
+        !updatedDate.month ||
+        !updatedDate.year,
     },
     {
       title: 'Modelo',
