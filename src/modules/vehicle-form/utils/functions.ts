@@ -114,7 +114,7 @@ El trámite se realiza de forma 100% online y con un proceso muy simple:
 
 2) Te enviamos el permiso provisional
 
-3) En 1/2 semanas te llegará el nuevo permiso de circulación a tu domicilio✅
+3) ✅ En 1/2 semanas te llegará el nuevo permiso de circulación a tu domicilio
   ${
     isReferralValid
       ? `

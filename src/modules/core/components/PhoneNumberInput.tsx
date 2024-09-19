@@ -29,7 +29,7 @@ function PhoneNumberInput({ value, handleChange, ...rest }: PhoneNumberInputProp
   const [selectedCountry, setSelectedCountry] = useState(SPAIN);
 
   const formattedCountries = COUNTRIES.map((country) => {
-    return { name: `${country.flag} ${country.name}`, value: country };
+    return { name: `${country.flag} ${country.name}`, value: JSON.stringify(country) };
   });
 
   const handleChangeFlag = (e: React.ChangeEvent<HTMLSelectElement>) => {
