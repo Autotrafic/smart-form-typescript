@@ -15,6 +15,7 @@ module.exports = (_: any, argv: any) => ({
     alias: {
       '@modules': path.resolve(__dirname, 'src/modules/'),
       '@assets': path.resolve(__dirname, 'src/assets/'),
+      '@src': path.resolve(__dirname, 'src/'),
     },
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
   },

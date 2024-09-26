@@ -99,16 +99,23 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }: StripeCheckout) {
       setErrorMessage(result.error.message ?? '');
     } else {
       if (result.paymentIntent.status === 'succeeded') {
-        const slackMessage = `Se ha realizado un pedido por la web: ${orderData.orderId} / ${orderData.vehicleForm.phoneNumber}`;
+        const slackMessage = `Se ha realizado un pedido por la web. ID: ${orderData.orderId} Tel: ${orderData.vehicleForm.phoneNumber}`;
 
-        await registerOrder(orderData);
-        await createTotalumOrder(orderData.orderId);
-        await sendWhatsAppConfirmation(orderData);
-        await sendSlackNotification(slackMessage);
+        try {
+          await registerOrder(orderData);
+          await createTotalumOrder(orderData.orderId);
+          await sendWhatsAppConfirmation(orderData);
+          await sendSlackNotification(slackMessage);
 
-        sendConfirmationOrderEmail(orderData);
-        setPaymentLoading(false);
-        moveToNextStep();
+          sendConfirmationOrderEmail(orderData);
+          setPaymentLoading(false);
+          moveToNextStep();
+        } catch (error) {
+          console.error(error);
+          await sendSlackNotification(`Error mientras paga el usuario por la web. Pago aceptado. ${error}`);
+          setPaymentLoading(false);
+          moveToNextStep();
+        }
       }
     }
   };

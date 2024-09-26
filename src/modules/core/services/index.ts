@@ -8,7 +8,8 @@ import {
   SendNotificationBody,
   SendWhatsAppNotificationBody,
 } from '@modules/vehicle-form/interfaces/export';
-import { BASE_API_URL, WHATSAPP_API_URL } from '@modules/core/utils/urls';
+import { WHATSAPP_API_URL } from '@modules/core/utils/urls';
+import { BASE_API_URL } from '@src/environment';
 
 export const autotraficApi = {
   vehicle: {
