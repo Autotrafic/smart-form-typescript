@@ -13,6 +13,7 @@ import { cardChecksInitialState } from '@modules/checkout/utils/initialStates';
 import { CardChecks, StripeCardNumberElement, StripeElementEvent } from '@modules/checkout/interfaces';
 import { sendConfirmationOrderEmail } from '@modules/core/utils/email';
 import { sendSlackNotification, sendWhatsAppConfirmation } from '@modules/checkout/services/notifications';
+import { logOrderPurchased } from '@modules/core/services/log';
 
 const PAYMENT_METHOD = {
   KLARNA: 'klarna',
@@ -102,10 +103,11 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }: StripeCheckout) {
         const slackMessage = `✅ Se ha realizado un pedido por la web. ID: ${orderData.orderId} Tel: ${orderData.vehicleForm.phoneNumber}`;
 
         try {
-          await registerOrder(orderData);
           await createTotalumOrder(orderData.orderId);
+          await logOrderPurchased();
           await sendWhatsAppConfirmation(orderData);
           await sendSlackNotification(slackMessage);
+          await registerOrder(orderData);
 
           sendConfirmationOrderEmail(orderData);
           setPaymentLoading(false);

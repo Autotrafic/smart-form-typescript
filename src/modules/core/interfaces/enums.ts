@@ -12,3 +12,14 @@ export enum FileInputs {
   FICHA_TECNICA = 'ficha-tec',
   CONTRATO_CV = 'contrato-compr',
 }
+
+export enum TAccountingBusiness {
+  AutoTrafic = 'AutoTrafic',
+  TransfiereYa = 'TransfiereYa',
+}
+
+export enum TAccountingType {
+  PedidoAds = 'Pedido Ads',
+  ConsultaWeb = 'Consulta Web',
+  ContactoWhatsapp = 'Contacto WhatsApp',
+}

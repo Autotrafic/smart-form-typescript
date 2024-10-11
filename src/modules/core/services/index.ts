@@ -10,6 +10,7 @@ import {
 } from '@modules/vehicle-form/interfaces/export';
 import { WHATSAPP_API_URL } from '@modules/core/utils/urls';
 import { BASE_API_URL } from '@src/environment';
+import { LogAccountingBody } from '../interfaces/export/log';
 
 export const autotraficApi = {
   vehicle: {
@@ -33,6 +34,9 @@ export const autotraficApi = {
     sendWhatsappFirstTouch: (data: SendWhatsAppNotificationBody) => makeWhatsappRequest('messages/first-touch-whtspp', data),
     sendSlack: (data: SendNotificationBody) => makeRequest('messages/slack', data),
   },
+  log: {
+    accounting: (data: LogAccountingBody) => makeRequest('logs/accounting', data),
+  },
 };
 
 type RequestParams =
@@ -44,7 +48,8 @@ type RequestParams =
   | IUpdateOrderNestedPropertiesBody
   | CreateIntentRequestBody
   | SendWhatsAppNotificationBody
-  | SendNotificationBody;
+  | SendNotificationBody
+  | LogAccountingBody;
 
 const makeRequest = async (endpoint: string, data?: RequestParams) => {
   const response = await fetch(`${BASE_API_URL}/${endpoint}`, {

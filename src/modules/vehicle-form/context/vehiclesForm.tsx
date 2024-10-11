@@ -25,6 +25,7 @@ import { Steps } from '@modules/core/interfaces/enums';
 import { IOrder } from '@modules/core/interfaces/order';
 import { IParsedVehicleRequest } from '../interfaces/import';
 import { BRANDS_FULL_LIST_OPTION, BRANDS_REDUCED_LIST_OPTION } from '../utils/constants';
+import { logWebQuery } from '@modules/core/services/log';
 
 const VehiclesFormStore = (): IVehiclesFormContext => {
   const { updateCurrentStep } = useMultiStep();
@@ -140,6 +141,8 @@ const VehiclesFormStore = (): IVehiclesFormContext => {
 
   const submitForm = async () => {
     setLoading((prev: IFormDataLoading) => ({ ...prev, itp: true }));
+
+    if (formData.phoneNumber !== '654') await logWebQuery();
 
     const itp = await fetchItpPrice(formData);
     const prices = getPrices(itp.ITP, formData, orderData.isReferralValid);
