@@ -103,11 +103,11 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }: StripeCheckout) {
         const slackMessage = `✅ Se ha realizado un pedido por la web. ID: ${orderData.orderId} Tel: ${orderData.vehicleForm.phoneNumber}`;
 
         try {
+          await registerOrder(orderData);
           await createTotalumOrder(orderData.orderId);
           await logOrderPurchased();
           await sendWhatsAppConfirmation(orderData);
           await sendSlackNotification(slackMessage);
-          await registerOrder(orderData);
 
           sendConfirmationOrderEmail(orderData);
           setPaymentLoading(false);
