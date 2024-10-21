@@ -62,6 +62,7 @@ export interface CreateIntentRequestBody {
 
 export interface SendNotificationBody {
   message: string;
+  channel?: 'whatsapp_messages' | 'orders';
 }
 
 export interface SendWhatsAppNotificationBody extends SendNotificationBody {

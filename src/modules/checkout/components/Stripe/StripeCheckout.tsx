@@ -14,6 +14,7 @@ import { CardChecks, StripeCardNumberElement, StripeElementEvent } from '@module
 import { sendConfirmationOrderEmail } from '@modules/core/utils/email';
 import { sendSlackNotification, sendWhatsAppConfirmation } from '@modules/checkout/services/notifications';
 import { logOrderPurchased } from '@modules/core/services/log';
+import { channel } from 'diagnostics_channel';
 
 const PAYMENT_METHOD = {
   KLARNA: 'klarna',
@@ -107,7 +108,7 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }: StripeCheckout) {
           await createTotalumOrder(orderData.orderId);
           await logOrderPurchased();
           await sendWhatsAppConfirmation(orderData);
-          await sendSlackNotification(slackMessage);
+          await sendSlackNotification(slackMessage, 'orders');
 
           sendConfirmationOrderEmail(orderData);
           setPaymentLoading(false);

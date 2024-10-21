@@ -15,7 +15,7 @@
     "paths": {
       "@modules/*": ["modules/*"],
       "@assets/*": ["assets/*"],
-      "@src/*": ["/*"]
+      "@src/*": ["./*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"]
