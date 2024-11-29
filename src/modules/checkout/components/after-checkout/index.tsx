@@ -26,10 +26,12 @@ export default function AfterCheckoutMessage() {
               <TopBoldText> {orderData.billData.email} </TopBoldText>
             </>
           )}
-          con los detalles de tu pedido y un enlace para subir los documentos. No es necesario que los subas de inmediato,
-          puedes hacerlo cuando te sea más conveniente.
+          con los detalles de tu pedido y un enlace para subir los documentos.
         </TopExplicationText>
-        <TopExplicationText>Si deseas acelerar el proceso, puedes adjuntarlos ahora mismo:</TopExplicationText>
+        <TopExplicationText>
+          No es necesario que los subas de inmediato, puedes hacerlo cuando te sea más conveniente. Si deseas acelerar el
+          proceso, puedes adjuntarlos ahora mismo:
+        </TopExplicationText>
       </MessageContainer>
       <ButtonContainer>
         <a href={`${UPLOAD_DOCUMENTS_URL}/${orderData.orderId}`}>
