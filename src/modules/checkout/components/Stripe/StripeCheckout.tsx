@@ -14,7 +14,6 @@ import { CardChecks, StripeCardNumberElement, StripeElementEvent } from '@module
 import { sendConfirmationOrderEmail } from '@modules/core/utils/email';
 import { sendSlackNotification, sendWhatsAppConfirmation } from '@modules/checkout/services/notifications';
 import { logOrderPurchased } from '@modules/core/services/log';
-import { channel } from 'diagnostics_channel';
 
 const PAYMENT_METHOD = {
   KLARNA: 'klarna',
@@ -24,9 +23,10 @@ const PAYMENT_METHOD = {
 interface StripeCheckout {
   moveToNextStep: () => void;
   isBillDataFilled: boolean;
+  setIsUserBillCompleted: (completed: boolean) => void;
 }
 
-function StripeCheckout({ moveToNextStep, isBillDataFilled }: StripeCheckout) {
+function StripeCheckout({ moveToNextStep, isBillDataFilled, setIsUserBillCompleted }: StripeCheckout) {
   const { orderData } = useOrderData();
 
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -63,25 +63,34 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled }: StripeCheckout) {
       return false;
     } else {
       setErrorMessage('Por favor, pulsa el botón Guardar en tus datos de facturación.');
+      setPaymentLoading(false);
       return true;
     }
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    if (checkErrorBillData()) return;
+      if (checkErrorBillData()) return;
 
-    setPaymentLoading(true);
+      setPaymentLoading(true);
 
-    const preparedPrice = +(totalPrice * 100).toFixed();
-    const { fullName, email } = orderData.billData;
-    const { phoneNumber } = orderData.vehicleForm;
+      const preparedPrice = +(totalPrice * 100).toFixed();
+      const { fullName, email } = orderData.billData;
+      const { phoneNumber } = orderData.vehicleForm;
 
-    const userData = { fullName, email, phoneNumber };
+      const userData = { fullName, email, phoneNumber };
 
-    const { clientSecret } = await createPaymentIntent(preparedPrice, userData);
-    await stripePayHandler(clientSecret);
+      const clientSecret = await createPaymentIntent(preparedPrice, userData);
+      await stripePayHandler(clientSecret);
+    } catch (error: any) {
+      setPaymentLoading(false);
+      if (error.publicMessage) {
+        setErrorMessage(error.publicMessage);
+        setIsUserBillCompleted(false);
+      }
+    }
   };
 
   const stripePayHandler = async (clientSecret: string) => {

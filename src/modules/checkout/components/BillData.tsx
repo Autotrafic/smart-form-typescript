@@ -20,12 +20,12 @@ const Button = styled.button`
   cursor: pointer !important;
 `;
 
-interface UserResume {
+interface BillDataProps {
   isUserBillCompleted: boolean;
   setIsUserBillCompleted: (newValue: boolean) => void;
 }
 
-function UserResume({ isUserBillCompleted, setIsUserBillCompleted }: UserResume) {
+function BillData({ isUserBillCompleted, setIsUserBillCompleted }: BillDataProps) {
   const { orderData, updateOrderData } = useOrderData();
 
   const [billData, setBillData] = useState(orderData?.billData);
@@ -72,7 +72,7 @@ function UserResume({ isUserBillCompleted, setIsUserBillCompleted }: UserResume)
           <Input
             isVisible
             isSmall
-            type="text"
+            type="email"
             title="Correo electrónico"
             value={billData?.email}
             handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -89,4 +89,4 @@ function UserResume({ isUserBillCompleted, setIsUserBillCompleted }: UserResume)
   );
 }
 
-export default UserResume;
+export default BillData;

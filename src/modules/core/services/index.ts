@@ -62,8 +62,11 @@ const makeRequest = async (endpoint: string, data?: RequestParams) => {
   });
 
   const result = await response.json();
+  if (!response.ok) {
+    throw result;
+  }
 
-  if (result) return result;
+  return result;
 };
 
 const makeWhatsappRequest = async (endpoint: string, data?: SendWhatsAppNotificationBody) => {

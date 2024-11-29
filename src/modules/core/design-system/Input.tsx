@@ -3,6 +3,49 @@ import { useState } from 'react';
 import fieldWithVisibility, { WrappedInputProps } from '@modules/vehicle-form/HOC/filedWithVisibility';
 import { colors } from '../utils/styles';
 
+
+
+interface InputProps extends React.HTMLProps<HTMLInputElement> {
+  title: string;
+  value: string;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  type: 'text' | 'number' | 'email';
+  fixedValue?: string;
+  isSmall?: boolean;
+  width?: string;
+}
+
+function Input({ title, value, type = 'text', handleChange, fixedValue, isSmall, width = '100%', ...props }: InputProps) {
+  const [borderActive, setBorderActive] = useState(false);
+
+  const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim();
+    setBorderActive(value !== '');
+  };
+
+  return (
+    <Container>
+      <InputStyled $isActive={borderActive} $isSmall={isSmall} $width={width}>
+        <LabelContainer>
+          {fixedValue && <FixedValue>{fixedValue}</FixedValue>}
+          <StyledInput
+            required
+            type={type}
+            placeholder={title}
+            onFocus={() => setBorderActive(true)}
+            onBlur={handleBlur}
+            value={value}
+            onChange={handleChange}
+            {...props}
+          />
+        </LabelContainer>
+      </InputStyled>
+    </Container>
+  );
+}
+
+export default fieldWithVisibility<WrappedInputProps>(Input);
+
 interface InputStyledProps {
   $isActive: boolean;
   $isSmall?: boolean;
@@ -62,44 +105,3 @@ const FixedValue = styled.span`
   font-size: 14px;
   line-height: normal;
 `;
-
-interface InputProps extends React.HTMLProps<HTMLInputElement> {
-  title: string;
-  value: string;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  type: 'text' | 'number';
-  fixedValue?: string;
-  isSmall?: boolean;
-  width?: string;
-}
-
-function Input({ title, value, type = 'text', handleChange, fixedValue, isSmall, width = '100%', ...props }: InputProps) {
-  const [borderActive, setBorderActive] = useState(false);
-
-  const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
-    setBorderActive(value !== '');
-  };
-
-  return (
-    <Container>
-      <InputStyled $isActive={borderActive} $isSmall={isSmall} $width={width}>
-        <LabelContainer>
-          {fixedValue && <FixedValue>{fixedValue}</FixedValue>}
-          <StyledInput
-            required
-            type={type}
-            placeholder={title}
-            onFocus={() => setBorderActive(true)}
-            onBlur={handleBlur}
-            value={value}
-            onChange={handleChange}
-            {...props}
-          />
-        </LabelContainer>
-      </InputStyled>
-    </Container>
-  );
-}
-
-export default fieldWithVisibility<WrappedInputProps>(Input);

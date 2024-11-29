@@ -1,4 +1,4 @@
-export const isProduction = true;
+export const isProduction = false;
 
 const liveStripeKey =
   'pk_live_51OAXtLJa5DLxJFBC7aB2X6WUKjNNJo24CrqewKWtBArD07qq4e72w84fBhew0cF2KC3uvvJz2DQZufq3KTzIEGne000knW0qAA';
