@@ -5,7 +5,7 @@ import { multiStepContextInitialState } from '../utils/initialStates';
 import { IMultiStepContext } from '../interfaces';
 
 const MultiStepStore = (): IMultiStepContext => {
-  const [currentStep, setCurrentStep] = useState<Steps>(Steps.CHECKOUT_MESSAGE);
+  const [currentStep, setCurrentStep] = useState<Steps>(Steps.VEHICLE_FORM);
 
   return {
     updateCurrentStep(step: ((prevState: Steps) => Steps) | Steps) {
