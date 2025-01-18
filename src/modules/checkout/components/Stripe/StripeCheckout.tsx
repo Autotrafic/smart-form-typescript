@@ -129,6 +129,15 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled, setIsUserBillComplet
           setPaymentLoading(false);
           moveToNextStep();
         }
+      } else if (result.paymentIntent.status === 'requires_payment_method') {
+        const slackMessage = `No se ha podido realizar el pago de Stripe. Falta método de pago. \n----\n Client secret: ${clientSecret} \n--\n${JSON.stringify(
+          {
+            payment_method: {
+              card,
+            },
+          }
+        )}`;
+        await sendSlackNotification(slackMessage)
       }
     }
   };
