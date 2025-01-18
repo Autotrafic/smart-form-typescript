@@ -111,15 +111,16 @@ function StripeCheckout({ moveToNextStep, isBillDataFilled, setIsUserBillComplet
     } else {
       if (result.paymentIntent.status === 'succeeded') {
         const slackMessage = `✅ Se ha realizado un pedido por la web. ID: ${orderData.orderId} Tel: ${orderData.vehicleForm.phoneNumber}`;
+        const registerOrderData = { ...orderData, paymentIntentId: result.paymentIntent.id };
 
         try {
-          await registerOrder(orderData);
-          await createTotalumOrder(orderData.orderId);
+          await registerOrder(registerOrderData);
+          await createTotalumOrder(registerOrderData.orderId);
           await logOrderPurchased();
-          await sendWhatsAppConfirmation(orderData);
+          await sendWhatsAppConfirmation(registerOrderData);
           await sendSlackNotification(slackMessage, 'orders');
 
-          sendConfirmationOrderEmail(orderData);
+          sendConfirmationOrderEmail(registerOrderData);
           setPaymentLoading(false);
           moveToNextStep();
         } catch (error) {

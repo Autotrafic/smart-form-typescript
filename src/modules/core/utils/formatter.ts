@@ -69,7 +69,7 @@ export function getVehicleRedeableNameFromFormData(formData: IVehicleFormData): 
 }
 
 export function parseOrderForRequest(order: IOrder): IRequestBodyRegisterOrder {
-  const { orderId, isProduction, isReferralValid, itp, prices, crossSelling, billData, vehicleForm } = order;
+  const { orderId, paymentIntentId, isProduction, isReferralValid, itp, prices, crossSelling, billData, vehicleForm } = order;
   const { type, brand, model, cc, value } = vehicleForm.vehicle;
 
   let vehicle;
@@ -99,6 +99,7 @@ export function parseOrderForRequest(order: IOrder): IRequestBodyRegisterOrder {
 
   return {
     orderId,
+    paymentIntentId,
     isProduction,
     isReferralValid,
     itp,

@@ -24,6 +24,7 @@ export interface IRequestBodyCalculateITP {
 
 export interface IRequestBodyRegisterOrder {
   orderId: string;
+  paymentIntentId: string;
   isProduction: boolean;
   isReferralValid: boolean;
   itp: IITP;

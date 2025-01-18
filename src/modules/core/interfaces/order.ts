@@ -8,6 +8,7 @@ export interface IOrderDataContext {
 
 export interface IOrder {
   orderId: string;
+  paymentIntentId: string;
   isProduction: boolean;
   isReferralValid: boolean;
   vehicleForm: IVehicleFormData;
