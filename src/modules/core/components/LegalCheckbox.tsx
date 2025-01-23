@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PRIVACY_URL, TERMS_URL } from '../utils/urls';
+import { TERMS_URL } from '../utils/urls';
 import { colors } from '../utils/styles';
 
 const Container = styled.div`
@@ -45,9 +45,7 @@ function LegalCheckbox({ value, handleChange }: LegalCheckboxProps) {
           términos de uso
         </Link>
         <LegalPhrase> y </LegalPhrase>
-        <Link href={PRIVACY_URL} target="_blank">
-          privacidad
-        </Link>
+        <LegalPhrase>privacidad</LegalPhrase>
       </label>
     </Container>
   );
